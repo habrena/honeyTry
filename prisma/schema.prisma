@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  tokenId   String   
+  cookieId  String   @unique                // the tracking cookie — this is the upsert key
+  firstSeen DateTime @default(now())
+  lastSeen  DateTime @updatedAt
+  sourceIp  String
+  userAgent String
+  events      Event[]
+
+  @@index([tokenId])                        // find all sessions from one honeytoken
+  @@index([sourceIp])                       // find all sessions from one IP
+}
+
+model Event {
+  id        String   @id @default(uuid())
+  sessionId String
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  timestamp DateTime @default(now())
+
+  // What they did
+  eventType String?                         // "page_view", "credential_attempt", "data_access", etc.
+  method    String
+  endpoint  String
+  statusCode Int?
+  durationMs Int?
+
+  // What they sent
+  queryParams Json?                         // parsed query string as JSON
+  body        Json?                         // request body snapshot
+  headers     Json?                         // all headers (cookie values redacted)
+  contentType String?
+  referer     String?
+  origin      String?
+
+  // Flexible field for frontend behavioral events (clicks, form interactions)
+  metadata  Json?
+
+  classification Classification? //one to one jer cu koristiti samo jedan llm model
+
+  @@index([sessionId])
+  @@index([eventType])
+  @@index([timestamp])
+}
+
+model Classification {
+  id        String   @id @default(uuid())
+  eventId   String   @unique
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  detector   String              // "deepseek-v4-pro"
+  category   String              // "SQL_INJECTION", "RECONNAISSANCE"
+  confidence Float               // 0.0 to 1.0
+  severity   String?             // "low", "medium", "high", "critical"
+  explanation String?            // one-sentence reasoning
+
+  @@index([eventId])
+  @@index([category])
+  @@index([detector])
+}
+
+model Patient {
+  id          String   @id @default(uuid())
+  name        String
+  surname     String
+  jmbg        String   @unique
+  dateOfBirth DateTime
+  gender      String
+  phoneNumber String
+  address     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
