@@ -3,6 +3,7 @@ import { db } from '../database/db';
 import { classifyEvent} from '../classification/eventClassificator';
 import { runDetectors } from '../detection/runDetectors';
 import { shouldAnalyzeSession } from '../detection/triggerEvaluator';
+import { analysisEmitter } from '../detection/analysisEmitter';
 
 //nije potrebno da ova vanjska funkcija bude async
 export function eventLogger(req: Request, res: Response, next: NextFunction) {
@@ -81,11 +82,13 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
           data: { metadata: detections },
         });
       }
-      // Step 4: should we spend money on the LLM?
-      const trigger = await shouldAnalyzeSession(
-        req.session.id,
-        detections
-      );
+      //da se funkcija ne bi zakomplikovala koristim emitter za koristenje funkcije detekcije
+      //koristi fire-and-forget princip
+      analysisEmitter.emit('event:logged', {
+        eventId: event.id,
+        sessionId: req.session.id,
+        detections,
+      });
 
 
 
@@ -97,6 +100,7 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
   //vidjeti da li je ovo toliko bitno
   //navodno ovo rade scanneri jer ne cekaju full responses i samo bacaju requests - sto ima donekle smisla
 
+  //res.on('')
   next();
 }
 

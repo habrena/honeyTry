@@ -3,6 +3,7 @@ import 'dotenv/config';
 import {sessionLogger} from './middleware/sessionLogger'
 import {eventLogger} from './middleware/eventLogger'
 import cookieParser from 'cookie-parser';
+import 'src\detection\analysisWorker.ts';
 
 
 
