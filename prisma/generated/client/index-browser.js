@@ -126,6 +126,7 @@ exports.Prisma.SessionScalarFieldEnum = {
   cookieId: 'cookieId',
   firstSeen: 'firstSeen',
   lastSeen: 'lastSeen',
+  lastAnalyzedAt: 'lastAnalyzedAt',
   sourceIp: 'sourceIp',
   userAgent: 'userAgent'
 };
@@ -172,6 +173,31 @@ exports.Prisma.PatientScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DoktorScalarFieldEnum = {
+  id: 'id',
+  ime: 'ime',
+  prezime: 'prezime',
+  odjel: 'odjel',
+  ukupno: 'ukupno',
+  brojZakazanih: 'brojZakazanih',
+  brojSlobodnih: 'brojSlobodnih'
+};
+
+exports.Prisma.UlogaScalarFieldEnum = {
+  id: 'id',
+  uloga: 'uloga',
+  broj: 'broj'
+};
+
+exports.Prisma.TerminScalarFieldEnum = {
+  id: 'id',
+  doktorId: 'doktorId',
+  pacijentId: 'pacijentId',
+  datum: 'datum',
+  razlog: 'razlog',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -187,15 +213,15 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
 };
 
 
@@ -203,7 +229,10 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   Event: 'Event',
   Classification: 'Classification',
-  Patient: 'Patient'
+  Patient: 'Patient',
+  Doktor: 'Doktor',
+  Uloga: 'Uloga',
+  Termin: 'Termin'
 };
 
 /**

@@ -1,29 +1,59 @@
 // analysisWorker.ts
 import { analysisEmitter } from './analysisEmitter';
 import { shouldAnalyzeSession } from './triggerEvaluator';
-import { classifySessionBatch } from './classification/classifySessionBatch';
+import { classifySessionBatch } from '../classification/classifySessionBatch';
+import { classifyEvent } from '../classification/classifyEvent';
 
-// This runs once when the file is imported — it registers the listener.
-// From that point on, every 'event:logged' emission will trigger this callback.
+
+//koristen je mutex kako bi se sprijecila pojava race-condition
+//postoje sanse da vise funkcija poziva na loggiranje iste sesije
+
+
+
+//mutex kljuc
+const activeAnalyses = new Set<string>();
+
 analysisEmitter.on('event:logged', async ({ eventId, sessionId, detections }) => {
-
   console.log(`[Worker] Received event ${eventId} for session ${sessionId}`);
 
-  // Step 1: ask the trigger evaluator if we should bother with the LLM
   const trigger = await shouldAnalyzeSession(sessionId, detections);
+  if (!trigger.shouldAnalyze) return;
 
   console.log(`[Worker] Trigger decision: ${trigger.reason}`);
 
-  // Step 2: only if a trigger fired, call the LLM
-  if (trigger.shouldAnalyze) {
-    console.log(`[Worker] Analyzing session ${sessionId}...`);
-    const result = await classifySessionBatch(sessionId);
+  //za samo jedan kriticni event
+  if (trigger.reason.startsWith('High-confidence detection')) {
+    console.log(`[Worker] Single-event analysis for ${eventId}`);
+    try {
+      const result = await classifyEvent(eventId);
+      if (result) {
+        console.log(`[Worker] LLM classification: ${result.classification} (${result.confidence})`);
+      }
+    } catch (err) {
+      console.error(`[Worker] Single-event analysis failed:`, err);
+    }
+    return;
+  }
 
+  // Prevent concurrent batch analyses for the same session
+  if (activeAnalyses.has(sessionId)) {
+    console.log(`[Worker] Skipping — batch already running for ${sessionId}`);
+    return;
+  }
+
+  activeAnalyses.add(sessionId);
+  try {
+    console.log(`[Worker] Batch analysis for session ${sessionId}`);
+    const result = await classifySessionBatch(sessionId);
     if (result) {
       console.log(`[Worker] Classified ${result.eventsAnalyzed} events`);
       console.log(`[Worker] Verdict: ${result.sessionVerdict.primaryAttackType}`);
       console.log(`[Worker] ${result.sessionVerdict.summary}`);
     }
+  } catch (err) {
+    console.error(`[Worker] Batch analysis failed:`, err);
+  } finally {
+    activeAnalyses.delete(sessionId);
   }
 });
 

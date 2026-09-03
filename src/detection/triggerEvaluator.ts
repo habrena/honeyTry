@@ -1,4 +1,5 @@
 import { db } from '../database/db';
+import { Prisma } from '../../prisma/generated/client';
 
 interface TriggerDecision {
   shouldAnalyze: boolean;
@@ -36,6 +37,7 @@ export async function shouldAnalyzeSession(
   // ------------------------------------------------------------------
   // Trigger 2: Enough unclassified events have accumulated
   // ------------------------------------------------------------------
+  //uzima evente te odredjene sesije koje pritom nisu kvalificirane
   const unclassifiedCount = await db.event.count({
     where: {
       sessionId,
@@ -58,7 +60,7 @@ export async function shouldAnalyzeSession(
     where: {
       sessionId,
       metadata: {
-        not: null, // events where detectors found something
+        not: Prisma.DbNull, // events where detectors found something
       },
       classification: null, // not yet analyzed by LLM
     },

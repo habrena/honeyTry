@@ -1,5 +1,5 @@
 import { db } from '../database/db';
-import { callLLM, writeClassification } from '../llm/llmClient';
+import { callLLM, writeClassification, LLM_MODEL } from '../llm/llmClient';
 import type { LLMClassification } from '../classification/LLMClassification';
 
 
@@ -88,6 +88,8 @@ export async function classifySessionBatch(sessionId: string): Promise<BatchResu
     return null;
   }
 
+  /*
+  //ovo ukloniti ako bude potrebe
   if (session.lastAnalyzedAt) {
     const elapsed = Date.now() - session.lastAnalyzedAt.getTime();
     if (elapsed < COOLDOWN_MS) {
@@ -95,6 +97,7 @@ export async function classifySessionBatch(sessionId: string): Promise<BatchResu
       return null;
     }
   }
+    */
 
   // ── Job 1: gather data (specific to batch) ─────────────────────────
   // Pull the oldest unclassified events, capped at BATCH_SIZE.
@@ -150,6 +153,8 @@ export async function classifySessionBatch(sessionId: string): Promise<BatchResu
   // ── Job 2: call LLM (shared) ──────────────────────────────────────
   const response = await callLLM<BatchLLMResponse>(BATCH_PROMPT, payload);
 
+  //validacija u slucaju da LLM nije vratio pozeljan odgovor
+  //moguce je uraditi retake ovog odgovora
   if (!response || !Array.isArray(response.events) || !response.sessionVerdict) {
     console.error('[Batch] LLM response missing expected fields');
     return null;
@@ -157,12 +162,15 @@ export async function classifySessionBatch(sessionId: string): Promise<BatchResu
 
   // ── Job 3: write to database (shared) ─────────────────────────────
   // Filter out any eventIndex values the LLM hallucinated (out of range)
+  //u slucaju da LLM vrati vise od dozvoljenog
+  //moguce je ovo i ukloniti kako bi se ustedjelo na vremenu
   const validClassifications = response.events.filter(
     ec => ec.eventIndex >= 0 && ec.eventIndex < unclassifiedEvents.length
   );
 
   // Build all writes + cooldown update, execute as a single transaction
-  const writes = validClassifications.map(ec =>
+  //ovo napisati kako funkcionise
+ /* const writes = validClassifications.map(ec =>
     writeClassification(unclassifiedEvents[ec.eventIndex].id, ec)
   );
 
@@ -171,7 +179,33 @@ export async function classifySessionBatch(sessionId: string): Promise<BatchResu
     data: { lastAnalyzedAt: new Date() },
   });
 
-  await db.$transaction([...writes, cooldownUpdate]);
+  */
+  //najbitniji korak
+  //objasniti ovaj dio
+  //await db.$transaction([...writes, cooldownUpdate]);
+
+  //moze se staviti i upsert da ne bi imali vise klasifikacija
+  //za svaki event koji se registruje
+  //nije pozeljno ali je jedan od nacina za debuggiranje
+  await db.$transaction(async (tx) => {
+  for (const ec of validClassifications) {
+    await tx.classification.create({
+      data: {
+        eventId: unclassifiedEvents[ec.eventIndex].id,
+        detector: LLM_MODEL,
+        category: ec.classification,
+        confidence: ec.confidence,
+        severity: ec.severity,
+        explanation: ec.explanation,
+      },
+    });
+  }
+
+  await tx.session.update({
+    where: { id: sessionId },
+    data: { lastAnalyzedAt: new Date() },
+  });
+});
 
   // ── Log results ───────────────────────────────────────────────────
   console.log(`[Batch] Classified ${validClassifications.length}/${unclassifiedEvents.length} events`);

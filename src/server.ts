@@ -1,11 +1,17 @@
 import express, { Request, NextFunction, Response } from 'express';
-import 'dotenv/config';
+//import 'dotenv/config';
+import path from 'path';
+import { config } from 'dotenv';
+config({ path: path.resolve(process.cwd(), 'src', '.env') });
+
 import {sessionLogger} from './middleware/sessionLogger'
 import {eventLogger} from './middleware/eventLogger'
 import cookieParser from 'cookie-parser';
-import 'src\detection\analysisWorker.ts';
+import './detection/analysisWorker';
 
+import vlasnikRoutes from './front/vlasnikRoutes'
 
+console.log('DB URL loaded:', !!process.env.DATABASE_URL);
 
 const app = express();
 app.set('trust proxy', true); //tell Express to trust incoming proxy headers (such as X-Forwarded-For) so it can read client IPs correctly behind reverse proxies (Nginx, Cloudflare, AWS, etc.)
@@ -21,8 +27,24 @@ const FAKE_PATIENTS=[
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(express.static(path.join(process.cwd(), 'dist')));
+
+
 app.use(sessionLogger);
 app.use(eventLogger);
+app.use('/api/vlasnik', vlasnikRoutes);
+
+//app.use(express.static(path.join(__dirname, '..', 'dist')));
+
+// Catch-all: any request that doesn't match an API route gets index.html.
+// This is necessary for React Router — if someone navigates directly to
+// /staff-portal, Express needs to serve index.html so React can handle
+// the routing client-side.
+/*app.get('*', (_req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
+});*/
+
 
 app.get('/', (_req: Request, res:Response)=>{
     res.json({response: 'Aplikacija je pokrenuta', status: 200});
@@ -43,6 +65,10 @@ app.get('/api/patient/search', (_req: Request, res:Response)=>{
     );
    
     return res.json({results});
+});
+
+app.get('{*splat}', (_req, res) => {
+  res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
 });
 
 

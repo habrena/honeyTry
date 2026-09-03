@@ -1,4 +1,4 @@
-import { Session } from '../prisma/generated/client';
+import { Session } from '../../prisma/generated/client';
 
 declare global {
   namespace Express {

@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { db } from '../database/db';
-import { classifyEvent} from '../classification/eventClassificator';
+//import { classifyEvent} from '../classification/eventClassificator';
 import { runDetectors } from '../detection/runDetectors';
-import { shouldAnalyzeSession } from '../detection/triggerEvaluator';
+//import { shouldAnalyzeSession } from '../detection/triggerEvaluator';
 import { analysisEmitter } from '../detection/analysisEmitter';
 
 //nije potrebno da ova vanjska funkcija bude async
@@ -42,7 +42,7 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
 
           // What the server returned
           statusCode: res.statusCode,
-          durationMs: Date.now() - start,
+          durationMs: durationMs,
 
           // Context that reveals tooling and intent
           headers: sanitizeHeaders(req.headers),
@@ -79,7 +79,7 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
       if (detections.length > 0) {
         await db.event.update({
           where: { id: event.id },
-          data: { metadata: detections },
+          data: { metadata: JSON.parse(JSON.stringify(detections)) },
         });
       }
       //da se funkcija ne bi zakomplikovala koristim emitter za koristenje funkcije detekcije

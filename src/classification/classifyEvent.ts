@@ -17,9 +17,7 @@ Classify this event. Respond ONLY with valid JSON, no markdown, no explanation o
 }`;
 
 /**
- * Classifies a single event using the LLM.
- *
-    TIP: koristiti za trigger 1!!!!!
+ * koristi se za samo jedan event
  */
 export async function classifyEvent(eventId: string): Promise<LLMClassification | null> {
   const event = await db.event.findUnique({
@@ -69,7 +67,10 @@ export async function classifyEvent(eventId: string): Promise<LLMClassification 
 
   // call LLM (shared) 
   const classification = await callLLM<LLMClassification>(SINGLE_EVENT_PROMPT, payload);
-  if (!classification) return null;
+  if (!classification){
+    console.error('[Single Event Classification] LLM response failed');
+    return null;
+  }
 
   // write to database (shared)
   await writeClassification(eventId, classification);

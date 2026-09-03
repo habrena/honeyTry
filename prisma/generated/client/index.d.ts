@@ -33,6 +33,21 @@ export type Classification = $Result.DefaultSelection<Prisma.$ClassificationPayl
  * 
  */
 export type Patient = $Result.DefaultSelection<Prisma.$PatientPayload>
+/**
+ * Model Doktor
+ * 
+ */
+export type Doktor = $Result.DefaultSelection<Prisma.$DoktorPayload>
+/**
+ * Model Uloga
+ * 
+ */
+export type Uloga = $Result.DefaultSelection<Prisma.$UlogaPayload>
+/**
+ * Model Termin
+ * 
+ */
+export type Termin = $Result.DefaultSelection<Prisma.$TerminPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -194,6 +209,36 @@ export class PrismaClient<
     * ```
     */
   get patient(): Prisma.PatientDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.doktor`: Exposes CRUD operations for the **Doktor** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Doktors
+    * const doktors = await prisma.doktor.findMany()
+    * ```
+    */
+  get doktor(): Prisma.DoktorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.uloga`: Exposes CRUD operations for the **Uloga** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Ulogas
+    * const ulogas = await prisma.uloga.findMany()
+    * ```
+    */
+  get uloga(): Prisma.UlogaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.termin`: Exposes CRUD operations for the **Termin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Termins
+    * const termins = await prisma.termin.findMany()
+    * ```
+    */
+  get termin(): Prisma.TerminDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -644,7 +689,10 @@ export namespace Prisma {
     Session: 'Session',
     Event: 'Event',
     Classification: 'Classification',
-    Patient: 'Patient'
+    Patient: 'Patient',
+    Doktor: 'Doktor',
+    Uloga: 'Uloga',
+    Termin: 'Termin'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -660,7 +708,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "session" | "event" | "classification" | "patient"
+      modelProps: "session" | "event" | "classification" | "patient" | "doktor" | "uloga" | "termin"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -960,6 +1008,228 @@ export namespace Prisma {
           }
         }
       }
+      Doktor: {
+        payload: Prisma.$DoktorPayload<ExtArgs>
+        fields: Prisma.DoktorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DoktorFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DoktorFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload>
+          }
+          findFirst: {
+            args: Prisma.DoktorFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DoktorFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload>
+          }
+          findMany: {
+            args: Prisma.DoktorFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload>[]
+          }
+          create: {
+            args: Prisma.DoktorCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload>
+          }
+          createMany: {
+            args: Prisma.DoktorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DoktorCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload>[]
+          }
+          delete: {
+            args: Prisma.DoktorDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload>
+          }
+          update: {
+            args: Prisma.DoktorUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload>
+          }
+          deleteMany: {
+            args: Prisma.DoktorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DoktorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DoktorUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload>[]
+          }
+          upsert: {
+            args: Prisma.DoktorUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoktorPayload>
+          }
+          aggregate: {
+            args: Prisma.DoktorAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDoktor>
+          }
+          groupBy: {
+            args: Prisma.DoktorGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DoktorGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DoktorCountArgs<ExtArgs>
+            result: $Utils.Optional<DoktorCountAggregateOutputType> | number
+          }
+        }
+      }
+      Uloga: {
+        payload: Prisma.$UlogaPayload<ExtArgs>
+        fields: Prisma.UlogaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UlogaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UlogaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload>
+          }
+          findFirst: {
+            args: Prisma.UlogaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UlogaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload>
+          }
+          findMany: {
+            args: Prisma.UlogaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload>[]
+          }
+          create: {
+            args: Prisma.UlogaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload>
+          }
+          createMany: {
+            args: Prisma.UlogaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UlogaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload>[]
+          }
+          delete: {
+            args: Prisma.UlogaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload>
+          }
+          update: {
+            args: Prisma.UlogaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload>
+          }
+          deleteMany: {
+            args: Prisma.UlogaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UlogaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UlogaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload>[]
+          }
+          upsert: {
+            args: Prisma.UlogaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UlogaPayload>
+          }
+          aggregate: {
+            args: Prisma.UlogaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUloga>
+          }
+          groupBy: {
+            args: Prisma.UlogaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UlogaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UlogaCountArgs<ExtArgs>
+            result: $Utils.Optional<UlogaCountAggregateOutputType> | number
+          }
+        }
+      }
+      Termin: {
+        payload: Prisma.$TerminPayload<ExtArgs>
+        fields: Prisma.TerminFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TerminFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TerminFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload>
+          }
+          findFirst: {
+            args: Prisma.TerminFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TerminFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload>
+          }
+          findMany: {
+            args: Prisma.TerminFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload>[]
+          }
+          create: {
+            args: Prisma.TerminCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload>
+          }
+          createMany: {
+            args: Prisma.TerminCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TerminCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload>[]
+          }
+          delete: {
+            args: Prisma.TerminDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload>
+          }
+          update: {
+            args: Prisma.TerminUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload>
+          }
+          deleteMany: {
+            args: Prisma.TerminDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TerminUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TerminUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload>[]
+          }
+          upsert: {
+            args: Prisma.TerminUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TerminPayload>
+          }
+          aggregate: {
+            args: Prisma.TerminAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTermin>
+          }
+          groupBy: {
+            args: Prisma.TerminGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TerminGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TerminCountArgs<ExtArgs>
+            result: $Utils.Optional<TerminCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1087,6 +1357,9 @@ export namespace Prisma {
     event?: EventOmit
     classification?: ClassificationOmit
     patient?: PatientOmit
+    doktor?: DoktorOmit
+    uloga?: UlogaOmit
+    termin?: TerminOmit
   }
 
   /* Types for Logging */
@@ -1213,6 +1486,7 @@ export namespace Prisma {
     cookieId: string | null
     firstSeen: Date | null
     lastSeen: Date | null
+    lastAnalyzedAt: Date | null
     sourceIp: string | null
     userAgent: string | null
   }
@@ -1223,6 +1497,7 @@ export namespace Prisma {
     cookieId: string | null
     firstSeen: Date | null
     lastSeen: Date | null
+    lastAnalyzedAt: Date | null
     sourceIp: string | null
     userAgent: string | null
   }
@@ -1233,6 +1508,7 @@ export namespace Prisma {
     cookieId: number
     firstSeen: number
     lastSeen: number
+    lastAnalyzedAt: number
     sourceIp: number
     userAgent: number
     _all: number
@@ -1245,6 +1521,7 @@ export namespace Prisma {
     cookieId?: true
     firstSeen?: true
     lastSeen?: true
+    lastAnalyzedAt?: true
     sourceIp?: true
     userAgent?: true
   }
@@ -1255,6 +1532,7 @@ export namespace Prisma {
     cookieId?: true
     firstSeen?: true
     lastSeen?: true
+    lastAnalyzedAt?: true
     sourceIp?: true
     userAgent?: true
   }
@@ -1265,6 +1543,7 @@ export namespace Prisma {
     cookieId?: true
     firstSeen?: true
     lastSeen?: true
+    lastAnalyzedAt?: true
     sourceIp?: true
     userAgent?: true
     _all?: true
@@ -1348,6 +1627,7 @@ export namespace Prisma {
     cookieId: string
     firstSeen: Date
     lastSeen: Date
+    lastAnalyzedAt: Date | null
     sourceIp: string
     userAgent: string
     _count: SessionCountAggregateOutputType | null
@@ -1375,6 +1655,7 @@ export namespace Prisma {
     cookieId?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
+    lastAnalyzedAt?: boolean
     sourceIp?: boolean
     userAgent?: boolean
     events?: boolean | Session$eventsArgs<ExtArgs>
@@ -1387,6 +1668,7 @@ export namespace Prisma {
     cookieId?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
+    lastAnalyzedAt?: boolean
     sourceIp?: boolean
     userAgent?: boolean
   }, ExtArgs["result"]["session"]>
@@ -1397,6 +1679,7 @@ export namespace Prisma {
     cookieId?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
+    lastAnalyzedAt?: boolean
     sourceIp?: boolean
     userAgent?: boolean
   }, ExtArgs["result"]["session"]>
@@ -1407,11 +1690,12 @@ export namespace Prisma {
     cookieId?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
+    lastAnalyzedAt?: boolean
     sourceIp?: boolean
     userAgent?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tokenId" | "cookieId" | "firstSeen" | "lastSeen" | "sourceIp" | "userAgent", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tokenId" | "cookieId" | "firstSeen" | "lastSeen" | "lastAnalyzedAt" | "sourceIp" | "userAgent", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     events?: boolean | Session$eventsArgs<ExtArgs>
     _count?: boolean | SessionCountOutputTypeDefaultArgs<ExtArgs>
@@ -1430,6 +1714,7 @@ export namespace Prisma {
       cookieId: string
       firstSeen: Date
       lastSeen: Date
+      lastAnalyzedAt: Date | null
       sourceIp: string
       userAgent: string
     }, ExtArgs["result"]["session"]>
@@ -1861,6 +2146,7 @@ export namespace Prisma {
     readonly cookieId: FieldRef<"Session", 'String'>
     readonly firstSeen: FieldRef<"Session", 'DateTime'>
     readonly lastSeen: FieldRef<"Session", 'DateTime'>
+    readonly lastAnalyzedAt: FieldRef<"Session", 'DateTime'>
     readonly sourceIp: FieldRef<"Session", 'String'>
     readonly userAgent: FieldRef<"Session", 'String'>
   }
@@ -5738,6 +6024,3145 @@ export namespace Prisma {
 
 
   /**
+   * Model Doktor
+   */
+
+  export type AggregateDoktor = {
+    _count: DoktorCountAggregateOutputType | null
+    _avg: DoktorAvgAggregateOutputType | null
+    _sum: DoktorSumAggregateOutputType | null
+    _min: DoktorMinAggregateOutputType | null
+    _max: DoktorMaxAggregateOutputType | null
+  }
+
+  export type DoktorAvgAggregateOutputType = {
+    id: number | null
+    ukupno: number | null
+    brojZakazanih: number | null
+    brojSlobodnih: number | null
+  }
+
+  export type DoktorSumAggregateOutputType = {
+    id: number | null
+    ukupno: number | null
+    brojZakazanih: number | null
+    brojSlobodnih: number | null
+  }
+
+  export type DoktorMinAggregateOutputType = {
+    id: number | null
+    ime: string | null
+    prezime: string | null
+    odjel: string | null
+    ukupno: number | null
+    brojZakazanih: number | null
+    brojSlobodnih: number | null
+  }
+
+  export type DoktorMaxAggregateOutputType = {
+    id: number | null
+    ime: string | null
+    prezime: string | null
+    odjel: string | null
+    ukupno: number | null
+    brojZakazanih: number | null
+    brojSlobodnih: number | null
+  }
+
+  export type DoktorCountAggregateOutputType = {
+    id: number
+    ime: number
+    prezime: number
+    odjel: number
+    ukupno: number
+    brojZakazanih: number
+    brojSlobodnih: number
+    _all: number
+  }
+
+
+  export type DoktorAvgAggregateInputType = {
+    id?: true
+    ukupno?: true
+    brojZakazanih?: true
+    brojSlobodnih?: true
+  }
+
+  export type DoktorSumAggregateInputType = {
+    id?: true
+    ukupno?: true
+    brojZakazanih?: true
+    brojSlobodnih?: true
+  }
+
+  export type DoktorMinAggregateInputType = {
+    id?: true
+    ime?: true
+    prezime?: true
+    odjel?: true
+    ukupno?: true
+    brojZakazanih?: true
+    brojSlobodnih?: true
+  }
+
+  export type DoktorMaxAggregateInputType = {
+    id?: true
+    ime?: true
+    prezime?: true
+    odjel?: true
+    ukupno?: true
+    brojZakazanih?: true
+    brojSlobodnih?: true
+  }
+
+  export type DoktorCountAggregateInputType = {
+    id?: true
+    ime?: true
+    prezime?: true
+    odjel?: true
+    ukupno?: true
+    brojZakazanih?: true
+    brojSlobodnih?: true
+    _all?: true
+  }
+
+  export type DoktorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Doktor to aggregate.
+     */
+    where?: DoktorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Doktors to fetch.
+     */
+    orderBy?: DoktorOrderByWithRelationInput | DoktorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DoktorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Doktors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Doktors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Doktors
+    **/
+    _count?: true | DoktorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DoktorAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DoktorSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DoktorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DoktorMaxAggregateInputType
+  }
+
+  export type GetDoktorAggregateType<T extends DoktorAggregateArgs> = {
+        [P in keyof T & keyof AggregateDoktor]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDoktor[P]>
+      : GetScalarType<T[P], AggregateDoktor[P]>
+  }
+
+
+
+
+  export type DoktorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DoktorWhereInput
+    orderBy?: DoktorOrderByWithAggregationInput | DoktorOrderByWithAggregationInput[]
+    by: DoktorScalarFieldEnum[] | DoktorScalarFieldEnum
+    having?: DoktorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DoktorCountAggregateInputType | true
+    _avg?: DoktorAvgAggregateInputType
+    _sum?: DoktorSumAggregateInputType
+    _min?: DoktorMinAggregateInputType
+    _max?: DoktorMaxAggregateInputType
+  }
+
+  export type DoktorGroupByOutputType = {
+    id: number
+    ime: string
+    prezime: string
+    odjel: string
+    ukupno: number
+    brojZakazanih: number
+    brojSlobodnih: number
+    _count: DoktorCountAggregateOutputType | null
+    _avg: DoktorAvgAggregateOutputType | null
+    _sum: DoktorSumAggregateOutputType | null
+    _min: DoktorMinAggregateOutputType | null
+    _max: DoktorMaxAggregateOutputType | null
+  }
+
+  type GetDoktorGroupByPayload<T extends DoktorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DoktorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DoktorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DoktorGroupByOutputType[P]>
+            : GetScalarType<T[P], DoktorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DoktorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ime?: boolean
+    prezime?: boolean
+    odjel?: boolean
+    ukupno?: boolean
+    brojZakazanih?: boolean
+    brojSlobodnih?: boolean
+  }, ExtArgs["result"]["doktor"]>
+
+  export type DoktorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ime?: boolean
+    prezime?: boolean
+    odjel?: boolean
+    ukupno?: boolean
+    brojZakazanih?: boolean
+    brojSlobodnih?: boolean
+  }, ExtArgs["result"]["doktor"]>
+
+  export type DoktorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ime?: boolean
+    prezime?: boolean
+    odjel?: boolean
+    ukupno?: boolean
+    brojZakazanih?: boolean
+    brojSlobodnih?: boolean
+  }, ExtArgs["result"]["doktor"]>
+
+  export type DoktorSelectScalar = {
+    id?: boolean
+    ime?: boolean
+    prezime?: boolean
+    odjel?: boolean
+    ukupno?: boolean
+    brojZakazanih?: boolean
+    brojSlobodnih?: boolean
+  }
+
+  export type DoktorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ime" | "prezime" | "odjel" | "ukupno" | "brojZakazanih" | "brojSlobodnih", ExtArgs["result"]["doktor"]>
+
+  export type $DoktorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Doktor"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      ime: string
+      prezime: string
+      odjel: string
+      ukupno: number
+      brojZakazanih: number
+      brojSlobodnih: number
+    }, ExtArgs["result"]["doktor"]>
+    composites: {}
+  }
+
+  type DoktorGetPayload<S extends boolean | null | undefined | DoktorDefaultArgs> = $Result.GetResult<Prisma.$DoktorPayload, S>
+
+  type DoktorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DoktorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DoktorCountAggregateInputType | true
+    }
+
+  export interface DoktorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Doktor'], meta: { name: 'Doktor' } }
+    /**
+     * Find zero or one Doktor that matches the filter.
+     * @param {DoktorFindUniqueArgs} args - Arguments to find a Doktor
+     * @example
+     * // Get one Doktor
+     * const doktor = await prisma.doktor.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DoktorFindUniqueArgs>(args: SelectSubset<T, DoktorFindUniqueArgs<ExtArgs>>): Prisma__DoktorClient<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Doktor that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DoktorFindUniqueOrThrowArgs} args - Arguments to find a Doktor
+     * @example
+     * // Get one Doktor
+     * const doktor = await prisma.doktor.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DoktorFindUniqueOrThrowArgs>(args: SelectSubset<T, DoktorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DoktorClient<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Doktor that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoktorFindFirstArgs} args - Arguments to find a Doktor
+     * @example
+     * // Get one Doktor
+     * const doktor = await prisma.doktor.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DoktorFindFirstArgs>(args?: SelectSubset<T, DoktorFindFirstArgs<ExtArgs>>): Prisma__DoktorClient<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Doktor that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoktorFindFirstOrThrowArgs} args - Arguments to find a Doktor
+     * @example
+     * // Get one Doktor
+     * const doktor = await prisma.doktor.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DoktorFindFirstOrThrowArgs>(args?: SelectSubset<T, DoktorFindFirstOrThrowArgs<ExtArgs>>): Prisma__DoktorClient<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Doktors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoktorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Doktors
+     * const doktors = await prisma.doktor.findMany()
+     * 
+     * // Get first 10 Doktors
+     * const doktors = await prisma.doktor.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const doktorWithIdOnly = await prisma.doktor.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DoktorFindManyArgs>(args?: SelectSubset<T, DoktorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Doktor.
+     * @param {DoktorCreateArgs} args - Arguments to create a Doktor.
+     * @example
+     * // Create one Doktor
+     * const Doktor = await prisma.doktor.create({
+     *   data: {
+     *     // ... data to create a Doktor
+     *   }
+     * })
+     * 
+     */
+    create<T extends DoktorCreateArgs>(args: SelectSubset<T, DoktorCreateArgs<ExtArgs>>): Prisma__DoktorClient<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Doktors.
+     * @param {DoktorCreateManyArgs} args - Arguments to create many Doktors.
+     * @example
+     * // Create many Doktors
+     * const doktor = await prisma.doktor.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DoktorCreateManyArgs>(args?: SelectSubset<T, DoktorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Doktors and returns the data saved in the database.
+     * @param {DoktorCreateManyAndReturnArgs} args - Arguments to create many Doktors.
+     * @example
+     * // Create many Doktors
+     * const doktor = await prisma.doktor.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Doktors and only return the `id`
+     * const doktorWithIdOnly = await prisma.doktor.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DoktorCreateManyAndReturnArgs>(args?: SelectSubset<T, DoktorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Doktor.
+     * @param {DoktorDeleteArgs} args - Arguments to delete one Doktor.
+     * @example
+     * // Delete one Doktor
+     * const Doktor = await prisma.doktor.delete({
+     *   where: {
+     *     // ... filter to delete one Doktor
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DoktorDeleteArgs>(args: SelectSubset<T, DoktorDeleteArgs<ExtArgs>>): Prisma__DoktorClient<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Doktor.
+     * @param {DoktorUpdateArgs} args - Arguments to update one Doktor.
+     * @example
+     * // Update one Doktor
+     * const doktor = await prisma.doktor.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DoktorUpdateArgs>(args: SelectSubset<T, DoktorUpdateArgs<ExtArgs>>): Prisma__DoktorClient<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Doktors.
+     * @param {DoktorDeleteManyArgs} args - Arguments to filter Doktors to delete.
+     * @example
+     * // Delete a few Doktors
+     * const { count } = await prisma.doktor.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DoktorDeleteManyArgs>(args?: SelectSubset<T, DoktorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Doktors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoktorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Doktors
+     * const doktor = await prisma.doktor.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DoktorUpdateManyArgs>(args: SelectSubset<T, DoktorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Doktors and returns the data updated in the database.
+     * @param {DoktorUpdateManyAndReturnArgs} args - Arguments to update many Doktors.
+     * @example
+     * // Update many Doktors
+     * const doktor = await prisma.doktor.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Doktors and only return the `id`
+     * const doktorWithIdOnly = await prisma.doktor.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DoktorUpdateManyAndReturnArgs>(args: SelectSubset<T, DoktorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Doktor.
+     * @param {DoktorUpsertArgs} args - Arguments to update or create a Doktor.
+     * @example
+     * // Update or create a Doktor
+     * const doktor = await prisma.doktor.upsert({
+     *   create: {
+     *     // ... data to create a Doktor
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Doktor we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DoktorUpsertArgs>(args: SelectSubset<T, DoktorUpsertArgs<ExtArgs>>): Prisma__DoktorClient<$Result.GetResult<Prisma.$DoktorPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Doktors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoktorCountArgs} args - Arguments to filter Doktors to count.
+     * @example
+     * // Count the number of Doktors
+     * const count = await prisma.doktor.count({
+     *   where: {
+     *     // ... the filter for the Doktors we want to count
+     *   }
+     * })
+    **/
+    count<T extends DoktorCountArgs>(
+      args?: Subset<T, DoktorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DoktorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Doktor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoktorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DoktorAggregateArgs>(args: Subset<T, DoktorAggregateArgs>): Prisma.PrismaPromise<GetDoktorAggregateType<T>>
+
+    /**
+     * Group by Doktor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoktorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DoktorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DoktorGroupByArgs['orderBy'] }
+        : { orderBy?: DoktorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DoktorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDoktorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Doktor model
+   */
+  readonly fields: DoktorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Doktor.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DoktorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Doktor model
+   */
+  interface DoktorFieldRefs {
+    readonly id: FieldRef<"Doktor", 'Int'>
+    readonly ime: FieldRef<"Doktor", 'String'>
+    readonly prezime: FieldRef<"Doktor", 'String'>
+    readonly odjel: FieldRef<"Doktor", 'String'>
+    readonly ukupno: FieldRef<"Doktor", 'Int'>
+    readonly brojZakazanih: FieldRef<"Doktor", 'Int'>
+    readonly brojSlobodnih: FieldRef<"Doktor", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Doktor findUnique
+   */
+  export type DoktorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * Filter, which Doktor to fetch.
+     */
+    where: DoktorWhereUniqueInput
+  }
+
+  /**
+   * Doktor findUniqueOrThrow
+   */
+  export type DoktorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * Filter, which Doktor to fetch.
+     */
+    where: DoktorWhereUniqueInput
+  }
+
+  /**
+   * Doktor findFirst
+   */
+  export type DoktorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * Filter, which Doktor to fetch.
+     */
+    where?: DoktorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Doktors to fetch.
+     */
+    orderBy?: DoktorOrderByWithRelationInput | DoktorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Doktors.
+     */
+    cursor?: DoktorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Doktors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Doktors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Doktors.
+     */
+    distinct?: DoktorScalarFieldEnum | DoktorScalarFieldEnum[]
+  }
+
+  /**
+   * Doktor findFirstOrThrow
+   */
+  export type DoktorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * Filter, which Doktor to fetch.
+     */
+    where?: DoktorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Doktors to fetch.
+     */
+    orderBy?: DoktorOrderByWithRelationInput | DoktorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Doktors.
+     */
+    cursor?: DoktorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Doktors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Doktors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Doktors.
+     */
+    distinct?: DoktorScalarFieldEnum | DoktorScalarFieldEnum[]
+  }
+
+  /**
+   * Doktor findMany
+   */
+  export type DoktorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * Filter, which Doktors to fetch.
+     */
+    where?: DoktorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Doktors to fetch.
+     */
+    orderBy?: DoktorOrderByWithRelationInput | DoktorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Doktors.
+     */
+    cursor?: DoktorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Doktors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Doktors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Doktors.
+     */
+    distinct?: DoktorScalarFieldEnum | DoktorScalarFieldEnum[]
+  }
+
+  /**
+   * Doktor create
+   */
+  export type DoktorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Doktor.
+     */
+    data: XOR<DoktorCreateInput, DoktorUncheckedCreateInput>
+  }
+
+  /**
+   * Doktor createMany
+   */
+  export type DoktorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Doktors.
+     */
+    data: DoktorCreateManyInput | DoktorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Doktor createManyAndReturn
+   */
+  export type DoktorCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * The data used to create many Doktors.
+     */
+    data: DoktorCreateManyInput | DoktorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Doktor update
+   */
+  export type DoktorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Doktor.
+     */
+    data: XOR<DoktorUpdateInput, DoktorUncheckedUpdateInput>
+    /**
+     * Choose, which Doktor to update.
+     */
+    where: DoktorWhereUniqueInput
+  }
+
+  /**
+   * Doktor updateMany
+   */
+  export type DoktorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Doktors.
+     */
+    data: XOR<DoktorUpdateManyMutationInput, DoktorUncheckedUpdateManyInput>
+    /**
+     * Filter which Doktors to update
+     */
+    where?: DoktorWhereInput
+    /**
+     * Limit how many Doktors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Doktor updateManyAndReturn
+   */
+  export type DoktorUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * The data used to update Doktors.
+     */
+    data: XOR<DoktorUpdateManyMutationInput, DoktorUncheckedUpdateManyInput>
+    /**
+     * Filter which Doktors to update
+     */
+    where?: DoktorWhereInput
+    /**
+     * Limit how many Doktors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Doktor upsert
+   */
+  export type DoktorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Doktor to update in case it exists.
+     */
+    where: DoktorWhereUniqueInput
+    /**
+     * In case the Doktor found by the `where` argument doesn't exist, create a new Doktor with this data.
+     */
+    create: XOR<DoktorCreateInput, DoktorUncheckedCreateInput>
+    /**
+     * In case the Doktor was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DoktorUpdateInput, DoktorUncheckedUpdateInput>
+  }
+
+  /**
+   * Doktor delete
+   */
+  export type DoktorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+    /**
+     * Filter which Doktor to delete.
+     */
+    where: DoktorWhereUniqueInput
+  }
+
+  /**
+   * Doktor deleteMany
+   */
+  export type DoktorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Doktors to delete
+     */
+    where?: DoktorWhereInput
+    /**
+     * Limit how many Doktors to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Doktor without action
+   */
+  export type DoktorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doktor
+     */
+    select?: DoktorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doktor
+     */
+    omit?: DoktorOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Uloga
+   */
+
+  export type AggregateUloga = {
+    _count: UlogaCountAggregateOutputType | null
+    _avg: UlogaAvgAggregateOutputType | null
+    _sum: UlogaSumAggregateOutputType | null
+    _min: UlogaMinAggregateOutputType | null
+    _max: UlogaMaxAggregateOutputType | null
+  }
+
+  export type UlogaAvgAggregateOutputType = {
+    id: number | null
+    broj: number | null
+  }
+
+  export type UlogaSumAggregateOutputType = {
+    id: number | null
+    broj: number | null
+  }
+
+  export type UlogaMinAggregateOutputType = {
+    id: number | null
+    uloga: string | null
+    broj: number | null
+  }
+
+  export type UlogaMaxAggregateOutputType = {
+    id: number | null
+    uloga: string | null
+    broj: number | null
+  }
+
+  export type UlogaCountAggregateOutputType = {
+    id: number
+    uloga: number
+    broj: number
+    _all: number
+  }
+
+
+  export type UlogaAvgAggregateInputType = {
+    id?: true
+    broj?: true
+  }
+
+  export type UlogaSumAggregateInputType = {
+    id?: true
+    broj?: true
+  }
+
+  export type UlogaMinAggregateInputType = {
+    id?: true
+    uloga?: true
+    broj?: true
+  }
+
+  export type UlogaMaxAggregateInputType = {
+    id?: true
+    uloga?: true
+    broj?: true
+  }
+
+  export type UlogaCountAggregateInputType = {
+    id?: true
+    uloga?: true
+    broj?: true
+    _all?: true
+  }
+
+  export type UlogaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Uloga to aggregate.
+     */
+    where?: UlogaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ulogas to fetch.
+     */
+    orderBy?: UlogaOrderByWithRelationInput | UlogaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UlogaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ulogas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ulogas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Ulogas
+    **/
+    _count?: true | UlogaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UlogaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UlogaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UlogaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UlogaMaxAggregateInputType
+  }
+
+  export type GetUlogaAggregateType<T extends UlogaAggregateArgs> = {
+        [P in keyof T & keyof AggregateUloga]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUloga[P]>
+      : GetScalarType<T[P], AggregateUloga[P]>
+  }
+
+
+
+
+  export type UlogaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UlogaWhereInput
+    orderBy?: UlogaOrderByWithAggregationInput | UlogaOrderByWithAggregationInput[]
+    by: UlogaScalarFieldEnum[] | UlogaScalarFieldEnum
+    having?: UlogaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UlogaCountAggregateInputType | true
+    _avg?: UlogaAvgAggregateInputType
+    _sum?: UlogaSumAggregateInputType
+    _min?: UlogaMinAggregateInputType
+    _max?: UlogaMaxAggregateInputType
+  }
+
+  export type UlogaGroupByOutputType = {
+    id: number
+    uloga: string
+    broj: number
+    _count: UlogaCountAggregateOutputType | null
+    _avg: UlogaAvgAggregateOutputType | null
+    _sum: UlogaSumAggregateOutputType | null
+    _min: UlogaMinAggregateOutputType | null
+    _max: UlogaMaxAggregateOutputType | null
+  }
+
+  type GetUlogaGroupByPayload<T extends UlogaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UlogaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UlogaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UlogaGroupByOutputType[P]>
+            : GetScalarType<T[P], UlogaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UlogaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uloga?: boolean
+    broj?: boolean
+  }, ExtArgs["result"]["uloga"]>
+
+  export type UlogaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uloga?: boolean
+    broj?: boolean
+  }, ExtArgs["result"]["uloga"]>
+
+  export type UlogaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uloga?: boolean
+    broj?: boolean
+  }, ExtArgs["result"]["uloga"]>
+
+  export type UlogaSelectScalar = {
+    id?: boolean
+    uloga?: boolean
+    broj?: boolean
+  }
+
+  export type UlogaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uloga" | "broj", ExtArgs["result"]["uloga"]>
+
+  export type $UlogaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Uloga"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      uloga: string
+      broj: number
+    }, ExtArgs["result"]["uloga"]>
+    composites: {}
+  }
+
+  type UlogaGetPayload<S extends boolean | null | undefined | UlogaDefaultArgs> = $Result.GetResult<Prisma.$UlogaPayload, S>
+
+  type UlogaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UlogaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UlogaCountAggregateInputType | true
+    }
+
+  export interface UlogaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Uloga'], meta: { name: 'Uloga' } }
+    /**
+     * Find zero or one Uloga that matches the filter.
+     * @param {UlogaFindUniqueArgs} args - Arguments to find a Uloga
+     * @example
+     * // Get one Uloga
+     * const uloga = await prisma.uloga.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UlogaFindUniqueArgs>(args: SelectSubset<T, UlogaFindUniqueArgs<ExtArgs>>): Prisma__UlogaClient<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Uloga that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UlogaFindUniqueOrThrowArgs} args - Arguments to find a Uloga
+     * @example
+     * // Get one Uloga
+     * const uloga = await prisma.uloga.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UlogaFindUniqueOrThrowArgs>(args: SelectSubset<T, UlogaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UlogaClient<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Uloga that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UlogaFindFirstArgs} args - Arguments to find a Uloga
+     * @example
+     * // Get one Uloga
+     * const uloga = await prisma.uloga.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UlogaFindFirstArgs>(args?: SelectSubset<T, UlogaFindFirstArgs<ExtArgs>>): Prisma__UlogaClient<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Uloga that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UlogaFindFirstOrThrowArgs} args - Arguments to find a Uloga
+     * @example
+     * // Get one Uloga
+     * const uloga = await prisma.uloga.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UlogaFindFirstOrThrowArgs>(args?: SelectSubset<T, UlogaFindFirstOrThrowArgs<ExtArgs>>): Prisma__UlogaClient<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Ulogas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UlogaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Ulogas
+     * const ulogas = await prisma.uloga.findMany()
+     * 
+     * // Get first 10 Ulogas
+     * const ulogas = await prisma.uloga.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ulogaWithIdOnly = await prisma.uloga.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UlogaFindManyArgs>(args?: SelectSubset<T, UlogaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Uloga.
+     * @param {UlogaCreateArgs} args - Arguments to create a Uloga.
+     * @example
+     * // Create one Uloga
+     * const Uloga = await prisma.uloga.create({
+     *   data: {
+     *     // ... data to create a Uloga
+     *   }
+     * })
+     * 
+     */
+    create<T extends UlogaCreateArgs>(args: SelectSubset<T, UlogaCreateArgs<ExtArgs>>): Prisma__UlogaClient<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Ulogas.
+     * @param {UlogaCreateManyArgs} args - Arguments to create many Ulogas.
+     * @example
+     * // Create many Ulogas
+     * const uloga = await prisma.uloga.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UlogaCreateManyArgs>(args?: SelectSubset<T, UlogaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Ulogas and returns the data saved in the database.
+     * @param {UlogaCreateManyAndReturnArgs} args - Arguments to create many Ulogas.
+     * @example
+     * // Create many Ulogas
+     * const uloga = await prisma.uloga.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Ulogas and only return the `id`
+     * const ulogaWithIdOnly = await prisma.uloga.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UlogaCreateManyAndReturnArgs>(args?: SelectSubset<T, UlogaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Uloga.
+     * @param {UlogaDeleteArgs} args - Arguments to delete one Uloga.
+     * @example
+     * // Delete one Uloga
+     * const Uloga = await prisma.uloga.delete({
+     *   where: {
+     *     // ... filter to delete one Uloga
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UlogaDeleteArgs>(args: SelectSubset<T, UlogaDeleteArgs<ExtArgs>>): Prisma__UlogaClient<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Uloga.
+     * @param {UlogaUpdateArgs} args - Arguments to update one Uloga.
+     * @example
+     * // Update one Uloga
+     * const uloga = await prisma.uloga.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UlogaUpdateArgs>(args: SelectSubset<T, UlogaUpdateArgs<ExtArgs>>): Prisma__UlogaClient<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Ulogas.
+     * @param {UlogaDeleteManyArgs} args - Arguments to filter Ulogas to delete.
+     * @example
+     * // Delete a few Ulogas
+     * const { count } = await prisma.uloga.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UlogaDeleteManyArgs>(args?: SelectSubset<T, UlogaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Ulogas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UlogaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Ulogas
+     * const uloga = await prisma.uloga.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UlogaUpdateManyArgs>(args: SelectSubset<T, UlogaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Ulogas and returns the data updated in the database.
+     * @param {UlogaUpdateManyAndReturnArgs} args - Arguments to update many Ulogas.
+     * @example
+     * // Update many Ulogas
+     * const uloga = await prisma.uloga.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Ulogas and only return the `id`
+     * const ulogaWithIdOnly = await prisma.uloga.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UlogaUpdateManyAndReturnArgs>(args: SelectSubset<T, UlogaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Uloga.
+     * @param {UlogaUpsertArgs} args - Arguments to update or create a Uloga.
+     * @example
+     * // Update or create a Uloga
+     * const uloga = await prisma.uloga.upsert({
+     *   create: {
+     *     // ... data to create a Uloga
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Uloga we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UlogaUpsertArgs>(args: SelectSubset<T, UlogaUpsertArgs<ExtArgs>>): Prisma__UlogaClient<$Result.GetResult<Prisma.$UlogaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Ulogas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UlogaCountArgs} args - Arguments to filter Ulogas to count.
+     * @example
+     * // Count the number of Ulogas
+     * const count = await prisma.uloga.count({
+     *   where: {
+     *     // ... the filter for the Ulogas we want to count
+     *   }
+     * })
+    **/
+    count<T extends UlogaCountArgs>(
+      args?: Subset<T, UlogaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UlogaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Uloga.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UlogaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UlogaAggregateArgs>(args: Subset<T, UlogaAggregateArgs>): Prisma.PrismaPromise<GetUlogaAggregateType<T>>
+
+    /**
+     * Group by Uloga.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UlogaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UlogaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UlogaGroupByArgs['orderBy'] }
+        : { orderBy?: UlogaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UlogaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUlogaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Uloga model
+   */
+  readonly fields: UlogaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Uloga.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UlogaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Uloga model
+   */
+  interface UlogaFieldRefs {
+    readonly id: FieldRef<"Uloga", 'Int'>
+    readonly uloga: FieldRef<"Uloga", 'String'>
+    readonly broj: FieldRef<"Uloga", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Uloga findUnique
+   */
+  export type UlogaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * Filter, which Uloga to fetch.
+     */
+    where: UlogaWhereUniqueInput
+  }
+
+  /**
+   * Uloga findUniqueOrThrow
+   */
+  export type UlogaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * Filter, which Uloga to fetch.
+     */
+    where: UlogaWhereUniqueInput
+  }
+
+  /**
+   * Uloga findFirst
+   */
+  export type UlogaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * Filter, which Uloga to fetch.
+     */
+    where?: UlogaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ulogas to fetch.
+     */
+    orderBy?: UlogaOrderByWithRelationInput | UlogaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ulogas.
+     */
+    cursor?: UlogaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ulogas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ulogas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ulogas.
+     */
+    distinct?: UlogaScalarFieldEnum | UlogaScalarFieldEnum[]
+  }
+
+  /**
+   * Uloga findFirstOrThrow
+   */
+  export type UlogaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * Filter, which Uloga to fetch.
+     */
+    where?: UlogaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ulogas to fetch.
+     */
+    orderBy?: UlogaOrderByWithRelationInput | UlogaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ulogas.
+     */
+    cursor?: UlogaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ulogas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ulogas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ulogas.
+     */
+    distinct?: UlogaScalarFieldEnum | UlogaScalarFieldEnum[]
+  }
+
+  /**
+   * Uloga findMany
+   */
+  export type UlogaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * Filter, which Ulogas to fetch.
+     */
+    where?: UlogaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ulogas to fetch.
+     */
+    orderBy?: UlogaOrderByWithRelationInput | UlogaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Ulogas.
+     */
+    cursor?: UlogaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ulogas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ulogas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ulogas.
+     */
+    distinct?: UlogaScalarFieldEnum | UlogaScalarFieldEnum[]
+  }
+
+  /**
+   * Uloga create
+   */
+  export type UlogaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Uloga.
+     */
+    data: XOR<UlogaCreateInput, UlogaUncheckedCreateInput>
+  }
+
+  /**
+   * Uloga createMany
+   */
+  export type UlogaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Ulogas.
+     */
+    data: UlogaCreateManyInput | UlogaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Uloga createManyAndReturn
+   */
+  export type UlogaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * The data used to create many Ulogas.
+     */
+    data: UlogaCreateManyInput | UlogaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Uloga update
+   */
+  export type UlogaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Uloga.
+     */
+    data: XOR<UlogaUpdateInput, UlogaUncheckedUpdateInput>
+    /**
+     * Choose, which Uloga to update.
+     */
+    where: UlogaWhereUniqueInput
+  }
+
+  /**
+   * Uloga updateMany
+   */
+  export type UlogaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Ulogas.
+     */
+    data: XOR<UlogaUpdateManyMutationInput, UlogaUncheckedUpdateManyInput>
+    /**
+     * Filter which Ulogas to update
+     */
+    where?: UlogaWhereInput
+    /**
+     * Limit how many Ulogas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Uloga updateManyAndReturn
+   */
+  export type UlogaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * The data used to update Ulogas.
+     */
+    data: XOR<UlogaUpdateManyMutationInput, UlogaUncheckedUpdateManyInput>
+    /**
+     * Filter which Ulogas to update
+     */
+    where?: UlogaWhereInput
+    /**
+     * Limit how many Ulogas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Uloga upsert
+   */
+  export type UlogaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Uloga to update in case it exists.
+     */
+    where: UlogaWhereUniqueInput
+    /**
+     * In case the Uloga found by the `where` argument doesn't exist, create a new Uloga with this data.
+     */
+    create: XOR<UlogaCreateInput, UlogaUncheckedCreateInput>
+    /**
+     * In case the Uloga was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UlogaUpdateInput, UlogaUncheckedUpdateInput>
+  }
+
+  /**
+   * Uloga delete
+   */
+  export type UlogaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+    /**
+     * Filter which Uloga to delete.
+     */
+    where: UlogaWhereUniqueInput
+  }
+
+  /**
+   * Uloga deleteMany
+   */
+  export type UlogaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Ulogas to delete
+     */
+    where?: UlogaWhereInput
+    /**
+     * Limit how many Ulogas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Uloga without action
+   */
+  export type UlogaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Uloga
+     */
+    select?: UlogaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Uloga
+     */
+    omit?: UlogaOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Termin
+   */
+
+  export type AggregateTermin = {
+    _count: TerminCountAggregateOutputType | null
+    _avg: TerminAvgAggregateOutputType | null
+    _sum: TerminSumAggregateOutputType | null
+    _min: TerminMinAggregateOutputType | null
+    _max: TerminMaxAggregateOutputType | null
+  }
+
+  export type TerminAvgAggregateOutputType = {
+    id: number | null
+    doktorId: number | null
+    pacijentId: number | null
+  }
+
+  export type TerminSumAggregateOutputType = {
+    id: number | null
+    doktorId: number | null
+    pacijentId: number | null
+  }
+
+  export type TerminMinAggregateOutputType = {
+    id: number | null
+    doktorId: number | null
+    pacijentId: number | null
+    datum: string | null
+    razlog: string | null
+    createdAt: Date | null
+  }
+
+  export type TerminMaxAggregateOutputType = {
+    id: number | null
+    doktorId: number | null
+    pacijentId: number | null
+    datum: string | null
+    razlog: string | null
+    createdAt: Date | null
+  }
+
+  export type TerminCountAggregateOutputType = {
+    id: number
+    doktorId: number
+    pacijentId: number
+    datum: number
+    razlog: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type TerminAvgAggregateInputType = {
+    id?: true
+    doktorId?: true
+    pacijentId?: true
+  }
+
+  export type TerminSumAggregateInputType = {
+    id?: true
+    doktorId?: true
+    pacijentId?: true
+  }
+
+  export type TerminMinAggregateInputType = {
+    id?: true
+    doktorId?: true
+    pacijentId?: true
+    datum?: true
+    razlog?: true
+    createdAt?: true
+  }
+
+  export type TerminMaxAggregateInputType = {
+    id?: true
+    doktorId?: true
+    pacijentId?: true
+    datum?: true
+    razlog?: true
+    createdAt?: true
+  }
+
+  export type TerminCountAggregateInputType = {
+    id?: true
+    doktorId?: true
+    pacijentId?: true
+    datum?: true
+    razlog?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type TerminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Termin to aggregate.
+     */
+    where?: TerminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Termins to fetch.
+     */
+    orderBy?: TerminOrderByWithRelationInput | TerminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TerminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Termins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Termins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Termins
+    **/
+    _count?: true | TerminCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TerminAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TerminSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TerminMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TerminMaxAggregateInputType
+  }
+
+  export type GetTerminAggregateType<T extends TerminAggregateArgs> = {
+        [P in keyof T & keyof AggregateTermin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTermin[P]>
+      : GetScalarType<T[P], AggregateTermin[P]>
+  }
+
+
+
+
+  export type TerminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TerminWhereInput
+    orderBy?: TerminOrderByWithAggregationInput | TerminOrderByWithAggregationInput[]
+    by: TerminScalarFieldEnum[] | TerminScalarFieldEnum
+    having?: TerminScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TerminCountAggregateInputType | true
+    _avg?: TerminAvgAggregateInputType
+    _sum?: TerminSumAggregateInputType
+    _min?: TerminMinAggregateInputType
+    _max?: TerminMaxAggregateInputType
+  }
+
+  export type TerminGroupByOutputType = {
+    id: number
+    doktorId: number
+    pacijentId: number | null
+    datum: string
+    razlog: string | null
+    createdAt: Date
+    _count: TerminCountAggregateOutputType | null
+    _avg: TerminAvgAggregateOutputType | null
+    _sum: TerminSumAggregateOutputType | null
+    _min: TerminMinAggregateOutputType | null
+    _max: TerminMaxAggregateOutputType | null
+  }
+
+  type GetTerminGroupByPayload<T extends TerminGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TerminGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TerminGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TerminGroupByOutputType[P]>
+            : GetScalarType<T[P], TerminGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TerminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    doktorId?: boolean
+    pacijentId?: boolean
+    datum?: boolean
+    razlog?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["termin"]>
+
+  export type TerminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    doktorId?: boolean
+    pacijentId?: boolean
+    datum?: boolean
+    razlog?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["termin"]>
+
+  export type TerminSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    doktorId?: boolean
+    pacijentId?: boolean
+    datum?: boolean
+    razlog?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["termin"]>
+
+  export type TerminSelectScalar = {
+    id?: boolean
+    doktorId?: boolean
+    pacijentId?: boolean
+    datum?: boolean
+    razlog?: boolean
+    createdAt?: boolean
+  }
+
+  export type TerminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "doktorId" | "pacijentId" | "datum" | "razlog" | "createdAt", ExtArgs["result"]["termin"]>
+
+  export type $TerminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Termin"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      doktorId: number
+      pacijentId: number | null
+      datum: string
+      razlog: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["termin"]>
+    composites: {}
+  }
+
+  type TerminGetPayload<S extends boolean | null | undefined | TerminDefaultArgs> = $Result.GetResult<Prisma.$TerminPayload, S>
+
+  type TerminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TerminFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TerminCountAggregateInputType | true
+    }
+
+  export interface TerminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Termin'], meta: { name: 'Termin' } }
+    /**
+     * Find zero or one Termin that matches the filter.
+     * @param {TerminFindUniqueArgs} args - Arguments to find a Termin
+     * @example
+     * // Get one Termin
+     * const termin = await prisma.termin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TerminFindUniqueArgs>(args: SelectSubset<T, TerminFindUniqueArgs<ExtArgs>>): Prisma__TerminClient<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Termin that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TerminFindUniqueOrThrowArgs} args - Arguments to find a Termin
+     * @example
+     * // Get one Termin
+     * const termin = await prisma.termin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TerminFindUniqueOrThrowArgs>(args: SelectSubset<T, TerminFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TerminClient<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Termin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerminFindFirstArgs} args - Arguments to find a Termin
+     * @example
+     * // Get one Termin
+     * const termin = await prisma.termin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TerminFindFirstArgs>(args?: SelectSubset<T, TerminFindFirstArgs<ExtArgs>>): Prisma__TerminClient<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Termin that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerminFindFirstOrThrowArgs} args - Arguments to find a Termin
+     * @example
+     * // Get one Termin
+     * const termin = await prisma.termin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TerminFindFirstOrThrowArgs>(args?: SelectSubset<T, TerminFindFirstOrThrowArgs<ExtArgs>>): Prisma__TerminClient<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Termins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerminFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Termins
+     * const termins = await prisma.termin.findMany()
+     * 
+     * // Get first 10 Termins
+     * const termins = await prisma.termin.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const terminWithIdOnly = await prisma.termin.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TerminFindManyArgs>(args?: SelectSubset<T, TerminFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Termin.
+     * @param {TerminCreateArgs} args - Arguments to create a Termin.
+     * @example
+     * // Create one Termin
+     * const Termin = await prisma.termin.create({
+     *   data: {
+     *     // ... data to create a Termin
+     *   }
+     * })
+     * 
+     */
+    create<T extends TerminCreateArgs>(args: SelectSubset<T, TerminCreateArgs<ExtArgs>>): Prisma__TerminClient<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Termins.
+     * @param {TerminCreateManyArgs} args - Arguments to create many Termins.
+     * @example
+     * // Create many Termins
+     * const termin = await prisma.termin.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TerminCreateManyArgs>(args?: SelectSubset<T, TerminCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Termins and returns the data saved in the database.
+     * @param {TerminCreateManyAndReturnArgs} args - Arguments to create many Termins.
+     * @example
+     * // Create many Termins
+     * const termin = await prisma.termin.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Termins and only return the `id`
+     * const terminWithIdOnly = await prisma.termin.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TerminCreateManyAndReturnArgs>(args?: SelectSubset<T, TerminCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Termin.
+     * @param {TerminDeleteArgs} args - Arguments to delete one Termin.
+     * @example
+     * // Delete one Termin
+     * const Termin = await prisma.termin.delete({
+     *   where: {
+     *     // ... filter to delete one Termin
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TerminDeleteArgs>(args: SelectSubset<T, TerminDeleteArgs<ExtArgs>>): Prisma__TerminClient<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Termin.
+     * @param {TerminUpdateArgs} args - Arguments to update one Termin.
+     * @example
+     * // Update one Termin
+     * const termin = await prisma.termin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TerminUpdateArgs>(args: SelectSubset<T, TerminUpdateArgs<ExtArgs>>): Prisma__TerminClient<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Termins.
+     * @param {TerminDeleteManyArgs} args - Arguments to filter Termins to delete.
+     * @example
+     * // Delete a few Termins
+     * const { count } = await prisma.termin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TerminDeleteManyArgs>(args?: SelectSubset<T, TerminDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Termins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerminUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Termins
+     * const termin = await prisma.termin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TerminUpdateManyArgs>(args: SelectSubset<T, TerminUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Termins and returns the data updated in the database.
+     * @param {TerminUpdateManyAndReturnArgs} args - Arguments to update many Termins.
+     * @example
+     * // Update many Termins
+     * const termin = await prisma.termin.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Termins and only return the `id`
+     * const terminWithIdOnly = await prisma.termin.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TerminUpdateManyAndReturnArgs>(args: SelectSubset<T, TerminUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Termin.
+     * @param {TerminUpsertArgs} args - Arguments to update or create a Termin.
+     * @example
+     * // Update or create a Termin
+     * const termin = await prisma.termin.upsert({
+     *   create: {
+     *     // ... data to create a Termin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Termin we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TerminUpsertArgs>(args: SelectSubset<T, TerminUpsertArgs<ExtArgs>>): Prisma__TerminClient<$Result.GetResult<Prisma.$TerminPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Termins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerminCountArgs} args - Arguments to filter Termins to count.
+     * @example
+     * // Count the number of Termins
+     * const count = await prisma.termin.count({
+     *   where: {
+     *     // ... the filter for the Termins we want to count
+     *   }
+     * })
+    **/
+    count<T extends TerminCountArgs>(
+      args?: Subset<T, TerminCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TerminCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Termin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TerminAggregateArgs>(args: Subset<T, TerminAggregateArgs>): Prisma.PrismaPromise<GetTerminAggregateType<T>>
+
+    /**
+     * Group by Termin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TerminGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TerminGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TerminGroupByArgs['orderBy'] }
+        : { orderBy?: TerminGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TerminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTerminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Termin model
+   */
+  readonly fields: TerminFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Termin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TerminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Termin model
+   */
+  interface TerminFieldRefs {
+    readonly id: FieldRef<"Termin", 'Int'>
+    readonly doktorId: FieldRef<"Termin", 'Int'>
+    readonly pacijentId: FieldRef<"Termin", 'Int'>
+    readonly datum: FieldRef<"Termin", 'String'>
+    readonly razlog: FieldRef<"Termin", 'String'>
+    readonly createdAt: FieldRef<"Termin", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Termin findUnique
+   */
+  export type TerminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * Filter, which Termin to fetch.
+     */
+    where: TerminWhereUniqueInput
+  }
+
+  /**
+   * Termin findUniqueOrThrow
+   */
+  export type TerminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * Filter, which Termin to fetch.
+     */
+    where: TerminWhereUniqueInput
+  }
+
+  /**
+   * Termin findFirst
+   */
+  export type TerminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * Filter, which Termin to fetch.
+     */
+    where?: TerminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Termins to fetch.
+     */
+    orderBy?: TerminOrderByWithRelationInput | TerminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Termins.
+     */
+    cursor?: TerminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Termins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Termins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Termins.
+     */
+    distinct?: TerminScalarFieldEnum | TerminScalarFieldEnum[]
+  }
+
+  /**
+   * Termin findFirstOrThrow
+   */
+  export type TerminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * Filter, which Termin to fetch.
+     */
+    where?: TerminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Termins to fetch.
+     */
+    orderBy?: TerminOrderByWithRelationInput | TerminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Termins.
+     */
+    cursor?: TerminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Termins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Termins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Termins.
+     */
+    distinct?: TerminScalarFieldEnum | TerminScalarFieldEnum[]
+  }
+
+  /**
+   * Termin findMany
+   */
+  export type TerminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * Filter, which Termins to fetch.
+     */
+    where?: TerminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Termins to fetch.
+     */
+    orderBy?: TerminOrderByWithRelationInput | TerminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Termins.
+     */
+    cursor?: TerminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Termins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Termins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Termins.
+     */
+    distinct?: TerminScalarFieldEnum | TerminScalarFieldEnum[]
+  }
+
+  /**
+   * Termin create
+   */
+  export type TerminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Termin.
+     */
+    data: XOR<TerminCreateInput, TerminUncheckedCreateInput>
+  }
+
+  /**
+   * Termin createMany
+   */
+  export type TerminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Termins.
+     */
+    data: TerminCreateManyInput | TerminCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Termin createManyAndReturn
+   */
+  export type TerminCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * The data used to create many Termins.
+     */
+    data: TerminCreateManyInput | TerminCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Termin update
+   */
+  export type TerminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Termin.
+     */
+    data: XOR<TerminUpdateInput, TerminUncheckedUpdateInput>
+    /**
+     * Choose, which Termin to update.
+     */
+    where: TerminWhereUniqueInput
+  }
+
+  /**
+   * Termin updateMany
+   */
+  export type TerminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Termins.
+     */
+    data: XOR<TerminUpdateManyMutationInput, TerminUncheckedUpdateManyInput>
+    /**
+     * Filter which Termins to update
+     */
+    where?: TerminWhereInput
+    /**
+     * Limit how many Termins to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Termin updateManyAndReturn
+   */
+  export type TerminUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * The data used to update Termins.
+     */
+    data: XOR<TerminUpdateManyMutationInput, TerminUncheckedUpdateManyInput>
+    /**
+     * Filter which Termins to update
+     */
+    where?: TerminWhereInput
+    /**
+     * Limit how many Termins to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Termin upsert
+   */
+  export type TerminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Termin to update in case it exists.
+     */
+    where: TerminWhereUniqueInput
+    /**
+     * In case the Termin found by the `where` argument doesn't exist, create a new Termin with this data.
+     */
+    create: XOR<TerminCreateInput, TerminUncheckedCreateInput>
+    /**
+     * In case the Termin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TerminUpdateInput, TerminUncheckedUpdateInput>
+  }
+
+  /**
+   * Termin delete
+   */
+  export type TerminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+    /**
+     * Filter which Termin to delete.
+     */
+    where: TerminWhereUniqueInput
+  }
+
+  /**
+   * Termin deleteMany
+   */
+  export type TerminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Termins to delete
+     */
+    where?: TerminWhereInput
+    /**
+     * Limit how many Termins to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Termin without action
+   */
+  export type TerminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Termin
+     */
+    select?: TerminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Termin
+     */
+    omit?: TerminOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5757,6 +9182,7 @@ export namespace Prisma {
     cookieId: 'cookieId',
     firstSeen: 'firstSeen',
     lastSeen: 'lastSeen',
+    lastAnalyzedAt: 'lastAnalyzedAt',
     sourceIp: 'sourceIp',
     userAgent: 'userAgent'
   };
@@ -5815,6 +9241,40 @@ export namespace Prisma {
   export type PatientScalarFieldEnum = (typeof PatientScalarFieldEnum)[keyof typeof PatientScalarFieldEnum]
 
 
+  export const DoktorScalarFieldEnum: {
+    id: 'id',
+    ime: 'ime',
+    prezime: 'prezime',
+    odjel: 'odjel',
+    ukupno: 'ukupno',
+    brojZakazanih: 'brojZakazanih',
+    brojSlobodnih: 'brojSlobodnih'
+  };
+
+  export type DoktorScalarFieldEnum = (typeof DoktorScalarFieldEnum)[keyof typeof DoktorScalarFieldEnum]
+
+
+  export const UlogaScalarFieldEnum: {
+    id: 'id',
+    uloga: 'uloga',
+    broj: 'broj'
+  };
+
+  export type UlogaScalarFieldEnum = (typeof UlogaScalarFieldEnum)[keyof typeof UlogaScalarFieldEnum]
+
+
+  export const TerminScalarFieldEnum: {
+    id: 'id',
+    doktorId: 'doktorId',
+    pacijentId: 'pacijentId',
+    datum: 'datum',
+    razlog: 'razlog',
+    createdAt: 'createdAt'
+  };
+
+  export type TerminScalarFieldEnum = (typeof TerminScalarFieldEnum)[keyof typeof TerminScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -5839,6 +9299,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   export const JsonNullValueFilter: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull,
@@ -5846,14 +9314,6 @@ export namespace Prisma {
   };
 
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -5943,6 +9403,7 @@ export namespace Prisma {
     cookieId?: StringFilter<"Session"> | string
     firstSeen?: DateTimeFilter<"Session"> | Date | string
     lastSeen?: DateTimeFilter<"Session"> | Date | string
+    lastAnalyzedAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     sourceIp?: StringFilter<"Session"> | string
     userAgent?: StringFilter<"Session"> | string
     events?: EventListRelationFilter
@@ -5954,6 +9415,7 @@ export namespace Prisma {
     cookieId?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
+    lastAnalyzedAt?: SortOrderInput | SortOrder
     sourceIp?: SortOrder
     userAgent?: SortOrder
     events?: EventOrderByRelationAggregateInput
@@ -5968,6 +9430,7 @@ export namespace Prisma {
     tokenId?: StringFilter<"Session"> | string
     firstSeen?: DateTimeFilter<"Session"> | Date | string
     lastSeen?: DateTimeFilter<"Session"> | Date | string
+    lastAnalyzedAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     sourceIp?: StringFilter<"Session"> | string
     userAgent?: StringFilter<"Session"> | string
     events?: EventListRelationFilter
@@ -5979,6 +9442,7 @@ export namespace Prisma {
     cookieId?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
+    lastAnalyzedAt?: SortOrderInput | SortOrder
     sourceIp?: SortOrder
     userAgent?: SortOrder
     _count?: SessionCountOrderByAggregateInput
@@ -5995,6 +9459,7 @@ export namespace Prisma {
     cookieId?: StringWithAggregatesFilter<"Session"> | string
     firstSeen?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     lastSeen?: DateTimeWithAggregatesFilter<"Session"> | Date | string
+    lastAnalyzedAt?: DateTimeNullableWithAggregatesFilter<"Session"> | Date | string | null
     sourceIp?: StringWithAggregatesFilter<"Session"> | string
     userAgent?: StringWithAggregatesFilter<"Session"> | string
   }
@@ -6258,12 +9723,180 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Patient"> | Date | string
   }
 
+  export type DoktorWhereInput = {
+    AND?: DoktorWhereInput | DoktorWhereInput[]
+    OR?: DoktorWhereInput[]
+    NOT?: DoktorWhereInput | DoktorWhereInput[]
+    id?: IntFilter<"Doktor"> | number
+    ime?: StringFilter<"Doktor"> | string
+    prezime?: StringFilter<"Doktor"> | string
+    odjel?: StringFilter<"Doktor"> | string
+    ukupno?: IntFilter<"Doktor"> | number
+    brojZakazanih?: IntFilter<"Doktor"> | number
+    brojSlobodnih?: IntFilter<"Doktor"> | number
+  }
+
+  export type DoktorOrderByWithRelationInput = {
+    id?: SortOrder
+    ime?: SortOrder
+    prezime?: SortOrder
+    odjel?: SortOrder
+    ukupno?: SortOrder
+    brojZakazanih?: SortOrder
+    brojSlobodnih?: SortOrder
+  }
+
+  export type DoktorWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: DoktorWhereInput | DoktorWhereInput[]
+    OR?: DoktorWhereInput[]
+    NOT?: DoktorWhereInput | DoktorWhereInput[]
+    ime?: StringFilter<"Doktor"> | string
+    prezime?: StringFilter<"Doktor"> | string
+    odjel?: StringFilter<"Doktor"> | string
+    ukupno?: IntFilter<"Doktor"> | number
+    brojZakazanih?: IntFilter<"Doktor"> | number
+    brojSlobodnih?: IntFilter<"Doktor"> | number
+  }, "id">
+
+  export type DoktorOrderByWithAggregationInput = {
+    id?: SortOrder
+    ime?: SortOrder
+    prezime?: SortOrder
+    odjel?: SortOrder
+    ukupno?: SortOrder
+    brojZakazanih?: SortOrder
+    brojSlobodnih?: SortOrder
+    _count?: DoktorCountOrderByAggregateInput
+    _avg?: DoktorAvgOrderByAggregateInput
+    _max?: DoktorMaxOrderByAggregateInput
+    _min?: DoktorMinOrderByAggregateInput
+    _sum?: DoktorSumOrderByAggregateInput
+  }
+
+  export type DoktorScalarWhereWithAggregatesInput = {
+    AND?: DoktorScalarWhereWithAggregatesInput | DoktorScalarWhereWithAggregatesInput[]
+    OR?: DoktorScalarWhereWithAggregatesInput[]
+    NOT?: DoktorScalarWhereWithAggregatesInput | DoktorScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Doktor"> | number
+    ime?: StringWithAggregatesFilter<"Doktor"> | string
+    prezime?: StringWithAggregatesFilter<"Doktor"> | string
+    odjel?: StringWithAggregatesFilter<"Doktor"> | string
+    ukupno?: IntWithAggregatesFilter<"Doktor"> | number
+    brojZakazanih?: IntWithAggregatesFilter<"Doktor"> | number
+    brojSlobodnih?: IntWithAggregatesFilter<"Doktor"> | number
+  }
+
+  export type UlogaWhereInput = {
+    AND?: UlogaWhereInput | UlogaWhereInput[]
+    OR?: UlogaWhereInput[]
+    NOT?: UlogaWhereInput | UlogaWhereInput[]
+    id?: IntFilter<"Uloga"> | number
+    uloga?: StringFilter<"Uloga"> | string
+    broj?: IntFilter<"Uloga"> | number
+  }
+
+  export type UlogaOrderByWithRelationInput = {
+    id?: SortOrder
+    uloga?: SortOrder
+    broj?: SortOrder
+  }
+
+  export type UlogaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    uloga?: string
+    AND?: UlogaWhereInput | UlogaWhereInput[]
+    OR?: UlogaWhereInput[]
+    NOT?: UlogaWhereInput | UlogaWhereInput[]
+    broj?: IntFilter<"Uloga"> | number
+  }, "id" | "uloga">
+
+  export type UlogaOrderByWithAggregationInput = {
+    id?: SortOrder
+    uloga?: SortOrder
+    broj?: SortOrder
+    _count?: UlogaCountOrderByAggregateInput
+    _avg?: UlogaAvgOrderByAggregateInput
+    _max?: UlogaMaxOrderByAggregateInput
+    _min?: UlogaMinOrderByAggregateInput
+    _sum?: UlogaSumOrderByAggregateInput
+  }
+
+  export type UlogaScalarWhereWithAggregatesInput = {
+    AND?: UlogaScalarWhereWithAggregatesInput | UlogaScalarWhereWithAggregatesInput[]
+    OR?: UlogaScalarWhereWithAggregatesInput[]
+    NOT?: UlogaScalarWhereWithAggregatesInput | UlogaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Uloga"> | number
+    uloga?: StringWithAggregatesFilter<"Uloga"> | string
+    broj?: IntWithAggregatesFilter<"Uloga"> | number
+  }
+
+  export type TerminWhereInput = {
+    AND?: TerminWhereInput | TerminWhereInput[]
+    OR?: TerminWhereInput[]
+    NOT?: TerminWhereInput | TerminWhereInput[]
+    id?: IntFilter<"Termin"> | number
+    doktorId?: IntFilter<"Termin"> | number
+    pacijentId?: IntNullableFilter<"Termin"> | number | null
+    datum?: StringFilter<"Termin"> | string
+    razlog?: StringNullableFilter<"Termin"> | string | null
+    createdAt?: DateTimeFilter<"Termin"> | Date | string
+  }
+
+  export type TerminOrderByWithRelationInput = {
+    id?: SortOrder
+    doktorId?: SortOrder
+    pacijentId?: SortOrderInput | SortOrder
+    datum?: SortOrder
+    razlog?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TerminWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: TerminWhereInput | TerminWhereInput[]
+    OR?: TerminWhereInput[]
+    NOT?: TerminWhereInput | TerminWhereInput[]
+    doktorId?: IntFilter<"Termin"> | number
+    pacijentId?: IntNullableFilter<"Termin"> | number | null
+    datum?: StringFilter<"Termin"> | string
+    razlog?: StringNullableFilter<"Termin"> | string | null
+    createdAt?: DateTimeFilter<"Termin"> | Date | string
+  }, "id">
+
+  export type TerminOrderByWithAggregationInput = {
+    id?: SortOrder
+    doktorId?: SortOrder
+    pacijentId?: SortOrderInput | SortOrder
+    datum?: SortOrder
+    razlog?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: TerminCountOrderByAggregateInput
+    _avg?: TerminAvgOrderByAggregateInput
+    _max?: TerminMaxOrderByAggregateInput
+    _min?: TerminMinOrderByAggregateInput
+    _sum?: TerminSumOrderByAggregateInput
+  }
+
+  export type TerminScalarWhereWithAggregatesInput = {
+    AND?: TerminScalarWhereWithAggregatesInput | TerminScalarWhereWithAggregatesInput[]
+    OR?: TerminScalarWhereWithAggregatesInput[]
+    NOT?: TerminScalarWhereWithAggregatesInput | TerminScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Termin"> | number
+    doktorId?: IntWithAggregatesFilter<"Termin"> | number
+    pacijentId?: IntNullableWithAggregatesFilter<"Termin"> | number | null
+    datum?: StringWithAggregatesFilter<"Termin"> | string
+    razlog?: StringNullableWithAggregatesFilter<"Termin"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Termin"> | Date | string
+  }
+
   export type SessionCreateInput = {
     id?: string
     tokenId: string
     cookieId: string
     firstSeen?: Date | string
     lastSeen?: Date | string
+    lastAnalyzedAt?: Date | string | null
     sourceIp: string
     userAgent: string
     events?: EventCreateNestedManyWithoutSessionInput
@@ -6275,6 +9908,7 @@ export namespace Prisma {
     cookieId: string
     firstSeen?: Date | string
     lastSeen?: Date | string
+    lastAnalyzedAt?: Date | string | null
     sourceIp: string
     userAgent: string
     events?: EventUncheckedCreateNestedManyWithoutSessionInput
@@ -6286,6 +9920,7 @@ export namespace Prisma {
     cookieId?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
     events?: EventUpdateManyWithoutSessionNestedInput
@@ -6297,6 +9932,7 @@ export namespace Prisma {
     cookieId?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
     events?: EventUncheckedUpdateManyWithoutSessionNestedInput
@@ -6308,6 +9944,7 @@ export namespace Prisma {
     cookieId: string
     firstSeen?: Date | string
     lastSeen?: Date | string
+    lastAnalyzedAt?: Date | string | null
     sourceIp: string
     userAgent: string
   }
@@ -6318,6 +9955,7 @@ export namespace Prisma {
     cookieId?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
   }
@@ -6328,6 +9966,7 @@ export namespace Prisma {
     cookieId?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
   }
@@ -6628,6 +10267,172 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DoktorCreateInput = {
+    ime: string
+    prezime: string
+    odjel: string
+    ukupno: number
+    brojZakazanih: number
+    brojSlobodnih: number
+  }
+
+  export type DoktorUncheckedCreateInput = {
+    id?: number
+    ime: string
+    prezime: string
+    odjel: string
+    ukupno: number
+    brojZakazanih: number
+    brojSlobodnih: number
+  }
+
+  export type DoktorUpdateInput = {
+    ime?: StringFieldUpdateOperationsInput | string
+    prezime?: StringFieldUpdateOperationsInput | string
+    odjel?: StringFieldUpdateOperationsInput | string
+    ukupno?: IntFieldUpdateOperationsInput | number
+    brojZakazanih?: IntFieldUpdateOperationsInput | number
+    brojSlobodnih?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DoktorUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ime?: StringFieldUpdateOperationsInput | string
+    prezime?: StringFieldUpdateOperationsInput | string
+    odjel?: StringFieldUpdateOperationsInput | string
+    ukupno?: IntFieldUpdateOperationsInput | number
+    brojZakazanih?: IntFieldUpdateOperationsInput | number
+    brojSlobodnih?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DoktorCreateManyInput = {
+    id?: number
+    ime: string
+    prezime: string
+    odjel: string
+    ukupno: number
+    brojZakazanih: number
+    brojSlobodnih: number
+  }
+
+  export type DoktorUpdateManyMutationInput = {
+    ime?: StringFieldUpdateOperationsInput | string
+    prezime?: StringFieldUpdateOperationsInput | string
+    odjel?: StringFieldUpdateOperationsInput | string
+    ukupno?: IntFieldUpdateOperationsInput | number
+    brojZakazanih?: IntFieldUpdateOperationsInput | number
+    brojSlobodnih?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DoktorUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ime?: StringFieldUpdateOperationsInput | string
+    prezime?: StringFieldUpdateOperationsInput | string
+    odjel?: StringFieldUpdateOperationsInput | string
+    ukupno?: IntFieldUpdateOperationsInput | number
+    brojZakazanih?: IntFieldUpdateOperationsInput | number
+    brojSlobodnih?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UlogaCreateInput = {
+    uloga: string
+    broj: number
+  }
+
+  export type UlogaUncheckedCreateInput = {
+    id?: number
+    uloga: string
+    broj: number
+  }
+
+  export type UlogaUpdateInput = {
+    uloga?: StringFieldUpdateOperationsInput | string
+    broj?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UlogaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    uloga?: StringFieldUpdateOperationsInput | string
+    broj?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UlogaCreateManyInput = {
+    id?: number
+    uloga: string
+    broj: number
+  }
+
+  export type UlogaUpdateManyMutationInput = {
+    uloga?: StringFieldUpdateOperationsInput | string
+    broj?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type UlogaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    uloga?: StringFieldUpdateOperationsInput | string
+    broj?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TerminCreateInput = {
+    doktorId: number
+    pacijentId?: number | null
+    datum: string
+    razlog?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TerminUncheckedCreateInput = {
+    id?: number
+    doktorId: number
+    pacijentId?: number | null
+    datum: string
+    razlog?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TerminUpdateInput = {
+    doktorId?: IntFieldUpdateOperationsInput | number
+    pacijentId?: NullableIntFieldUpdateOperationsInput | number | null
+    datum?: StringFieldUpdateOperationsInput | string
+    razlog?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TerminUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    doktorId?: IntFieldUpdateOperationsInput | number
+    pacijentId?: NullableIntFieldUpdateOperationsInput | number | null
+    datum?: StringFieldUpdateOperationsInput | string
+    razlog?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TerminCreateManyInput = {
+    id?: number
+    doktorId: number
+    pacijentId?: number | null
+    datum: string
+    razlog?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TerminUpdateManyMutationInput = {
+    doktorId?: IntFieldUpdateOperationsInput | number
+    pacijentId?: NullableIntFieldUpdateOperationsInput | number | null
+    datum?: StringFieldUpdateOperationsInput | string
+    razlog?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TerminUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    doktorId?: IntFieldUpdateOperationsInput | number
+    pacijentId?: NullableIntFieldUpdateOperationsInput | number | null
+    datum?: StringFieldUpdateOperationsInput | string
+    razlog?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6654,10 +10459,26 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type EventListRelationFilter = {
     every?: EventWhereInput
     some?: EventWhereInput
     none?: EventWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type EventOrderByRelationAggregateInput = {
@@ -6670,6 +10491,7 @@ export namespace Prisma {
     cookieId?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
+    lastAnalyzedAt?: SortOrder
     sourceIp?: SortOrder
     userAgent?: SortOrder
   }
@@ -6680,6 +10502,7 @@ export namespace Prisma {
     cookieId?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
+    lastAnalyzedAt?: SortOrder
     sourceIp?: SortOrder
     userAgent?: SortOrder
   }
@@ -6690,6 +10513,7 @@ export namespace Prisma {
     cookieId?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
+    lastAnalyzedAt?: SortOrder
     sourceIp?: SortOrder
     userAgent?: SortOrder
   }
@@ -6724,6 +10548,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -6783,11 +10621,6 @@ export namespace Prisma {
   export type ClassificationNullableScalarRelationFilter = {
     is?: ClassificationWhereInput | null
     isNot?: ClassificationWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type EventCountOrderByAggregateInput = {
@@ -7018,6 +10851,144 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type DoktorCountOrderByAggregateInput = {
+    id?: SortOrder
+    ime?: SortOrder
+    prezime?: SortOrder
+    odjel?: SortOrder
+    ukupno?: SortOrder
+    brojZakazanih?: SortOrder
+    brojSlobodnih?: SortOrder
+  }
+
+  export type DoktorAvgOrderByAggregateInput = {
+    id?: SortOrder
+    ukupno?: SortOrder
+    brojZakazanih?: SortOrder
+    brojSlobodnih?: SortOrder
+  }
+
+  export type DoktorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ime?: SortOrder
+    prezime?: SortOrder
+    odjel?: SortOrder
+    ukupno?: SortOrder
+    brojZakazanih?: SortOrder
+    brojSlobodnih?: SortOrder
+  }
+
+  export type DoktorMinOrderByAggregateInput = {
+    id?: SortOrder
+    ime?: SortOrder
+    prezime?: SortOrder
+    odjel?: SortOrder
+    ukupno?: SortOrder
+    brojZakazanih?: SortOrder
+    brojSlobodnih?: SortOrder
+  }
+
+  export type DoktorSumOrderByAggregateInput = {
+    id?: SortOrder
+    ukupno?: SortOrder
+    brojZakazanih?: SortOrder
+    brojSlobodnih?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type UlogaCountOrderByAggregateInput = {
+    id?: SortOrder
+    uloga?: SortOrder
+    broj?: SortOrder
+  }
+
+  export type UlogaAvgOrderByAggregateInput = {
+    id?: SortOrder
+    broj?: SortOrder
+  }
+
+  export type UlogaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    uloga?: SortOrder
+    broj?: SortOrder
+  }
+
+  export type UlogaMinOrderByAggregateInput = {
+    id?: SortOrder
+    uloga?: SortOrder
+    broj?: SortOrder
+  }
+
+  export type UlogaSumOrderByAggregateInput = {
+    id?: SortOrder
+    broj?: SortOrder
+  }
+
+  export type TerminCountOrderByAggregateInput = {
+    id?: SortOrder
+    doktorId?: SortOrder
+    pacijentId?: SortOrder
+    datum?: SortOrder
+    razlog?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TerminAvgOrderByAggregateInput = {
+    id?: SortOrder
+    doktorId?: SortOrder
+    pacijentId?: SortOrder
+  }
+
+  export type TerminMaxOrderByAggregateInput = {
+    id?: SortOrder
+    doktorId?: SortOrder
+    pacijentId?: SortOrder
+    datum?: SortOrder
+    razlog?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TerminMinOrderByAggregateInput = {
+    id?: SortOrder
+    doktorId?: SortOrder
+    pacijentId?: SortOrder
+    datum?: SortOrder
+    razlog?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TerminSumOrderByAggregateInput = {
+    id?: SortOrder
+    doktorId?: SortOrder
+    pacijentId?: SortOrder
+  }
+
   export type EventCreateNestedManyWithoutSessionInput = {
     create?: XOR<EventCreateWithoutSessionInput, EventUncheckedCreateWithoutSessionInput> | EventCreateWithoutSessionInput[] | EventUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: EventCreateOrConnectWithoutSessionInput | EventCreateOrConnectWithoutSessionInput[]
@@ -7038,6 +11009,10 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type EventUpdateManyWithoutSessionNestedInput = {
@@ -7148,6 +11123,14 @@ export namespace Prisma {
     update?: XOR<XOR<EventUpdateToOneWithWhereWithoutClassificationInput, EventUpdateWithoutClassificationInput>, EventUncheckedUpdateWithoutClassificationInput>
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7171,6 +11154,17 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7215,6 +11209,31 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -7227,17 +11246,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7334,6 +11342,22 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type EventCreateWithoutSessionInput = {
     id?: string
     timestamp?: Date | string
@@ -7423,6 +11447,7 @@ export namespace Prisma {
     cookieId: string
     firstSeen?: Date | string
     lastSeen?: Date | string
+    lastAnalyzedAt?: Date | string | null
     sourceIp: string
     userAgent: string
   }
@@ -7433,6 +11458,7 @@ export namespace Prisma {
     cookieId: string
     firstSeen?: Date | string
     lastSeen?: Date | string
+    lastAnalyzedAt?: Date | string | null
     sourceIp: string
     userAgent: string
   }
@@ -7484,6 +11510,7 @@ export namespace Prisma {
     cookieId?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
   }
@@ -7494,6 +11521,7 @@ export namespace Prisma {
     cookieId?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
   }

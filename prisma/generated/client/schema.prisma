@@ -8,14 +8,15 @@ datasource db {
 }
 
 model Session {
-  id        String   @id @default(uuid())
-  tokenId   String
-  cookieId  String   @unique // the tracking cookie — this is the upsert key
-  firstSeen DateTime @default(now())
-  lastSeen  DateTime @updatedAt
-  sourceIp  String
-  userAgent String
-  events    Event[]
+  id             String    @id @default(uuid())
+  tokenId        String
+  cookieId       String    @unique // the tracking cookie — this is the upsert key
+  firstSeen      DateTime  @default(now())
+  lastSeen       DateTime  @updatedAt
+  lastAnalyzedAt DateTime?
+  sourceIp       String
+  userAgent      String
+  events         Event[]
 
   @@index([tokenId]) // find all sessions from one honeytoken
   @@index([sourceIp]) // find all sessions from one IP
@@ -80,4 +81,35 @@ model Patient {
   address     String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+// ============================================================================
+//  DECOY DATA MODELS  
+model Doktor {
+  id            Int    @id @default(autoincrement())
+  ime           String // first name  (realistic Bosnian, but invented)
+  prezime       String // last name
+  odjel         String // department, e.g. "Kardiologija"
+  ukupno        Int // total appointment slots
+  brojZakazanih Int // booked
+  brojSlobodnih Int // free   (ukupno = brojZakazanih + brojSlobodnih)
+}
+
+model Uloga {
+  id    Int    @id @default(autoincrement())
+  uloga String @unique // ADMINISTRATOR | DOKTOR | PACIJENT | MEDICINSKO_OSOBLJE | VLASNIK
+  broj  Int
+}
+
+// Optional: a place to record what attackers POST to the fake booking route.
+// Keeping it as its own table (not your Event log) means the decoy "works"
+// like a real booking endpoint would, while eventLogger still logs the HTTP
+// event independently.
+model Termin {
+  id         Int      @id @default(autoincrement())
+  doktorId   Int
+  pacijentId Int?
+  datum      String // ISO date the attacker requested
+  razlog     String? // free-text reason from the request body
+  createdAt  DateTime @default(now())
 }

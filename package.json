@@ -5,7 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:honeypot": "npx tsx src/server.ts",
+    "dev:dashboard-api": "npx tsx src/dashboard/dashboardServer.ts",
+    "dev:dashboard-ui": "vite --config vite.dashboard.config.ts",
+    "build:honeypot": "vite build",
+    "build:dashboard": "vite build --config vite.dashboard.config.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,16 +21,24 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "lucide-react": "^1.35.0",
     "openai": "^7.4.0",
-    "pg": "^8.23.0"
+    "pg": "^8.23.0",
+    "react-router-dom": "^7.18.3"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
     "@types/node": "^26.2.0",
     "@types/pg": "^8.21.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.1",
     "prisma": "^7.9.1",
+    "tailwindcss": "^4.3.3",
     "tsx": "^4.23.12",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2"
   }
 }
