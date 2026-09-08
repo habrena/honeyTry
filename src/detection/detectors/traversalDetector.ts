@@ -39,13 +39,8 @@ const TRAVERSAL_PATTERNS: { regex: RegExp; signal: string; weight: number }[] = 
   { regex: /id_rsa/i,                             signal: 'SSH private key access attempt',     weight: 0.5 },
 ];
 
-export function detectTraversal(
-  endpoint: string,
-  query: Record<string, any> | null,
-  body: Record<string, any> | null
-): DetectionResult | null {
+export function detectTraversal(textValues: string[]): DetectionResult | null {
 
-  const textValues = extractTextValues(endpoint, query, body);
   if (textValues.length === 0) return null;
 
   const matchedSignals: string[] = [];
@@ -69,28 +64,4 @@ export function detectTraversal(
     confidence: parseFloat(confidence.toFixed(2)),
     signals: matchedSignals,
   };
-}
-
-function extractTextValues(
-  endpoint: string,
-  query: Record<string, any> | null,
-  body: Record<string, any> | null
-): string[] {
-  const values: string[] = [decodeURIComponent(endpoint)];
-
-  function extract(obj: any) {
-    if (typeof obj === 'string') {
-      values.push(obj);
-      try { values.push(decodeURIComponent(obj)); } catch { /* invalid encoding */ }
-    } else if (Array.isArray(obj)) {
-      obj.forEach(extract);
-    } else if (obj && typeof obj === 'object') {
-      Object.values(obj).forEach(extract);
-    }
-  }
-
-  if (query) extract(query);
-  if (body) extract(body);
-
-  return values;
 }

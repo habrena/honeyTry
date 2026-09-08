@@ -1,4 +1,5 @@
 import type { DetectionResult } from '../DetectionResult';
+import { safeDecode } from './extractValues';
 
 // Known scanner/tool user agent signatures
 const SCANNER_USER_AGENTS: { pattern: RegExp; tool: string }[] = [
@@ -85,7 +86,7 @@ export function detectScanner(
   }
 
   // Check if the endpoint is a known scanner probe target
-  const decodedEndpoint = decodeURIComponent(endpoint);
+  const decodedEndpoint = safeDecode(endpoint);
   for (const probe of SCANNER_PROBE_PATHS) {
     if (probe.pattern.test(decodedEndpoint)) {
       matchedSignals.push(probe.signal);

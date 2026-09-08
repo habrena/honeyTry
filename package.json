@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
     "dev:honeypot": "npx tsx src/server.ts",
     "dev:dashboard-api": "npx tsx src/dashboard/dashboardServer.ts",
     "dev:dashboard-ui": "vite --config vite.dashboard.config.ts",
@@ -35,10 +37,12 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@vitejs/plugin-react": "^6.1.1",
+    "node-mocks-http": "^1.18.1",
     "prisma": "^7.9.1",
     "tailwindcss": "^4.3.3",
-    "tsx": "^4.23.12",
+    "tsx": "^4.23.13",
     "typescript": "^7.0.2",
-    "vite": "^8.2.2"
+    "vite": "^8.2.2",
+    "vitest": "^5.0.0"
   }
 }

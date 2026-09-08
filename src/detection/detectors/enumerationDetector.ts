@@ -1,4 +1,5 @@
 import type { DetectionResult } from '../DetectionResult';
+import { safeDecode } from './extractValues';
 
 // Patterns that suggest the attacker is trying to enumerate or extract data systematically
 const ENUMERATION_PATTERNS: { regex: RegExp; signal: string; weight: number }[] = [
@@ -37,7 +38,7 @@ export function detectEnumeration(
     ? `${endpoint}?${new URLSearchParams(query as Record<string, string>).toString()}`
     : endpoint;
 
-  const decodedUrl = decodeURIComponent(fullUrl);
+  const decodedUrl = safeDecode(fullUrl);
 
   // Run regex patterns against the full URL
   for (const pattern of ENUMERATION_PATTERNS) {

@@ -1,4 +1,3 @@
-// analysisWorker.ts
 import { analysisEmitter } from './analysisEmitter';
 import { shouldAnalyzeSession } from './triggerEvaluator';
 import { classifySessionBatch } from '../classification/classifySessionBatch';
@@ -17,7 +16,10 @@ analysisEmitter.on('event:logged', async ({ eventId, sessionId, detections }) =>
   console.log(`[Worker] Received event ${eventId} for session ${sessionId}`);
 
   const trigger = await shouldAnalyzeSession(sessionId, detections);
-  if (!trigger.shouldAnalyze) return;
+  if (!trigger.shouldAnalyze){
+    console.log(`[Worker] No reason for LLM analysis`);
+    return;
+  }
 
   console.log(`[Worker] Trigger decision: ${trigger.reason}`);
 
@@ -28,6 +30,8 @@ analysisEmitter.on('event:logged', async ({ eventId, sessionId, detections }) =>
       const result = await classifyEvent(eventId);
       if (result) {
         console.log(`[Worker] LLM classification: ${result.classification} (${result.confidence})`);
+        console.log(`[Worker] LLM explanation: ${result.explanation}`);
+        
       }
     } catch (err) {
       console.error(`[Worker] Single-event analysis failed:`, err);

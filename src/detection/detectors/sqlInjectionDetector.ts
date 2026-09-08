@@ -45,18 +45,8 @@ const SQL_PATTERNS: { regex: RegExp; signal: string; weight: number }[] = [
   { regex: /\bUPDATE\s+\w+\s+SET\b/i,            signal: 'UPDATE SET attempt',                  weight: 0.35 },
 ];
 
-/**
- * Scans all text content in a request for SQL injection patterns.
- * Returns null if nothing suspicious is found.
- */
-export function detectSqlInjection(
-  endpoint: string,
-  query: Record<string, any> | null,
-  body: Record<string, any> | null
-): DetectionResult | null {
+export function detectSqlInjection(textValues: string[]): DetectionResult | null {
 
-  // Collect all text values that an attacker could control
-  const textValues = extractTextValues(endpoint, query, body);
   if (textValues.length === 0) return null;
 
   const matchedSignals: string[] = [];
@@ -81,33 +71,4 @@ export function detectSqlInjection(
     confidence: parseFloat(confidence.toFixed(2)),
     signals: matchedSignals,
   };
-}
-
-/**
- * Extracts all string values from the endpoint, query params, and body.
- * Handles nested objects recursively.
- */
-function extractTextValues(
-  endpoint: string,
-  query: Record<string, any> | null,
-  body: Record<string, any> | null
-): string[] {
-  const values: string[] = [decodeURIComponent(endpoint)];
-
-  function extract(obj: any) {
-    if (typeof obj === 'string') {
-      values.push(obj);
-      // Also check the decoded version
-      try { values.push(decodeURIComponent(obj)); } catch { /* invalid encoding */ }
-    } else if (Array.isArray(obj)) {
-      obj.forEach(extract);
-    } else if (obj && typeof obj === 'object') {
-      Object.values(obj).forEach(extract);
-    }
-  }
-
-  if (query) extract(query);
-  if (body) extract(body);
-
-  return values;
 }

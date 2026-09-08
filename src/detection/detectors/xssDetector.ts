@@ -39,13 +39,7 @@ const XSS_PATTERNS: { regex: RegExp; signal: string; weight: number }[] = [
   { regex: /\\u00[0-9a-f]{2}/i,                   signal: 'Unicode escape evasion',              weight: 0.2 },
 ];
 
-export function detectXss(
-  endpoint: string,
-  query: Record<string, any> | null,
-  body: Record<string, any> | null
-): DetectionResult | null {
-
-  const textValues = extractTextValues(endpoint, query, body);
+export function detectXss(textValues: string[]): DetectionResult | null {
   if (textValues.length === 0) return null;
 
   const matchedSignals: string[] = [];
@@ -69,28 +63,4 @@ export function detectXss(
     confidence: parseFloat(confidence.toFixed(2)),
     signals: matchedSignals,
   };
-}
-
-function extractTextValues(
-  endpoint: string,
-  query: Record<string, any> | null,
-  body: Record<string, any> | null
-): string[] {
-  const values: string[] = [decodeURIComponent(endpoint)];
-
-  function extract(obj: any) {
-    if (typeof obj === 'string') {
-      values.push(obj);
-      try { values.push(decodeURIComponent(obj)); } catch { /* invalid encoding */ }
-    } else if (Array.isArray(obj)) {
-      obj.forEach(extract);
-    } else if (obj && typeof obj === 'object') {
-      Object.values(obj).forEach(extract);
-    }
-  }
-
-  if (query) extract(query);
-  if (body) extract(body);
-
-  return values;
 }

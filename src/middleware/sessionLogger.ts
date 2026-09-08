@@ -1,6 +1,7 @@
 import express, { Request, NextFunction, Response } from 'express';
 import { randomUUID } from 'crypto';
 import {db} from '../database/db'
+import { stripNul } from './stripNul';
 
 
 const COOKIE_NAME = 'appt_sid'; // TIP: nazvati drugacije, ovisi od lazne namjere cookie
@@ -9,11 +10,11 @@ const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000; // 7 days
 // Session Logging Middleware
 export async function sessionLogger(req: Request, res: Response, next: NextFunction) {
   //honey token - trenutno je samo default 
-  //ovo istraziti kasnije
-  const tokenId = (req.query.ref as string) ||           // URL: /portal?ref=HT-000001
-                    (req.headers['x-token-id'] as string) ||  //token na bazi headera
-                    'HT-UKNOWN'; //trenutno je za svakoga, medjutim inace ce biti za napadace koji su usli bez tokena tjst samo sa skeniranjem
-
+  const rawToken = (typeof req.query.ref === 'string' && req.query.ref) ||
+                 (typeof req.headers['x-token-id'] === 'string' && req.headers['x-token-id']) ||
+                 'HT-UKNOWN';
+  const tokenId = stripNul(String(rawToken)).slice(0, 256);
+  
   let cookieId = req.cookies?.[COOKIE_NAME];
   if (!cookieId) {
     cookieId = randomUUID();
