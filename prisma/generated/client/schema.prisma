@@ -10,7 +10,9 @@ datasource db {
 model Session {
   id             String    @id @default(uuid())
   tokenId        String
+  sessionKey     String    @unique //po ovome se radi upsert 
   cookieId       String    @unique // the tracking cookie — this is the upsert key
+  identMethod    String    @default("cookie")
   firstSeen      DateTime  @default(now())
   lastSeen       DateTime  @updatedAt
   lastAnalyzedAt DateTime?
@@ -43,7 +45,11 @@ model Event {
   referer     String?
   origin      String?
 
-  // Flexible field for frontend behavioral events (clicks, form interactions)
+  //da li je event analiziran
+  analyzedAt   DateTime?
+  analyzeCount Int       @default(0)
+
+  // Flexible field za rezultat detektora
   metadata Json?
 
   classification Classification? //one to one jer cu koristiti samo jedan llm model

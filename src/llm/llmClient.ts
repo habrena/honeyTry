@@ -1,5 +1,7 @@
 import { db } from '../database/db';
 import OpenAI from 'openai';
+import type { Prisma } from '../../prisma/generated/client';
+
 
 export const LLM_MODEL = 'deepseek-v4-pro';
 
@@ -74,6 +76,8 @@ export async function callLLM<T>(systemPrompt: string, payload: object): Promise
  * Writes a single classification row to the database.
  * Used by both single-event and batch classifiers.
  */
+type DbClient = typeof db | Prisma.TransactionClient;
+
 export async function writeClassification(
   eventId: string,
   classification: {
@@ -81,16 +85,17 @@ export async function writeClassification(
     confidence: number;
     severity: string;
     explanation: string;
-  }
+  },
+  client: DbClient = db,
 ) {
-  return db.classification.create({
+  return client.classification.create({
     data: {
       eventId,
-      createdAt: new Date(),
       detector: LLM_MODEL,
+      //createdAt: new Date(), nije potrebno jer Prisma radi to pri kreaciji jednog zapisa Klasifikacije
       category: classification.classification,
       confidence: classification.confidence,
-      severity: classification.severity, //ovo je string
+      severity: classification.severity,
       explanation: classification.explanation,
     },
   });

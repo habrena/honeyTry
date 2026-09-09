@@ -123,7 +123,9 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   tokenId: 'tokenId',
+  sessionKey: 'sessionKey',
   cookieId: 'cookieId',
+  identMethod: 'identMethod',
   firstSeen: 'firstSeen',
   lastSeen: 'lastSeen',
   lastAnalyzedAt: 'lastAnalyzedAt',
@@ -146,6 +148,8 @@ exports.Prisma.EventScalarFieldEnum = {
   contentType: 'contentType',
   referer: 'referer',
   origin: 'origin',
+  analyzedAt: 'analyzedAt',
+  analyzeCount: 'analyzeCount',
   metadata: 'metadata'
 };
 

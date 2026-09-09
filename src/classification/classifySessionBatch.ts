@@ -3,7 +3,7 @@ import { callLLM, writeClassification, LLM_MODEL } from '../llm/llmClient';
 import type { LLMClassification } from '../classification/LLMClassification';
 
 
-const BATCH_SIZE = 10;             // max events per LLM call
+const ANALYSIS_BATCH_SIZE= 10;             //koliko eventa ide u jedan poziv
 const COOLDOWN_MS = 30 * 1000;    // don't re-analyze within 30 seconds
 
 // ─── Types ─────────────────────────────────────────────────────────────
@@ -88,7 +88,7 @@ export async function classifySessionBatch(sessionId: string): Promise<BatchResu
     return null;
   }
 
-  /*
+  
   //ovo ukloniti ako bude potrebe
   if (session.lastAnalyzedAt) {
     const elapsed = Date.now() - session.lastAnalyzedAt.getTime();
@@ -97,7 +97,6 @@ export async function classifySessionBatch(sessionId: string): Promise<BatchResu
       return null;
     }
   }
-    */
 
   // ── Job 1: gather data (specific to batch) ─────────────────────────
   // Pull the oldest unclassified events, capped at BATCH_SIZE.
@@ -105,10 +104,10 @@ export async function classifySessionBatch(sessionId: string): Promise<BatchResu
   const unclassifiedEvents = await db.event.findMany({
     where: {
       sessionId,
-      classification: null,
+      analyzedAt: null,
     },
     orderBy: { timestamp: 'asc' },
-    take: BATCH_SIZE,
+    take: ANALYSIS_BATCH_SIZE, 
     select: {
       id: true,
       method: true,
@@ -162,50 +161,35 @@ export async function classifySessionBatch(sessionId: string): Promise<BatchResu
 
   // ── Job 3: write to database (shared) ─────────────────────────────
   // Filter out any eventIndex values the LLM hallucinated (out of range)
-  //u slucaju da LLM vrati vise od dozvoljenog
+  //u slucaju da LLM vrati vise od dozvoljenog ili pogresan broj indeksa
   //moguce je ovo i ukloniti kako bi se ustedjelo na vremenu
-  const validClassifications = response.events.filter(
-    ec => ec.eventIndex >= 0 && ec.eventIndex < unclassifiedEvents.length
-  );
-
-  // Build all writes + cooldown update, execute as a single transaction
-  //ovo napisati kako funkcionise
- /* const writes = validClassifications.map(ec =>
-    writeClassification(unclassifiedEvents[ec.eventIndex].id, ec)
-  );
-
-  const cooldownUpdate = db.session.update({
-    where: { id: sessionId },
-    data: { lastAnalyzedAt: new Date() },
+  const seen = new Set<number>();
+  const validClassifications = response.events.filter(ec => {
+    if (!Number.isInteger(ec.eventIndex)) return false;
+    if (ec.eventIndex < 0 || ec.eventIndex >= unclassifiedEvents.length) return false;
+    if (seen.has(ec.eventIndex)) return false;
+    seen.add(ec.eventIndex);
+    return true;
   });
 
-  */
-  //najbitniji korak
-  //objasniti ovaj dio
-  //await db.$transaction([...writes, cooldownUpdate]);
-
-  //moze se staviti i upsert da ne bi imali vise klasifikacija
-  //za svaki event koji se registruje
-  //nije pozeljno ali je jedan od nacina za debuggiranje
+  //jedna transakcija u slucaju pada upisa u tabelu Klasifikacija
+  //
   await db.$transaction(async (tx) => {
-  for (const ec of validClassifications) {
-    await tx.classification.create({
-      data: {
-        eventId: unclassifiedEvents[ec.eventIndex].id,
-        detector: LLM_MODEL,
-        category: ec.classification,
-        confidence: ec.confidence,
-        severity: ec.severity,
-        explanation: ec.explanation,
-      },
-    });
-  }
+    for (const ec of validClassifications) {
+      await writeClassification(unclassifiedEvents[ec.eventIndex].id, ec, tx);
+    }
 
-  await tx.session.update({
-    where: { id: sessionId },
-    data: { lastAnalyzedAt: new Date() },
+    // svi poslani eventi se označavaju kao pokušani
+    await tx.event.updateMany({
+      where: { id: { in: unclassifiedEvents.map(e => e.id) } },
+      data: { analyzedAt: new Date(), analyzeCount: { increment: 1 } },
+    });
+
+    await tx.session.update({
+      where: { id: sessionId },
+      data: { lastAnalyzedAt: new Date() },
+    });
   });
-});
 
   // ── Log results ───────────────────────────────────────────────────
   console.log(`[Batch] Classified ${validClassifications.length}/${unclassifiedEvents.length} events`);

@@ -1483,7 +1483,9 @@ export namespace Prisma {
   export type SessionMinAggregateOutputType = {
     id: string | null
     tokenId: string | null
+    sessionKey: string | null
     cookieId: string | null
+    identMethod: string | null
     firstSeen: Date | null
     lastSeen: Date | null
     lastAnalyzedAt: Date | null
@@ -1494,7 +1496,9 @@ export namespace Prisma {
   export type SessionMaxAggregateOutputType = {
     id: string | null
     tokenId: string | null
+    sessionKey: string | null
     cookieId: string | null
+    identMethod: string | null
     firstSeen: Date | null
     lastSeen: Date | null
     lastAnalyzedAt: Date | null
@@ -1505,7 +1509,9 @@ export namespace Prisma {
   export type SessionCountAggregateOutputType = {
     id: number
     tokenId: number
+    sessionKey: number
     cookieId: number
+    identMethod: number
     firstSeen: number
     lastSeen: number
     lastAnalyzedAt: number
@@ -1518,7 +1524,9 @@ export namespace Prisma {
   export type SessionMinAggregateInputType = {
     id?: true
     tokenId?: true
+    sessionKey?: true
     cookieId?: true
+    identMethod?: true
     firstSeen?: true
     lastSeen?: true
     lastAnalyzedAt?: true
@@ -1529,7 +1537,9 @@ export namespace Prisma {
   export type SessionMaxAggregateInputType = {
     id?: true
     tokenId?: true
+    sessionKey?: true
     cookieId?: true
+    identMethod?: true
     firstSeen?: true
     lastSeen?: true
     lastAnalyzedAt?: true
@@ -1540,7 +1550,9 @@ export namespace Prisma {
   export type SessionCountAggregateInputType = {
     id?: true
     tokenId?: true
+    sessionKey?: true
     cookieId?: true
+    identMethod?: true
     firstSeen?: true
     lastSeen?: true
     lastAnalyzedAt?: true
@@ -1624,7 +1636,9 @@ export namespace Prisma {
   export type SessionGroupByOutputType = {
     id: string
     tokenId: string
+    sessionKey: string
     cookieId: string
+    identMethod: string
     firstSeen: Date
     lastSeen: Date
     lastAnalyzedAt: Date | null
@@ -1652,7 +1666,9 @@ export namespace Prisma {
   export type SessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tokenId?: boolean
+    sessionKey?: boolean
     cookieId?: boolean
+    identMethod?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
     lastAnalyzedAt?: boolean
@@ -1665,7 +1681,9 @@ export namespace Prisma {
   export type SessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tokenId?: boolean
+    sessionKey?: boolean
     cookieId?: boolean
+    identMethod?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
     lastAnalyzedAt?: boolean
@@ -1676,7 +1694,9 @@ export namespace Prisma {
   export type SessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tokenId?: boolean
+    sessionKey?: boolean
     cookieId?: boolean
+    identMethod?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
     lastAnalyzedAt?: boolean
@@ -1687,7 +1707,9 @@ export namespace Prisma {
   export type SessionSelectScalar = {
     id?: boolean
     tokenId?: boolean
+    sessionKey?: boolean
     cookieId?: boolean
+    identMethod?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
     lastAnalyzedAt?: boolean
@@ -1695,7 +1717,7 @@ export namespace Prisma {
     userAgent?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tokenId" | "cookieId" | "firstSeen" | "lastSeen" | "lastAnalyzedAt" | "sourceIp" | "userAgent", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tokenId" | "sessionKey" | "cookieId" | "identMethod" | "firstSeen" | "lastSeen" | "lastAnalyzedAt" | "sourceIp" | "userAgent", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     events?: boolean | Session$eventsArgs<ExtArgs>
     _count?: boolean | SessionCountOutputTypeDefaultArgs<ExtArgs>
@@ -1711,7 +1733,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tokenId: string
+      sessionKey: string
       cookieId: string
+      identMethod: string
       firstSeen: Date
       lastSeen: Date
       lastAnalyzedAt: Date | null
@@ -2143,7 +2167,9 @@ export namespace Prisma {
   interface SessionFieldRefs {
     readonly id: FieldRef<"Session", 'String'>
     readonly tokenId: FieldRef<"Session", 'String'>
+    readonly sessionKey: FieldRef<"Session", 'String'>
     readonly cookieId: FieldRef<"Session", 'String'>
+    readonly identMethod: FieldRef<"Session", 'String'>
     readonly firstSeen: FieldRef<"Session", 'DateTime'>
     readonly lastSeen: FieldRef<"Session", 'DateTime'>
     readonly lastAnalyzedAt: FieldRef<"Session", 'DateTime'>
@@ -2599,11 +2625,13 @@ export namespace Prisma {
   export type EventAvgAggregateOutputType = {
     statusCode: number | null
     durationMs: number | null
+    analyzeCount: number | null
   }
 
   export type EventSumAggregateOutputType = {
     statusCode: number | null
     durationMs: number | null
+    analyzeCount: number | null
   }
 
   export type EventMinAggregateOutputType = {
@@ -2618,6 +2646,8 @@ export namespace Prisma {
     contentType: string | null
     referer: string | null
     origin: string | null
+    analyzedAt: Date | null
+    analyzeCount: number | null
   }
 
   export type EventMaxAggregateOutputType = {
@@ -2632,6 +2662,8 @@ export namespace Prisma {
     contentType: string | null
     referer: string | null
     origin: string | null
+    analyzedAt: Date | null
+    analyzeCount: number | null
   }
 
   export type EventCountAggregateOutputType = {
@@ -2649,6 +2681,8 @@ export namespace Prisma {
     contentType: number
     referer: number
     origin: number
+    analyzedAt: number
+    analyzeCount: number
     metadata: number
     _all: number
   }
@@ -2657,11 +2691,13 @@ export namespace Prisma {
   export type EventAvgAggregateInputType = {
     statusCode?: true
     durationMs?: true
+    analyzeCount?: true
   }
 
   export type EventSumAggregateInputType = {
     statusCode?: true
     durationMs?: true
+    analyzeCount?: true
   }
 
   export type EventMinAggregateInputType = {
@@ -2676,6 +2712,8 @@ export namespace Prisma {
     contentType?: true
     referer?: true
     origin?: true
+    analyzedAt?: true
+    analyzeCount?: true
   }
 
   export type EventMaxAggregateInputType = {
@@ -2690,6 +2728,8 @@ export namespace Prisma {
     contentType?: true
     referer?: true
     origin?: true
+    analyzedAt?: true
+    analyzeCount?: true
   }
 
   export type EventCountAggregateInputType = {
@@ -2707,6 +2747,8 @@ export namespace Prisma {
     contentType?: true
     referer?: true
     origin?: true
+    analyzedAt?: true
+    analyzeCount?: true
     metadata?: true
     _all?: true
   }
@@ -2812,6 +2854,8 @@ export namespace Prisma {
     contentType: string | null
     referer: string | null
     origin: string | null
+    analyzedAt: Date | null
+    analyzeCount: number
     metadata: JsonValue | null
     _count: EventCountAggregateOutputType | null
     _avg: EventAvgAggregateOutputType | null
@@ -2849,6 +2893,8 @@ export namespace Prisma {
     contentType?: boolean
     referer?: boolean
     origin?: boolean
+    analyzedAt?: boolean
+    analyzeCount?: boolean
     metadata?: boolean
     session?: boolean | SessionDefaultArgs<ExtArgs>
     classification?: boolean | Event$classificationArgs<ExtArgs>
@@ -2869,6 +2915,8 @@ export namespace Prisma {
     contentType?: boolean
     referer?: boolean
     origin?: boolean
+    analyzedAt?: boolean
+    analyzeCount?: boolean
     metadata?: boolean
     session?: boolean | SessionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
@@ -2888,6 +2936,8 @@ export namespace Prisma {
     contentType?: boolean
     referer?: boolean
     origin?: boolean
+    analyzedAt?: boolean
+    analyzeCount?: boolean
     metadata?: boolean
     session?: boolean | SessionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
@@ -2907,10 +2957,12 @@ export namespace Prisma {
     contentType?: boolean
     referer?: boolean
     origin?: boolean
+    analyzedAt?: boolean
+    analyzeCount?: boolean
     metadata?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "timestamp" | "eventType" | "method" | "endpoint" | "statusCode" | "durationMs" | "queryParams" | "body" | "headers" | "contentType" | "referer" | "origin" | "metadata", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "timestamp" | "eventType" | "method" | "endpoint" | "statusCode" | "durationMs" | "queryParams" | "body" | "headers" | "contentType" | "referer" | "origin" | "analyzedAt" | "analyzeCount" | "metadata", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     session?: boolean | SessionDefaultArgs<ExtArgs>
     classification?: boolean | Event$classificationArgs<ExtArgs>
@@ -2943,6 +2995,8 @@ export namespace Prisma {
       contentType: string | null
       referer: string | null
       origin: string | null
+      analyzedAt: Date | null
+      analyzeCount: number
       metadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["event"]>
     composites: {}
@@ -3383,6 +3437,8 @@ export namespace Prisma {
     readonly contentType: FieldRef<"Event", 'String'>
     readonly referer: FieldRef<"Event", 'String'>
     readonly origin: FieldRef<"Event", 'String'>
+    readonly analyzedAt: FieldRef<"Event", 'DateTime'>
+    readonly analyzeCount: FieldRef<"Event", 'Int'>
     readonly metadata: FieldRef<"Event", 'Json'>
   }
     
@@ -9179,7 +9235,9 @@ export namespace Prisma {
   export const SessionScalarFieldEnum: {
     id: 'id',
     tokenId: 'tokenId',
+    sessionKey: 'sessionKey',
     cookieId: 'cookieId',
+    identMethod: 'identMethod',
     firstSeen: 'firstSeen',
     lastSeen: 'lastSeen',
     lastAnalyzedAt: 'lastAnalyzedAt',
@@ -9205,6 +9263,8 @@ export namespace Prisma {
     contentType: 'contentType',
     referer: 'referer',
     origin: 'origin',
+    analyzedAt: 'analyzedAt',
+    analyzeCount: 'analyzeCount',
     metadata: 'metadata'
   };
 
@@ -9400,7 +9460,9 @@ export namespace Prisma {
     NOT?: SessionWhereInput | SessionWhereInput[]
     id?: StringFilter<"Session"> | string
     tokenId?: StringFilter<"Session"> | string
+    sessionKey?: StringFilter<"Session"> | string
     cookieId?: StringFilter<"Session"> | string
+    identMethod?: StringFilter<"Session"> | string
     firstSeen?: DateTimeFilter<"Session"> | Date | string
     lastSeen?: DateTimeFilter<"Session"> | Date | string
     lastAnalyzedAt?: DateTimeNullableFilter<"Session"> | Date | string | null
@@ -9412,7 +9474,9 @@ export namespace Prisma {
   export type SessionOrderByWithRelationInput = {
     id?: SortOrder
     tokenId?: SortOrder
+    sessionKey?: SortOrder
     cookieId?: SortOrder
+    identMethod?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
     lastAnalyzedAt?: SortOrderInput | SortOrder
@@ -9423,23 +9487,27 @@ export namespace Prisma {
 
   export type SessionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    sessionKey?: string
     cookieId?: string
     AND?: SessionWhereInput | SessionWhereInput[]
     OR?: SessionWhereInput[]
     NOT?: SessionWhereInput | SessionWhereInput[]
     tokenId?: StringFilter<"Session"> | string
+    identMethod?: StringFilter<"Session"> | string
     firstSeen?: DateTimeFilter<"Session"> | Date | string
     lastSeen?: DateTimeFilter<"Session"> | Date | string
     lastAnalyzedAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     sourceIp?: StringFilter<"Session"> | string
     userAgent?: StringFilter<"Session"> | string
     events?: EventListRelationFilter
-  }, "id" | "cookieId">
+  }, "id" | "sessionKey" | "cookieId">
 
   export type SessionOrderByWithAggregationInput = {
     id?: SortOrder
     tokenId?: SortOrder
+    sessionKey?: SortOrder
     cookieId?: SortOrder
+    identMethod?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
     lastAnalyzedAt?: SortOrderInput | SortOrder
@@ -9456,7 +9524,9 @@ export namespace Prisma {
     NOT?: SessionScalarWhereWithAggregatesInput | SessionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Session"> | string
     tokenId?: StringWithAggregatesFilter<"Session"> | string
+    sessionKey?: StringWithAggregatesFilter<"Session"> | string
     cookieId?: StringWithAggregatesFilter<"Session"> | string
+    identMethod?: StringWithAggregatesFilter<"Session"> | string
     firstSeen?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     lastSeen?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     lastAnalyzedAt?: DateTimeNullableWithAggregatesFilter<"Session"> | Date | string | null
@@ -9482,6 +9552,8 @@ export namespace Prisma {
     contentType?: StringNullableFilter<"Event"> | string | null
     referer?: StringNullableFilter<"Event"> | string | null
     origin?: StringNullableFilter<"Event"> | string | null
+    analyzedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
+    analyzeCount?: IntFilter<"Event"> | number
     metadata?: JsonNullableFilter<"Event">
     session?: XOR<SessionScalarRelationFilter, SessionWhereInput>
     classification?: XOR<ClassificationNullableScalarRelationFilter, ClassificationWhereInput> | null
@@ -9502,6 +9574,8 @@ export namespace Prisma {
     contentType?: SortOrderInput | SortOrder
     referer?: SortOrderInput | SortOrder
     origin?: SortOrderInput | SortOrder
+    analyzedAt?: SortOrderInput | SortOrder
+    analyzeCount?: SortOrder
     metadata?: SortOrderInput | SortOrder
     session?: SessionOrderByWithRelationInput
     classification?: ClassificationOrderByWithRelationInput
@@ -9525,6 +9599,8 @@ export namespace Prisma {
     contentType?: StringNullableFilter<"Event"> | string | null
     referer?: StringNullableFilter<"Event"> | string | null
     origin?: StringNullableFilter<"Event"> | string | null
+    analyzedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
+    analyzeCount?: IntFilter<"Event"> | number
     metadata?: JsonNullableFilter<"Event">
     session?: XOR<SessionScalarRelationFilter, SessionWhereInput>
     classification?: XOR<ClassificationNullableScalarRelationFilter, ClassificationWhereInput> | null
@@ -9545,6 +9621,8 @@ export namespace Prisma {
     contentType?: SortOrderInput | SortOrder
     referer?: SortOrderInput | SortOrder
     origin?: SortOrderInput | SortOrder
+    analyzedAt?: SortOrderInput | SortOrder
+    analyzeCount?: SortOrder
     metadata?: SortOrderInput | SortOrder
     _count?: EventCountOrderByAggregateInput
     _avg?: EventAvgOrderByAggregateInput
@@ -9571,6 +9649,8 @@ export namespace Prisma {
     contentType?: StringNullableWithAggregatesFilter<"Event"> | string | null
     referer?: StringNullableWithAggregatesFilter<"Event"> | string | null
     origin?: StringNullableWithAggregatesFilter<"Event"> | string | null
+    analyzedAt?: DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
+    analyzeCount?: IntWithAggregatesFilter<"Event"> | number
     metadata?: JsonNullableWithAggregatesFilter<"Event">
   }
 
@@ -9893,7 +9973,9 @@ export namespace Prisma {
   export type SessionCreateInput = {
     id?: string
     tokenId: string
+    sessionKey: string
     cookieId: string
+    identMethod?: string
     firstSeen?: Date | string
     lastSeen?: Date | string
     lastAnalyzedAt?: Date | string | null
@@ -9905,7 +9987,9 @@ export namespace Prisma {
   export type SessionUncheckedCreateInput = {
     id?: string
     tokenId: string
+    sessionKey: string
     cookieId: string
+    identMethod?: string
     firstSeen?: Date | string
     lastSeen?: Date | string
     lastAnalyzedAt?: Date | string | null
@@ -9917,7 +10001,9 @@ export namespace Prisma {
   export type SessionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
     cookieId?: StringFieldUpdateOperationsInput | string
+    identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9929,7 +10015,9 @@ export namespace Prisma {
   export type SessionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
     cookieId?: StringFieldUpdateOperationsInput | string
+    identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9941,7 +10029,9 @@ export namespace Prisma {
   export type SessionCreateManyInput = {
     id?: string
     tokenId: string
+    sessionKey: string
     cookieId: string
+    identMethod?: string
     firstSeen?: Date | string
     lastSeen?: Date | string
     lastAnalyzedAt?: Date | string | null
@@ -9952,7 +10042,9 @@ export namespace Prisma {
   export type SessionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
     cookieId?: StringFieldUpdateOperationsInput | string
+    identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9963,7 +10055,9 @@ export namespace Prisma {
   export type SessionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
     cookieId?: StringFieldUpdateOperationsInput | string
+    identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9985,6 +10079,8 @@ export namespace Prisma {
     contentType?: string | null
     referer?: string | null
     origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     session: SessionCreateNestedOneWithoutEventsInput
     classification?: ClassificationCreateNestedOneWithoutEventInput
@@ -10005,6 +10101,8 @@ export namespace Prisma {
     contentType?: string | null
     referer?: string | null
     origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     classification?: ClassificationUncheckedCreateNestedOneWithoutEventInput
   }
@@ -10023,6 +10121,8 @@ export namespace Prisma {
     contentType?: NullableStringFieldUpdateOperationsInput | string | null
     referer?: NullableStringFieldUpdateOperationsInput | string | null
     origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     session?: SessionUpdateOneRequiredWithoutEventsNestedInput
     classification?: ClassificationUpdateOneWithoutEventNestedInput
@@ -10043,6 +10143,8 @@ export namespace Prisma {
     contentType?: NullableStringFieldUpdateOperationsInput | string | null
     referer?: NullableStringFieldUpdateOperationsInput | string | null
     origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     classification?: ClassificationUncheckedUpdateOneWithoutEventNestedInput
   }
@@ -10062,6 +10164,8 @@ export namespace Prisma {
     contentType?: string | null
     referer?: string | null
     origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -10079,6 +10183,8 @@ export namespace Prisma {
     contentType?: NullableStringFieldUpdateOperationsInput | string | null
     referer?: NullableStringFieldUpdateOperationsInput | string | null
     origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -10097,6 +10203,8 @@ export namespace Prisma {
     contentType?: NullableStringFieldUpdateOperationsInput | string | null
     referer?: NullableStringFieldUpdateOperationsInput | string | null
     origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -10488,7 +10596,9 @@ export namespace Prisma {
   export type SessionCountOrderByAggregateInput = {
     id?: SortOrder
     tokenId?: SortOrder
+    sessionKey?: SortOrder
     cookieId?: SortOrder
+    identMethod?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
     lastAnalyzedAt?: SortOrder
@@ -10499,7 +10609,9 @@ export namespace Prisma {
   export type SessionMaxOrderByAggregateInput = {
     id?: SortOrder
     tokenId?: SortOrder
+    sessionKey?: SortOrder
     cookieId?: SortOrder
+    identMethod?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
     lastAnalyzedAt?: SortOrder
@@ -10510,7 +10622,9 @@ export namespace Prisma {
   export type SessionMinOrderByAggregateInput = {
     id?: SortOrder
     tokenId?: SortOrder
+    sessionKey?: SortOrder
     cookieId?: SortOrder
+    identMethod?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
     lastAnalyzedAt?: SortOrder
@@ -10613,6 +10727,17 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type SessionScalarRelationFilter = {
     is?: SessionWhereInput
     isNot?: SessionWhereInput
@@ -10638,12 +10763,15 @@ export namespace Prisma {
     contentType?: SortOrder
     referer?: SortOrder
     origin?: SortOrder
+    analyzedAt?: SortOrder
+    analyzeCount?: SortOrder
     metadata?: SortOrder
   }
 
   export type EventAvgOrderByAggregateInput = {
     statusCode?: SortOrder
     durationMs?: SortOrder
+    analyzeCount?: SortOrder
   }
 
   export type EventMaxOrderByAggregateInput = {
@@ -10658,6 +10786,8 @@ export namespace Prisma {
     contentType?: SortOrder
     referer?: SortOrder
     origin?: SortOrder
+    analyzedAt?: SortOrder
+    analyzeCount?: SortOrder
   }
 
   export type EventMinOrderByAggregateInput = {
@@ -10672,11 +10802,14 @@ export namespace Prisma {
     contentType?: SortOrder
     referer?: SortOrder
     origin?: SortOrder
+    analyzedAt?: SortOrder
+    analyzeCount?: SortOrder
   }
 
   export type EventSumOrderByAggregateInput = {
     statusCode?: SortOrder
     durationMs?: SortOrder
+    analyzeCount?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10737,6 +10870,22 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -10851,17 +11000,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type DoktorCountOrderByAggregateInput = {
     id?: SortOrder
     ime?: SortOrder
@@ -10904,22 +11042,6 @@ export namespace Prisma {
     ukupno?: SortOrder
     brojZakazanih?: SortOrder
     brojSlobodnih?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type UlogaCountOrderByAggregateInput = {
@@ -11073,6 +11195,14 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type SessionUpdateOneRequiredWithoutEventsNestedInput = {
     create?: XOR<SessionCreateWithoutEventsInput, SessionUncheckedCreateWithoutEventsInput>
     connectOrCreate?: SessionCreateOrConnectWithoutEventsInput
@@ -11121,14 +11251,6 @@ export namespace Prisma {
     upsert?: EventUpsertWithoutClassificationInput
     connect?: EventWhereUniqueInput
     update?: XOR<XOR<EventUpdateToOneWithWhereWithoutClassificationInput, EventUpdateWithoutClassificationInput>, EventUncheckedUpdateWithoutClassificationInput>
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -11315,6 +11437,22 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -11342,22 +11480,6 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type EventCreateWithoutSessionInput = {
     id?: string
     timestamp?: Date | string
@@ -11372,6 +11494,8 @@ export namespace Prisma {
     contentType?: string | null
     referer?: string | null
     origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     classification?: ClassificationCreateNestedOneWithoutEventInput
   }
@@ -11390,6 +11514,8 @@ export namespace Prisma {
     contentType?: string | null
     referer?: string | null
     origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     classification?: ClassificationUncheckedCreateNestedOneWithoutEventInput
   }
@@ -11438,13 +11564,17 @@ export namespace Prisma {
     contentType?: StringNullableFilter<"Event"> | string | null
     referer?: StringNullableFilter<"Event"> | string | null
     origin?: StringNullableFilter<"Event"> | string | null
+    analyzedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
+    analyzeCount?: IntFilter<"Event"> | number
     metadata?: JsonNullableFilter<"Event">
   }
 
   export type SessionCreateWithoutEventsInput = {
     id?: string
     tokenId: string
+    sessionKey: string
     cookieId: string
+    identMethod?: string
     firstSeen?: Date | string
     lastSeen?: Date | string
     lastAnalyzedAt?: Date | string | null
@@ -11455,7 +11585,9 @@ export namespace Prisma {
   export type SessionUncheckedCreateWithoutEventsInput = {
     id?: string
     tokenId: string
+    sessionKey: string
     cookieId: string
+    identMethod?: string
     firstSeen?: Date | string
     lastSeen?: Date | string
     lastAnalyzedAt?: Date | string | null
@@ -11507,7 +11639,9 @@ export namespace Prisma {
   export type SessionUpdateWithoutEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
     cookieId?: StringFieldUpdateOperationsInput | string
+    identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11518,7 +11652,9 @@ export namespace Prisma {
   export type SessionUncheckedUpdateWithoutEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
     cookieId?: StringFieldUpdateOperationsInput | string
+    identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11571,6 +11707,8 @@ export namespace Prisma {
     contentType?: string | null
     referer?: string | null
     origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     session: SessionCreateNestedOneWithoutEventsInput
   }
@@ -11590,6 +11728,8 @@ export namespace Prisma {
     contentType?: string | null
     referer?: string | null
     origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -11623,6 +11763,8 @@ export namespace Prisma {
     contentType?: NullableStringFieldUpdateOperationsInput | string | null
     referer?: NullableStringFieldUpdateOperationsInput | string | null
     origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     session?: SessionUpdateOneRequiredWithoutEventsNestedInput
   }
@@ -11642,6 +11784,8 @@ export namespace Prisma {
     contentType?: NullableStringFieldUpdateOperationsInput | string | null
     referer?: NullableStringFieldUpdateOperationsInput | string | null
     origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -11659,6 +11803,8 @@ export namespace Prisma {
     contentType?: string | null
     referer?: string | null
     origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
@@ -11676,6 +11822,8 @@ export namespace Prisma {
     contentType?: NullableStringFieldUpdateOperationsInput | string | null
     referer?: NullableStringFieldUpdateOperationsInput | string | null
     origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     classification?: ClassificationUpdateOneWithoutEventNestedInput
   }
@@ -11694,6 +11842,8 @@ export namespace Prisma {
     contentType?: NullableStringFieldUpdateOperationsInput | string | null
     referer?: NullableStringFieldUpdateOperationsInput | string | null
     origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
     classification?: ClassificationUncheckedUpdateOneWithoutEventNestedInput
   }
@@ -11712,6 +11862,8 @@ export namespace Prisma {
     contentType?: NullableStringFieldUpdateOperationsInput | string | null
     referer?: NullableStringFieldUpdateOperationsInput | string | null
     origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
