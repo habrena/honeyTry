@@ -29,6 +29,11 @@ export type Event = $Result.DefaultSelection<Prisma.$EventPayload>
  */
 export type Classification = $Result.DefaultSelection<Prisma.$ClassificationPayload>
 /**
+ * Model SessionVerdict
+ * 
+ */
+export type SessionVerdict = $Result.DefaultSelection<Prisma.$SessionVerdictPayload>
+/**
  * Model Patient
  * 
  */
@@ -199,6 +204,16 @@ export class PrismaClient<
     * ```
     */
   get classification(): Prisma.ClassificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sessionVerdict`: Exposes CRUD operations for the **SessionVerdict** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SessionVerdicts
+    * const sessionVerdicts = await prisma.sessionVerdict.findMany()
+    * ```
+    */
+  get sessionVerdict(): Prisma.SessionVerdictDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.patient`: Exposes CRUD operations for the **Patient** model.
@@ -689,6 +704,7 @@ export namespace Prisma {
     Session: 'Session',
     Event: 'Event',
     Classification: 'Classification',
+    SessionVerdict: 'SessionVerdict',
     Patient: 'Patient',
     Doktor: 'Doktor',
     Uloga: 'Uloga',
@@ -708,7 +724,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "session" | "event" | "classification" | "patient" | "doktor" | "uloga" | "termin"
+      modelProps: "session" | "event" | "classification" | "sessionVerdict" | "patient" | "doktor" | "uloga" | "termin"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -931,6 +947,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ClassificationCountArgs<ExtArgs>
             result: $Utils.Optional<ClassificationCountAggregateOutputType> | number
+          }
+        }
+      }
+      SessionVerdict: {
+        payload: Prisma.$SessionVerdictPayload<ExtArgs>
+        fields: Prisma.SessionVerdictFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SessionVerdictFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SessionVerdictFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload>
+          }
+          findFirst: {
+            args: Prisma.SessionVerdictFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SessionVerdictFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload>
+          }
+          findMany: {
+            args: Prisma.SessionVerdictFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload>[]
+          }
+          create: {
+            args: Prisma.SessionVerdictCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload>
+          }
+          createMany: {
+            args: Prisma.SessionVerdictCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SessionVerdictCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload>[]
+          }
+          delete: {
+            args: Prisma.SessionVerdictDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload>
+          }
+          update: {
+            args: Prisma.SessionVerdictUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload>
+          }
+          deleteMany: {
+            args: Prisma.SessionVerdictDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SessionVerdictUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SessionVerdictUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload>[]
+          }
+          upsert: {
+            args: Prisma.SessionVerdictUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionVerdictPayload>
+          }
+          aggregate: {
+            args: Prisma.SessionVerdictAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSessionVerdict>
+          }
+          groupBy: {
+            args: Prisma.SessionVerdictGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SessionVerdictGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SessionVerdictCountArgs<ExtArgs>
+            result: $Utils.Optional<SessionVerdictCountAggregateOutputType> | number
           }
         }
       }
@@ -1356,6 +1446,7 @@ export namespace Prisma {
     session?: SessionOmit
     event?: EventOmit
     classification?: ClassificationOmit
+    sessionVerdict?: SessionVerdictOmit
     patient?: PatientOmit
     doktor?: DoktorOmit
     uloga?: UlogaOmit
@@ -1441,10 +1532,12 @@ export namespace Prisma {
 
   export type SessionCountOutputType = {
     events: number
+    verdicts: number
   }
 
   export type SessionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     events?: boolean | SessionCountOutputTypeCountEventsArgs
+    verdicts?: boolean | SessionCountOutputTypeCountVerdictsArgs
   }
 
   // Custom InputTypes
@@ -1465,6 +1558,44 @@ export namespace Prisma {
     where?: EventWhereInput
   }
 
+  /**
+   * SessionCountOutputType without action
+   */
+  export type SessionCountOutputTypeCountVerdictsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionVerdictWhereInput
+  }
+
+
+  /**
+   * Count Type SessionVerdictCountOutputType
+   */
+
+  export type SessionVerdictCountOutputType = {
+    events: number
+  }
+
+  export type SessionVerdictCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    events?: boolean | SessionVerdictCountOutputTypeCountEventsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SessionVerdictCountOutputType without action
+   */
+  export type SessionVerdictCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdictCountOutputType
+     */
+    select?: SessionVerdictCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SessionVerdictCountOutputType without action
+   */
+  export type SessionVerdictCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventWhereInput
+  }
+
 
   /**
    * Models
@@ -1476,8 +1607,18 @@ export namespace Prisma {
 
   export type AggregateSession = {
     _count: SessionCountAggregateOutputType | null
+    _avg: SessionAvgAggregateOutputType | null
+    _sum: SessionSumAggregateOutputType | null
     _min: SessionMinAggregateOutputType | null
     _max: SessionMaxAggregateOutputType | null
+  }
+
+  export type SessionAvgAggregateOutputType = {
+    analysisCount: number | null
+  }
+
+  export type SessionSumAggregateOutputType = {
+    analysisCount: number | null
   }
 
   export type SessionMinAggregateOutputType = {
@@ -1491,6 +1632,8 @@ export namespace Prisma {
     lastAnalyzedAt: Date | null
     sourceIp: string | null
     userAgent: string | null
+    analysisCount: number | null
+    suppressed: boolean | null
   }
 
   export type SessionMaxAggregateOutputType = {
@@ -1504,6 +1647,8 @@ export namespace Prisma {
     lastAnalyzedAt: Date | null
     sourceIp: string | null
     userAgent: string | null
+    analysisCount: number | null
+    suppressed: boolean | null
   }
 
   export type SessionCountAggregateOutputType = {
@@ -1517,9 +1662,19 @@ export namespace Prisma {
     lastAnalyzedAt: number
     sourceIp: number
     userAgent: number
+    analysisCount: number
+    suppressed: number
     _all: number
   }
 
+
+  export type SessionAvgAggregateInputType = {
+    analysisCount?: true
+  }
+
+  export type SessionSumAggregateInputType = {
+    analysisCount?: true
+  }
 
   export type SessionMinAggregateInputType = {
     id?: true
@@ -1532,6 +1687,8 @@ export namespace Prisma {
     lastAnalyzedAt?: true
     sourceIp?: true
     userAgent?: true
+    analysisCount?: true
+    suppressed?: true
   }
 
   export type SessionMaxAggregateInputType = {
@@ -1545,6 +1702,8 @@ export namespace Prisma {
     lastAnalyzedAt?: true
     sourceIp?: true
     userAgent?: true
+    analysisCount?: true
+    suppressed?: true
   }
 
   export type SessionCountAggregateInputType = {
@@ -1558,6 +1717,8 @@ export namespace Prisma {
     lastAnalyzedAt?: true
     sourceIp?: true
     userAgent?: true
+    analysisCount?: true
+    suppressed?: true
     _all?: true
   }
 
@@ -1599,6 +1760,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: SessionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SessionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: SessionMinAggregateInputType
@@ -1629,6 +1802,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SessionCountAggregateInputType | true
+    _avg?: SessionAvgAggregateInputType
+    _sum?: SessionSumAggregateInputType
     _min?: SessionMinAggregateInputType
     _max?: SessionMaxAggregateInputType
   }
@@ -1637,14 +1812,18 @@ export namespace Prisma {
     id: string
     tokenId: string
     sessionKey: string
-    cookieId: string
+    cookieId: string | null
     identMethod: string
     firstSeen: Date
     lastSeen: Date
     lastAnalyzedAt: Date | null
     sourceIp: string
     userAgent: string
+    analysisCount: number
+    suppressed: boolean
     _count: SessionCountAggregateOutputType | null
+    _avg: SessionAvgAggregateOutputType | null
+    _sum: SessionSumAggregateOutputType | null
     _min: SessionMinAggregateOutputType | null
     _max: SessionMaxAggregateOutputType | null
   }
@@ -1674,7 +1853,10 @@ export namespace Prisma {
     lastAnalyzedAt?: boolean
     sourceIp?: boolean
     userAgent?: boolean
+    analysisCount?: boolean
+    suppressed?: boolean
     events?: boolean | Session$eventsArgs<ExtArgs>
+    verdicts?: boolean | Session$verdictsArgs<ExtArgs>
     _count?: boolean | SessionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
 
@@ -1689,6 +1871,8 @@ export namespace Prisma {
     lastAnalyzedAt?: boolean
     sourceIp?: boolean
     userAgent?: boolean
+    analysisCount?: boolean
+    suppressed?: boolean
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1702,6 +1886,8 @@ export namespace Prisma {
     lastAnalyzedAt?: boolean
     sourceIp?: boolean
     userAgent?: boolean
+    analysisCount?: boolean
+    suppressed?: boolean
   }, ExtArgs["result"]["session"]>
 
   export type SessionSelectScalar = {
@@ -1715,11 +1901,14 @@ export namespace Prisma {
     lastAnalyzedAt?: boolean
     sourceIp?: boolean
     userAgent?: boolean
+    analysisCount?: boolean
+    suppressed?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tokenId" | "sessionKey" | "cookieId" | "identMethod" | "firstSeen" | "lastSeen" | "lastAnalyzedAt" | "sourceIp" | "userAgent", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tokenId" | "sessionKey" | "cookieId" | "identMethod" | "firstSeen" | "lastSeen" | "lastAnalyzedAt" | "sourceIp" | "userAgent" | "analysisCount" | "suppressed", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     events?: boolean | Session$eventsArgs<ExtArgs>
+    verdicts?: boolean | Session$verdictsArgs<ExtArgs>
     _count?: boolean | SessionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1729,18 +1918,21 @@ export namespace Prisma {
     name: "Session"
     objects: {
       events: Prisma.$EventPayload<ExtArgs>[]
+      verdicts: Prisma.$SessionVerdictPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tokenId: string
       sessionKey: string
-      cookieId: string
+      cookieId: string | null
       identMethod: string
       firstSeen: Date
       lastSeen: Date
       lastAnalyzedAt: Date | null
       sourceIp: string
       userAgent: string
+      analysisCount: number
+      suppressed: boolean
     }, ExtArgs["result"]["session"]>
     composites: {}
   }
@@ -2136,6 +2328,7 @@ export namespace Prisma {
   export interface Prisma__SessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     events<T extends Session$eventsArgs<ExtArgs> = {}>(args?: Subset<T, Session$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    verdicts<T extends Session$verdictsArgs<ExtArgs> = {}>(args?: Subset<T, Session$verdictsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2175,6 +2368,8 @@ export namespace Prisma {
     readonly lastAnalyzedAt: FieldRef<"Session", 'DateTime'>
     readonly sourceIp: FieldRef<"Session", 'String'>
     readonly userAgent: FieldRef<"Session", 'String'>
+    readonly analysisCount: FieldRef<"Session", 'Int'>
+    readonly suppressed: FieldRef<"Session", 'Boolean'>
   }
     
 
@@ -2592,6 +2787,30 @@ export namespace Prisma {
   }
 
   /**
+   * Session.verdicts
+   */
+  export type Session$verdictsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    where?: SessionVerdictWhereInput
+    orderBy?: SessionVerdictOrderByWithRelationInput | SessionVerdictOrderByWithRelationInput[]
+    cursor?: SessionVerdictWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionVerdictScalarFieldEnum | SessionVerdictScalarFieldEnum[]
+  }
+
+  /**
    * Session without action
    */
   export type SessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2626,12 +2845,16 @@ export namespace Prisma {
     statusCode: number | null
     durationMs: number | null
     analyzeCount: number | null
+    detectionCount: number | null
+    signalCount: number | null
   }
 
   export type EventSumAggregateOutputType = {
     statusCode: number | null
     durationMs: number | null
     analyzeCount: number | null
+    detectionCount: number | null
+    signalCount: number | null
   }
 
   export type EventMinAggregateOutputType = {
@@ -2648,6 +2871,9 @@ export namespace Prisma {
     origin: string | null
     analyzedAt: Date | null
     analyzeCount: number | null
+    detectionCount: number | null
+    signalCount: number | null
+    sessionVerdictId: string | null
   }
 
   export type EventMaxAggregateOutputType = {
@@ -2664,6 +2890,9 @@ export namespace Prisma {
     origin: string | null
     analyzedAt: Date | null
     analyzeCount: number | null
+    detectionCount: number | null
+    signalCount: number | null
+    sessionVerdictId: string | null
   }
 
   export type EventCountAggregateOutputType = {
@@ -2684,6 +2913,9 @@ export namespace Prisma {
     analyzedAt: number
     analyzeCount: number
     metadata: number
+    detectionCount: number
+    signalCount: number
+    sessionVerdictId: number
     _all: number
   }
 
@@ -2692,12 +2924,16 @@ export namespace Prisma {
     statusCode?: true
     durationMs?: true
     analyzeCount?: true
+    detectionCount?: true
+    signalCount?: true
   }
 
   export type EventSumAggregateInputType = {
     statusCode?: true
     durationMs?: true
     analyzeCount?: true
+    detectionCount?: true
+    signalCount?: true
   }
 
   export type EventMinAggregateInputType = {
@@ -2714,6 +2950,9 @@ export namespace Prisma {
     origin?: true
     analyzedAt?: true
     analyzeCount?: true
+    detectionCount?: true
+    signalCount?: true
+    sessionVerdictId?: true
   }
 
   export type EventMaxAggregateInputType = {
@@ -2730,6 +2969,9 @@ export namespace Prisma {
     origin?: true
     analyzedAt?: true
     analyzeCount?: true
+    detectionCount?: true
+    signalCount?: true
+    sessionVerdictId?: true
   }
 
   export type EventCountAggregateInputType = {
@@ -2750,6 +2992,9 @@ export namespace Prisma {
     analyzedAt?: true
     analyzeCount?: true
     metadata?: true
+    detectionCount?: true
+    signalCount?: true
+    sessionVerdictId?: true
     _all?: true
   }
 
@@ -2857,6 +3102,9 @@ export namespace Prisma {
     analyzedAt: Date | null
     analyzeCount: number
     metadata: JsonValue | null
+    detectionCount: number
+    signalCount: number
+    sessionVerdictId: string | null
     _count: EventCountAggregateOutputType | null
     _avg: EventAvgAggregateOutputType | null
     _sum: EventSumAggregateOutputType | null
@@ -2896,8 +3144,12 @@ export namespace Prisma {
     analyzedAt?: boolean
     analyzeCount?: boolean
     metadata?: boolean
+    detectionCount?: boolean
+    signalCount?: boolean
+    sessionVerdictId?: boolean
     session?: boolean | SessionDefaultArgs<ExtArgs>
     classification?: boolean | Event$classificationArgs<ExtArgs>
+    sessionVerdict?: boolean | Event$sessionVerdictArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
   export type EventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2918,7 +3170,11 @@ export namespace Prisma {
     analyzedAt?: boolean
     analyzeCount?: boolean
     metadata?: boolean
+    detectionCount?: boolean
+    signalCount?: boolean
+    sessionVerdictId?: boolean
     session?: boolean | SessionDefaultArgs<ExtArgs>
+    sessionVerdict?: boolean | Event$sessionVerdictArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
   export type EventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2939,7 +3195,11 @@ export namespace Prisma {
     analyzedAt?: boolean
     analyzeCount?: boolean
     metadata?: boolean
+    detectionCount?: boolean
+    signalCount?: boolean
+    sessionVerdictId?: boolean
     session?: boolean | SessionDefaultArgs<ExtArgs>
+    sessionVerdict?: boolean | Event$sessionVerdictArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
   export type EventSelectScalar = {
@@ -2960,18 +3220,24 @@ export namespace Prisma {
     analyzedAt?: boolean
     analyzeCount?: boolean
     metadata?: boolean
+    detectionCount?: boolean
+    signalCount?: boolean
+    sessionVerdictId?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "timestamp" | "eventType" | "method" | "endpoint" | "statusCode" | "durationMs" | "queryParams" | "body" | "headers" | "contentType" | "referer" | "origin" | "analyzedAt" | "analyzeCount" | "metadata", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "timestamp" | "eventType" | "method" | "endpoint" | "statusCode" | "durationMs" | "queryParams" | "body" | "headers" | "contentType" | "referer" | "origin" | "analyzedAt" | "analyzeCount" | "metadata" | "detectionCount" | "signalCount" | "sessionVerdictId", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     session?: boolean | SessionDefaultArgs<ExtArgs>
     classification?: boolean | Event$classificationArgs<ExtArgs>
+    sessionVerdict?: boolean | Event$sessionVerdictArgs<ExtArgs>
   }
   export type EventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     session?: boolean | SessionDefaultArgs<ExtArgs>
+    sessionVerdict?: boolean | Event$sessionVerdictArgs<ExtArgs>
   }
   export type EventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     session?: boolean | SessionDefaultArgs<ExtArgs>
+    sessionVerdict?: boolean | Event$sessionVerdictArgs<ExtArgs>
   }
 
   export type $EventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2979,6 +3245,7 @@ export namespace Prisma {
     objects: {
       session: Prisma.$SessionPayload<ExtArgs>
       classification: Prisma.$ClassificationPayload<ExtArgs> | null
+      sessionVerdict: Prisma.$SessionVerdictPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2998,6 +3265,9 @@ export namespace Prisma {
       analyzedAt: Date | null
       analyzeCount: number
       metadata: Prisma.JsonValue | null
+      detectionCount: number
+      signalCount: number
+      sessionVerdictId: string | null
     }, ExtArgs["result"]["event"]>
     composites: {}
   }
@@ -3394,6 +3664,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     session<T extends SessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SessionDefaultArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     classification<T extends Event$classificationArgs<ExtArgs> = {}>(args?: Subset<T, Event$classificationArgs<ExtArgs>>): Prisma__ClassificationClient<$Result.GetResult<Prisma.$ClassificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    sessionVerdict<T extends Event$sessionVerdictArgs<ExtArgs> = {}>(args?: Subset<T, Event$sessionVerdictArgs<ExtArgs>>): Prisma__SessionVerdictClient<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3440,6 +3711,9 @@ export namespace Prisma {
     readonly analyzedAt: FieldRef<"Event", 'DateTime'>
     readonly analyzeCount: FieldRef<"Event", 'Int'>
     readonly metadata: FieldRef<"Event", 'Json'>
+    readonly detectionCount: FieldRef<"Event", 'Int'>
+    readonly signalCount: FieldRef<"Event", 'Int'>
+    readonly sessionVerdictId: FieldRef<"Event", 'String'>
   }
     
 
@@ -3857,6 +4131,25 @@ export namespace Prisma {
      */
     include?: ClassificationInclude<ExtArgs> | null
     where?: ClassificationWhereInput
+  }
+
+  /**
+   * Event.sessionVerdict
+   */
+  export type Event$sessionVerdictArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    where?: SessionVerdictWhereInput
   }
 
   /**
@@ -5011,6 +5304,1254 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ClassificationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SessionVerdict
+   */
+
+  export type AggregateSessionVerdict = {
+    _count: SessionVerdictCountAggregateOutputType | null
+    _avg: SessionVerdictAvgAggregateOutputType | null
+    _sum: SessionVerdictSumAggregateOutputType | null
+    _min: SessionVerdictMinAggregateOutputType | null
+    _max: SessionVerdictMaxAggregateOutputType | null
+  }
+
+  export type SessionVerdictAvgAggregateOutputType = {
+    eventsSent: number | null
+    eventsClassified: number | null
+  }
+
+  export type SessionVerdictSumAggregateOutputType = {
+    eventsSent: number | null
+    eventsClassified: number | null
+  }
+
+  export type SessionVerdictMinAggregateOutputType = {
+    id: string | null
+    sessionId: string | null
+    createdAt: Date | null
+    primaryAttackType: string | null
+    threatLevel: string | null
+    summary: string | null
+    detector: string | null
+    mode: string | null
+    triggerReason: string | null
+    status: string | null
+    eventsSent: number | null
+    eventsClassified: number | null
+    windowStart: Date | null
+    windowEnd: Date | null
+  }
+
+  export type SessionVerdictMaxAggregateOutputType = {
+    id: string | null
+    sessionId: string | null
+    createdAt: Date | null
+    primaryAttackType: string | null
+    threatLevel: string | null
+    summary: string | null
+    detector: string | null
+    mode: string | null
+    triggerReason: string | null
+    status: string | null
+    eventsSent: number | null
+    eventsClassified: number | null
+    windowStart: Date | null
+    windowEnd: Date | null
+  }
+
+  export type SessionVerdictCountAggregateOutputType = {
+    id: number
+    sessionId: number
+    createdAt: number
+    primaryAttackType: number
+    threatLevel: number
+    summary: number
+    detector: number
+    mode: number
+    triggerReason: number
+    status: number
+    eventsSent: number
+    eventsClassified: number
+    windowStart: number
+    windowEnd: number
+    _all: number
+  }
+
+
+  export type SessionVerdictAvgAggregateInputType = {
+    eventsSent?: true
+    eventsClassified?: true
+  }
+
+  export type SessionVerdictSumAggregateInputType = {
+    eventsSent?: true
+    eventsClassified?: true
+  }
+
+  export type SessionVerdictMinAggregateInputType = {
+    id?: true
+    sessionId?: true
+    createdAt?: true
+    primaryAttackType?: true
+    threatLevel?: true
+    summary?: true
+    detector?: true
+    mode?: true
+    triggerReason?: true
+    status?: true
+    eventsSent?: true
+    eventsClassified?: true
+    windowStart?: true
+    windowEnd?: true
+  }
+
+  export type SessionVerdictMaxAggregateInputType = {
+    id?: true
+    sessionId?: true
+    createdAt?: true
+    primaryAttackType?: true
+    threatLevel?: true
+    summary?: true
+    detector?: true
+    mode?: true
+    triggerReason?: true
+    status?: true
+    eventsSent?: true
+    eventsClassified?: true
+    windowStart?: true
+    windowEnd?: true
+  }
+
+  export type SessionVerdictCountAggregateInputType = {
+    id?: true
+    sessionId?: true
+    createdAt?: true
+    primaryAttackType?: true
+    threatLevel?: true
+    summary?: true
+    detector?: true
+    mode?: true
+    triggerReason?: true
+    status?: true
+    eventsSent?: true
+    eventsClassified?: true
+    windowStart?: true
+    windowEnd?: true
+    _all?: true
+  }
+
+  export type SessionVerdictAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SessionVerdict to aggregate.
+     */
+    where?: SessionVerdictWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionVerdicts to fetch.
+     */
+    orderBy?: SessionVerdictOrderByWithRelationInput | SessionVerdictOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SessionVerdictWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionVerdicts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionVerdicts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SessionVerdicts
+    **/
+    _count?: true | SessionVerdictCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SessionVerdictAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SessionVerdictSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SessionVerdictMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SessionVerdictMaxAggregateInputType
+  }
+
+  export type GetSessionVerdictAggregateType<T extends SessionVerdictAggregateArgs> = {
+        [P in keyof T & keyof AggregateSessionVerdict]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSessionVerdict[P]>
+      : GetScalarType<T[P], AggregateSessionVerdict[P]>
+  }
+
+
+
+
+  export type SessionVerdictGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionVerdictWhereInput
+    orderBy?: SessionVerdictOrderByWithAggregationInput | SessionVerdictOrderByWithAggregationInput[]
+    by: SessionVerdictScalarFieldEnum[] | SessionVerdictScalarFieldEnum
+    having?: SessionVerdictScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SessionVerdictCountAggregateInputType | true
+    _avg?: SessionVerdictAvgAggregateInputType
+    _sum?: SessionVerdictSumAggregateInputType
+    _min?: SessionVerdictMinAggregateInputType
+    _max?: SessionVerdictMaxAggregateInputType
+  }
+
+  export type SessionVerdictGroupByOutputType = {
+    id: string
+    sessionId: string
+    createdAt: Date
+    primaryAttackType: string | null
+    threatLevel: string | null
+    summary: string | null
+    detector: string
+    mode: string
+    triggerReason: string | null
+    status: string
+    eventsSent: number
+    eventsClassified: number
+    windowStart: Date | null
+    windowEnd: Date | null
+    _count: SessionVerdictCountAggregateOutputType | null
+    _avg: SessionVerdictAvgAggregateOutputType | null
+    _sum: SessionVerdictSumAggregateOutputType | null
+    _min: SessionVerdictMinAggregateOutputType | null
+    _max: SessionVerdictMaxAggregateOutputType | null
+  }
+
+  type GetSessionVerdictGroupByPayload<T extends SessionVerdictGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SessionVerdictGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SessionVerdictGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SessionVerdictGroupByOutputType[P]>
+            : GetScalarType<T[P], SessionVerdictGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SessionVerdictSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sessionId?: boolean
+    createdAt?: boolean
+    primaryAttackType?: boolean
+    threatLevel?: boolean
+    summary?: boolean
+    detector?: boolean
+    mode?: boolean
+    triggerReason?: boolean
+    status?: boolean
+    eventsSent?: boolean
+    eventsClassified?: boolean
+    windowStart?: boolean
+    windowEnd?: boolean
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+    events?: boolean | SessionVerdict$eventsArgs<ExtArgs>
+    _count?: boolean | SessionVerdictCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sessionVerdict"]>
+
+  export type SessionVerdictSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sessionId?: boolean
+    createdAt?: boolean
+    primaryAttackType?: boolean
+    threatLevel?: boolean
+    summary?: boolean
+    detector?: boolean
+    mode?: boolean
+    triggerReason?: boolean
+    status?: boolean
+    eventsSent?: boolean
+    eventsClassified?: boolean
+    windowStart?: boolean
+    windowEnd?: boolean
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sessionVerdict"]>
+
+  export type SessionVerdictSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sessionId?: boolean
+    createdAt?: boolean
+    primaryAttackType?: boolean
+    threatLevel?: boolean
+    summary?: boolean
+    detector?: boolean
+    mode?: boolean
+    triggerReason?: boolean
+    status?: boolean
+    eventsSent?: boolean
+    eventsClassified?: boolean
+    windowStart?: boolean
+    windowEnd?: boolean
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sessionVerdict"]>
+
+  export type SessionVerdictSelectScalar = {
+    id?: boolean
+    sessionId?: boolean
+    createdAt?: boolean
+    primaryAttackType?: boolean
+    threatLevel?: boolean
+    summary?: boolean
+    detector?: boolean
+    mode?: boolean
+    triggerReason?: boolean
+    status?: boolean
+    eventsSent?: boolean
+    eventsClassified?: boolean
+    windowStart?: boolean
+    windowEnd?: boolean
+  }
+
+  export type SessionVerdictOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "createdAt" | "primaryAttackType" | "threatLevel" | "summary" | "detector" | "mode" | "triggerReason" | "status" | "eventsSent" | "eventsClassified" | "windowStart" | "windowEnd", ExtArgs["result"]["sessionVerdict"]>
+  export type SessionVerdictInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+    events?: boolean | SessionVerdict$eventsArgs<ExtArgs>
+    _count?: boolean | SessionVerdictCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SessionVerdictIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+  }
+  export type SessionVerdictIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    session?: boolean | SessionDefaultArgs<ExtArgs>
+  }
+
+  export type $SessionVerdictPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SessionVerdict"
+    objects: {
+      session: Prisma.$SessionPayload<ExtArgs>
+      events: Prisma.$EventPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      sessionId: string
+      createdAt: Date
+      primaryAttackType: string | null
+      threatLevel: string | null
+      summary: string | null
+      detector: string
+      mode: string
+      triggerReason: string | null
+      status: string
+      eventsSent: number
+      eventsClassified: number
+      windowStart: Date | null
+      windowEnd: Date | null
+    }, ExtArgs["result"]["sessionVerdict"]>
+    composites: {}
+  }
+
+  type SessionVerdictGetPayload<S extends boolean | null | undefined | SessionVerdictDefaultArgs> = $Result.GetResult<Prisma.$SessionVerdictPayload, S>
+
+  type SessionVerdictCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SessionVerdictFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SessionVerdictCountAggregateInputType | true
+    }
+
+  export interface SessionVerdictDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SessionVerdict'], meta: { name: 'SessionVerdict' } }
+    /**
+     * Find zero or one SessionVerdict that matches the filter.
+     * @param {SessionVerdictFindUniqueArgs} args - Arguments to find a SessionVerdict
+     * @example
+     * // Get one SessionVerdict
+     * const sessionVerdict = await prisma.sessionVerdict.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SessionVerdictFindUniqueArgs>(args: SelectSubset<T, SessionVerdictFindUniqueArgs<ExtArgs>>): Prisma__SessionVerdictClient<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SessionVerdict that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SessionVerdictFindUniqueOrThrowArgs} args - Arguments to find a SessionVerdict
+     * @example
+     * // Get one SessionVerdict
+     * const sessionVerdict = await prisma.sessionVerdict.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SessionVerdictFindUniqueOrThrowArgs>(args: SelectSubset<T, SessionVerdictFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SessionVerdictClient<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SessionVerdict that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionVerdictFindFirstArgs} args - Arguments to find a SessionVerdict
+     * @example
+     * // Get one SessionVerdict
+     * const sessionVerdict = await prisma.sessionVerdict.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SessionVerdictFindFirstArgs>(args?: SelectSubset<T, SessionVerdictFindFirstArgs<ExtArgs>>): Prisma__SessionVerdictClient<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SessionVerdict that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionVerdictFindFirstOrThrowArgs} args - Arguments to find a SessionVerdict
+     * @example
+     * // Get one SessionVerdict
+     * const sessionVerdict = await prisma.sessionVerdict.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SessionVerdictFindFirstOrThrowArgs>(args?: SelectSubset<T, SessionVerdictFindFirstOrThrowArgs<ExtArgs>>): Prisma__SessionVerdictClient<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SessionVerdicts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionVerdictFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SessionVerdicts
+     * const sessionVerdicts = await prisma.sessionVerdict.findMany()
+     * 
+     * // Get first 10 SessionVerdicts
+     * const sessionVerdicts = await prisma.sessionVerdict.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sessionVerdictWithIdOnly = await prisma.sessionVerdict.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SessionVerdictFindManyArgs>(args?: SelectSubset<T, SessionVerdictFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SessionVerdict.
+     * @param {SessionVerdictCreateArgs} args - Arguments to create a SessionVerdict.
+     * @example
+     * // Create one SessionVerdict
+     * const SessionVerdict = await prisma.sessionVerdict.create({
+     *   data: {
+     *     // ... data to create a SessionVerdict
+     *   }
+     * })
+     * 
+     */
+    create<T extends SessionVerdictCreateArgs>(args: SelectSubset<T, SessionVerdictCreateArgs<ExtArgs>>): Prisma__SessionVerdictClient<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SessionVerdicts.
+     * @param {SessionVerdictCreateManyArgs} args - Arguments to create many SessionVerdicts.
+     * @example
+     * // Create many SessionVerdicts
+     * const sessionVerdict = await prisma.sessionVerdict.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SessionVerdictCreateManyArgs>(args?: SelectSubset<T, SessionVerdictCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SessionVerdicts and returns the data saved in the database.
+     * @param {SessionVerdictCreateManyAndReturnArgs} args - Arguments to create many SessionVerdicts.
+     * @example
+     * // Create many SessionVerdicts
+     * const sessionVerdict = await prisma.sessionVerdict.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SessionVerdicts and only return the `id`
+     * const sessionVerdictWithIdOnly = await prisma.sessionVerdict.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SessionVerdictCreateManyAndReturnArgs>(args?: SelectSubset<T, SessionVerdictCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SessionVerdict.
+     * @param {SessionVerdictDeleteArgs} args - Arguments to delete one SessionVerdict.
+     * @example
+     * // Delete one SessionVerdict
+     * const SessionVerdict = await prisma.sessionVerdict.delete({
+     *   where: {
+     *     // ... filter to delete one SessionVerdict
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SessionVerdictDeleteArgs>(args: SelectSubset<T, SessionVerdictDeleteArgs<ExtArgs>>): Prisma__SessionVerdictClient<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SessionVerdict.
+     * @param {SessionVerdictUpdateArgs} args - Arguments to update one SessionVerdict.
+     * @example
+     * // Update one SessionVerdict
+     * const sessionVerdict = await prisma.sessionVerdict.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SessionVerdictUpdateArgs>(args: SelectSubset<T, SessionVerdictUpdateArgs<ExtArgs>>): Prisma__SessionVerdictClient<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SessionVerdicts.
+     * @param {SessionVerdictDeleteManyArgs} args - Arguments to filter SessionVerdicts to delete.
+     * @example
+     * // Delete a few SessionVerdicts
+     * const { count } = await prisma.sessionVerdict.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SessionVerdictDeleteManyArgs>(args?: SelectSubset<T, SessionVerdictDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SessionVerdicts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionVerdictUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SessionVerdicts
+     * const sessionVerdict = await prisma.sessionVerdict.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SessionVerdictUpdateManyArgs>(args: SelectSubset<T, SessionVerdictUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SessionVerdicts and returns the data updated in the database.
+     * @param {SessionVerdictUpdateManyAndReturnArgs} args - Arguments to update many SessionVerdicts.
+     * @example
+     * // Update many SessionVerdicts
+     * const sessionVerdict = await prisma.sessionVerdict.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SessionVerdicts and only return the `id`
+     * const sessionVerdictWithIdOnly = await prisma.sessionVerdict.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SessionVerdictUpdateManyAndReturnArgs>(args: SelectSubset<T, SessionVerdictUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SessionVerdict.
+     * @param {SessionVerdictUpsertArgs} args - Arguments to update or create a SessionVerdict.
+     * @example
+     * // Update or create a SessionVerdict
+     * const sessionVerdict = await prisma.sessionVerdict.upsert({
+     *   create: {
+     *     // ... data to create a SessionVerdict
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SessionVerdict we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SessionVerdictUpsertArgs>(args: SelectSubset<T, SessionVerdictUpsertArgs<ExtArgs>>): Prisma__SessionVerdictClient<$Result.GetResult<Prisma.$SessionVerdictPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SessionVerdicts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionVerdictCountArgs} args - Arguments to filter SessionVerdicts to count.
+     * @example
+     * // Count the number of SessionVerdicts
+     * const count = await prisma.sessionVerdict.count({
+     *   where: {
+     *     // ... the filter for the SessionVerdicts we want to count
+     *   }
+     * })
+    **/
+    count<T extends SessionVerdictCountArgs>(
+      args?: Subset<T, SessionVerdictCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SessionVerdictCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SessionVerdict.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionVerdictAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SessionVerdictAggregateArgs>(args: Subset<T, SessionVerdictAggregateArgs>): Prisma.PrismaPromise<GetSessionVerdictAggregateType<T>>
+
+    /**
+     * Group by SessionVerdict.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionVerdictGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SessionVerdictGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SessionVerdictGroupByArgs['orderBy'] }
+        : { orderBy?: SessionVerdictGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SessionVerdictGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionVerdictGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SessionVerdict model
+   */
+  readonly fields: SessionVerdictFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SessionVerdict.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SessionVerdictClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    session<T extends SessionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SessionDefaultArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    events<T extends SessionVerdict$eventsArgs<ExtArgs> = {}>(args?: Subset<T, SessionVerdict$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SessionVerdict model
+   */
+  interface SessionVerdictFieldRefs {
+    readonly id: FieldRef<"SessionVerdict", 'String'>
+    readonly sessionId: FieldRef<"SessionVerdict", 'String'>
+    readonly createdAt: FieldRef<"SessionVerdict", 'DateTime'>
+    readonly primaryAttackType: FieldRef<"SessionVerdict", 'String'>
+    readonly threatLevel: FieldRef<"SessionVerdict", 'String'>
+    readonly summary: FieldRef<"SessionVerdict", 'String'>
+    readonly detector: FieldRef<"SessionVerdict", 'String'>
+    readonly mode: FieldRef<"SessionVerdict", 'String'>
+    readonly triggerReason: FieldRef<"SessionVerdict", 'String'>
+    readonly status: FieldRef<"SessionVerdict", 'String'>
+    readonly eventsSent: FieldRef<"SessionVerdict", 'Int'>
+    readonly eventsClassified: FieldRef<"SessionVerdict", 'Int'>
+    readonly windowStart: FieldRef<"SessionVerdict", 'DateTime'>
+    readonly windowEnd: FieldRef<"SessionVerdict", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SessionVerdict findUnique
+   */
+  export type SessionVerdictFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionVerdict to fetch.
+     */
+    where: SessionVerdictWhereUniqueInput
+  }
+
+  /**
+   * SessionVerdict findUniqueOrThrow
+   */
+  export type SessionVerdictFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionVerdict to fetch.
+     */
+    where: SessionVerdictWhereUniqueInput
+  }
+
+  /**
+   * SessionVerdict findFirst
+   */
+  export type SessionVerdictFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionVerdict to fetch.
+     */
+    where?: SessionVerdictWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionVerdicts to fetch.
+     */
+    orderBy?: SessionVerdictOrderByWithRelationInput | SessionVerdictOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SessionVerdicts.
+     */
+    cursor?: SessionVerdictWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionVerdicts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionVerdicts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SessionVerdicts.
+     */
+    distinct?: SessionVerdictScalarFieldEnum | SessionVerdictScalarFieldEnum[]
+  }
+
+  /**
+   * SessionVerdict findFirstOrThrow
+   */
+  export type SessionVerdictFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionVerdict to fetch.
+     */
+    where?: SessionVerdictWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionVerdicts to fetch.
+     */
+    orderBy?: SessionVerdictOrderByWithRelationInput | SessionVerdictOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SessionVerdicts.
+     */
+    cursor?: SessionVerdictWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionVerdicts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionVerdicts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SessionVerdicts.
+     */
+    distinct?: SessionVerdictScalarFieldEnum | SessionVerdictScalarFieldEnum[]
+  }
+
+  /**
+   * SessionVerdict findMany
+   */
+  export type SessionVerdictFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    /**
+     * Filter, which SessionVerdicts to fetch.
+     */
+    where?: SessionVerdictWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionVerdicts to fetch.
+     */
+    orderBy?: SessionVerdictOrderByWithRelationInput | SessionVerdictOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SessionVerdicts.
+     */
+    cursor?: SessionVerdictWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionVerdicts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionVerdicts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SessionVerdicts.
+     */
+    distinct?: SessionVerdictScalarFieldEnum | SessionVerdictScalarFieldEnum[]
+  }
+
+  /**
+   * SessionVerdict create
+   */
+  export type SessionVerdictCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SessionVerdict.
+     */
+    data: XOR<SessionVerdictCreateInput, SessionVerdictUncheckedCreateInput>
+  }
+
+  /**
+   * SessionVerdict createMany
+   */
+  export type SessionVerdictCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SessionVerdicts.
+     */
+    data: SessionVerdictCreateManyInput | SessionVerdictCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SessionVerdict createManyAndReturn
+   */
+  export type SessionVerdictCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * The data used to create many SessionVerdicts.
+     */
+    data: SessionVerdictCreateManyInput | SessionVerdictCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SessionVerdict update
+   */
+  export type SessionVerdictUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SessionVerdict.
+     */
+    data: XOR<SessionVerdictUpdateInput, SessionVerdictUncheckedUpdateInput>
+    /**
+     * Choose, which SessionVerdict to update.
+     */
+    where: SessionVerdictWhereUniqueInput
+  }
+
+  /**
+   * SessionVerdict updateMany
+   */
+  export type SessionVerdictUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SessionVerdicts.
+     */
+    data: XOR<SessionVerdictUpdateManyMutationInput, SessionVerdictUncheckedUpdateManyInput>
+    /**
+     * Filter which SessionVerdicts to update
+     */
+    where?: SessionVerdictWhereInput
+    /**
+     * Limit how many SessionVerdicts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SessionVerdict updateManyAndReturn
+   */
+  export type SessionVerdictUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * The data used to update SessionVerdicts.
+     */
+    data: XOR<SessionVerdictUpdateManyMutationInput, SessionVerdictUncheckedUpdateManyInput>
+    /**
+     * Filter which SessionVerdicts to update
+     */
+    where?: SessionVerdictWhereInput
+    /**
+     * Limit how many SessionVerdicts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SessionVerdict upsert
+   */
+  export type SessionVerdictUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SessionVerdict to update in case it exists.
+     */
+    where: SessionVerdictWhereUniqueInput
+    /**
+     * In case the SessionVerdict found by the `where` argument doesn't exist, create a new SessionVerdict with this data.
+     */
+    create: XOR<SessionVerdictCreateInput, SessionVerdictUncheckedCreateInput>
+    /**
+     * In case the SessionVerdict was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SessionVerdictUpdateInput, SessionVerdictUncheckedUpdateInput>
+  }
+
+  /**
+   * SessionVerdict delete
+   */
+  export type SessionVerdictDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
+    /**
+     * Filter which SessionVerdict to delete.
+     */
+    where: SessionVerdictWhereUniqueInput
+  }
+
+  /**
+   * SessionVerdict deleteMany
+   */
+  export type SessionVerdictDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SessionVerdicts to delete
+     */
+    where?: SessionVerdictWhereInput
+    /**
+     * Limit how many SessionVerdicts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SessionVerdict.events
+   */
+  export type SessionVerdict$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Event
+     */
+    select?: EventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Event
+     */
+    omit?: EventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventInclude<ExtArgs> | null
+    where?: EventWhereInput
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    cursor?: EventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+  }
+
+  /**
+   * SessionVerdict without action
+   */
+  export type SessionVerdictDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionVerdict
+     */
+    select?: SessionVerdictSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SessionVerdict
+     */
+    omit?: SessionVerdictOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionVerdictInclude<ExtArgs> | null
   }
 
 
@@ -9242,7 +10783,9 @@ export namespace Prisma {
     lastSeen: 'lastSeen',
     lastAnalyzedAt: 'lastAnalyzedAt',
     sourceIp: 'sourceIp',
-    userAgent: 'userAgent'
+    userAgent: 'userAgent',
+    analysisCount: 'analysisCount',
+    suppressed: 'suppressed'
   };
 
   export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
@@ -9265,7 +10808,10 @@ export namespace Prisma {
     origin: 'origin',
     analyzedAt: 'analyzedAt',
     analyzeCount: 'analyzeCount',
-    metadata: 'metadata'
+    metadata: 'metadata',
+    detectionCount: 'detectionCount',
+    signalCount: 'signalCount',
+    sessionVerdictId: 'sessionVerdictId'
   };
 
   export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
@@ -9283,6 +10829,26 @@ export namespace Prisma {
   };
 
   export type ClassificationScalarFieldEnum = (typeof ClassificationScalarFieldEnum)[keyof typeof ClassificationScalarFieldEnum]
+
+
+  export const SessionVerdictScalarFieldEnum: {
+    id: 'id',
+    sessionId: 'sessionId',
+    createdAt: 'createdAt',
+    primaryAttackType: 'primaryAttackType',
+    threatLevel: 'threatLevel',
+    summary: 'summary',
+    detector: 'detector',
+    mode: 'mode',
+    triggerReason: 'triggerReason',
+    status: 'status',
+    eventsSent: 'eventsSent',
+    eventsClassified: 'eventsClassified',
+    windowStart: 'windowStart',
+    windowEnd: 'windowEnd'
+  };
+
+  export type SessionVerdictScalarFieldEnum = (typeof SessionVerdictScalarFieldEnum)[keyof typeof SessionVerdictScalarFieldEnum]
 
 
   export const PatientScalarFieldEnum: {
@@ -9424,6 +10990,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -9461,61 +11034,74 @@ export namespace Prisma {
     id?: StringFilter<"Session"> | string
     tokenId?: StringFilter<"Session"> | string
     sessionKey?: StringFilter<"Session"> | string
-    cookieId?: StringFilter<"Session"> | string
+    cookieId?: StringNullableFilter<"Session"> | string | null
     identMethod?: StringFilter<"Session"> | string
     firstSeen?: DateTimeFilter<"Session"> | Date | string
     lastSeen?: DateTimeFilter<"Session"> | Date | string
     lastAnalyzedAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     sourceIp?: StringFilter<"Session"> | string
     userAgent?: StringFilter<"Session"> | string
+    analysisCount?: IntFilter<"Session"> | number
+    suppressed?: BoolFilter<"Session"> | boolean
     events?: EventListRelationFilter
+    verdicts?: SessionVerdictListRelationFilter
   }
 
   export type SessionOrderByWithRelationInput = {
     id?: SortOrder
     tokenId?: SortOrder
     sessionKey?: SortOrder
-    cookieId?: SortOrder
+    cookieId?: SortOrderInput | SortOrder
     identMethod?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
     lastAnalyzedAt?: SortOrderInput | SortOrder
     sourceIp?: SortOrder
     userAgent?: SortOrder
+    analysisCount?: SortOrder
+    suppressed?: SortOrder
     events?: EventOrderByRelationAggregateInput
+    verdicts?: SessionVerdictOrderByRelationAggregateInput
   }
 
   export type SessionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     sessionKey?: string
-    cookieId?: string
     AND?: SessionWhereInput | SessionWhereInput[]
     OR?: SessionWhereInput[]
     NOT?: SessionWhereInput | SessionWhereInput[]
     tokenId?: StringFilter<"Session"> | string
+    cookieId?: StringNullableFilter<"Session"> | string | null
     identMethod?: StringFilter<"Session"> | string
     firstSeen?: DateTimeFilter<"Session"> | Date | string
     lastSeen?: DateTimeFilter<"Session"> | Date | string
     lastAnalyzedAt?: DateTimeNullableFilter<"Session"> | Date | string | null
     sourceIp?: StringFilter<"Session"> | string
     userAgent?: StringFilter<"Session"> | string
+    analysisCount?: IntFilter<"Session"> | number
+    suppressed?: BoolFilter<"Session"> | boolean
     events?: EventListRelationFilter
-  }, "id" | "sessionKey" | "cookieId">
+    verdicts?: SessionVerdictListRelationFilter
+  }, "id" | "sessionKey">
 
   export type SessionOrderByWithAggregationInput = {
     id?: SortOrder
     tokenId?: SortOrder
     sessionKey?: SortOrder
-    cookieId?: SortOrder
+    cookieId?: SortOrderInput | SortOrder
     identMethod?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
     lastAnalyzedAt?: SortOrderInput | SortOrder
     sourceIp?: SortOrder
     userAgent?: SortOrder
+    analysisCount?: SortOrder
+    suppressed?: SortOrder
     _count?: SessionCountOrderByAggregateInput
+    _avg?: SessionAvgOrderByAggregateInput
     _max?: SessionMaxOrderByAggregateInput
     _min?: SessionMinOrderByAggregateInput
+    _sum?: SessionSumOrderByAggregateInput
   }
 
   export type SessionScalarWhereWithAggregatesInput = {
@@ -9525,13 +11111,15 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Session"> | string
     tokenId?: StringWithAggregatesFilter<"Session"> | string
     sessionKey?: StringWithAggregatesFilter<"Session"> | string
-    cookieId?: StringWithAggregatesFilter<"Session"> | string
+    cookieId?: StringNullableWithAggregatesFilter<"Session"> | string | null
     identMethod?: StringWithAggregatesFilter<"Session"> | string
     firstSeen?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     lastSeen?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     lastAnalyzedAt?: DateTimeNullableWithAggregatesFilter<"Session"> | Date | string | null
     sourceIp?: StringWithAggregatesFilter<"Session"> | string
     userAgent?: StringWithAggregatesFilter<"Session"> | string
+    analysisCount?: IntWithAggregatesFilter<"Session"> | number
+    suppressed?: BoolWithAggregatesFilter<"Session"> | boolean
   }
 
   export type EventWhereInput = {
@@ -9555,8 +11143,12 @@ export namespace Prisma {
     analyzedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
     analyzeCount?: IntFilter<"Event"> | number
     metadata?: JsonNullableFilter<"Event">
+    detectionCount?: IntFilter<"Event"> | number
+    signalCount?: IntFilter<"Event"> | number
+    sessionVerdictId?: StringNullableFilter<"Event"> | string | null
     session?: XOR<SessionScalarRelationFilter, SessionWhereInput>
     classification?: XOR<ClassificationNullableScalarRelationFilter, ClassificationWhereInput> | null
+    sessionVerdict?: XOR<SessionVerdictNullableScalarRelationFilter, SessionVerdictWhereInput> | null
   }
 
   export type EventOrderByWithRelationInput = {
@@ -9577,8 +11169,12 @@ export namespace Prisma {
     analyzedAt?: SortOrderInput | SortOrder
     analyzeCount?: SortOrder
     metadata?: SortOrderInput | SortOrder
+    detectionCount?: SortOrder
+    signalCount?: SortOrder
+    sessionVerdictId?: SortOrderInput | SortOrder
     session?: SessionOrderByWithRelationInput
     classification?: ClassificationOrderByWithRelationInput
+    sessionVerdict?: SessionVerdictOrderByWithRelationInput
   }
 
   export type EventWhereUniqueInput = Prisma.AtLeast<{
@@ -9602,8 +11198,12 @@ export namespace Prisma {
     analyzedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
     analyzeCount?: IntFilter<"Event"> | number
     metadata?: JsonNullableFilter<"Event">
+    detectionCount?: IntFilter<"Event"> | number
+    signalCount?: IntFilter<"Event"> | number
+    sessionVerdictId?: StringNullableFilter<"Event"> | string | null
     session?: XOR<SessionScalarRelationFilter, SessionWhereInput>
     classification?: XOR<ClassificationNullableScalarRelationFilter, ClassificationWhereInput> | null
+    sessionVerdict?: XOR<SessionVerdictNullableScalarRelationFilter, SessionVerdictWhereInput> | null
   }, "id">
 
   export type EventOrderByWithAggregationInput = {
@@ -9624,6 +11224,9 @@ export namespace Prisma {
     analyzedAt?: SortOrderInput | SortOrder
     analyzeCount?: SortOrder
     metadata?: SortOrderInput | SortOrder
+    detectionCount?: SortOrder
+    signalCount?: SortOrder
+    sessionVerdictId?: SortOrderInput | SortOrder
     _count?: EventCountOrderByAggregateInput
     _avg?: EventAvgOrderByAggregateInput
     _max?: EventMaxOrderByAggregateInput
@@ -9652,6 +11255,9 @@ export namespace Prisma {
     analyzedAt?: DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
     analyzeCount?: IntWithAggregatesFilter<"Event"> | number
     metadata?: JsonNullableWithAggregatesFilter<"Event">
+    detectionCount?: IntWithAggregatesFilter<"Event"> | number
+    signalCount?: IntWithAggregatesFilter<"Event"> | number
+    sessionVerdictId?: StringNullableWithAggregatesFilter<"Event"> | string | null
   }
 
   export type ClassificationWhereInput = {
@@ -9724,6 +11330,111 @@ export namespace Prisma {
     confidence?: FloatWithAggregatesFilter<"Classification"> | number
     severity?: StringNullableWithAggregatesFilter<"Classification"> | string | null
     explanation?: StringNullableWithAggregatesFilter<"Classification"> | string | null
+  }
+
+  export type SessionVerdictWhereInput = {
+    AND?: SessionVerdictWhereInput | SessionVerdictWhereInput[]
+    OR?: SessionVerdictWhereInput[]
+    NOT?: SessionVerdictWhereInput | SessionVerdictWhereInput[]
+    id?: StringFilter<"SessionVerdict"> | string
+    sessionId?: StringFilter<"SessionVerdict"> | string
+    createdAt?: DateTimeFilter<"SessionVerdict"> | Date | string
+    primaryAttackType?: StringNullableFilter<"SessionVerdict"> | string | null
+    threatLevel?: StringNullableFilter<"SessionVerdict"> | string | null
+    summary?: StringNullableFilter<"SessionVerdict"> | string | null
+    detector?: StringFilter<"SessionVerdict"> | string
+    mode?: StringFilter<"SessionVerdict"> | string
+    triggerReason?: StringNullableFilter<"SessionVerdict"> | string | null
+    status?: StringFilter<"SessionVerdict"> | string
+    eventsSent?: IntFilter<"SessionVerdict"> | number
+    eventsClassified?: IntFilter<"SessionVerdict"> | number
+    windowStart?: DateTimeNullableFilter<"SessionVerdict"> | Date | string | null
+    windowEnd?: DateTimeNullableFilter<"SessionVerdict"> | Date | string | null
+    session?: XOR<SessionScalarRelationFilter, SessionWhereInput>
+    events?: EventListRelationFilter
+  }
+
+  export type SessionVerdictOrderByWithRelationInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    createdAt?: SortOrder
+    primaryAttackType?: SortOrderInput | SortOrder
+    threatLevel?: SortOrderInput | SortOrder
+    summary?: SortOrderInput | SortOrder
+    detector?: SortOrder
+    mode?: SortOrder
+    triggerReason?: SortOrderInput | SortOrder
+    status?: SortOrder
+    eventsSent?: SortOrder
+    eventsClassified?: SortOrder
+    windowStart?: SortOrderInput | SortOrder
+    windowEnd?: SortOrderInput | SortOrder
+    session?: SessionOrderByWithRelationInput
+    events?: EventOrderByRelationAggregateInput
+  }
+
+  export type SessionVerdictWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SessionVerdictWhereInput | SessionVerdictWhereInput[]
+    OR?: SessionVerdictWhereInput[]
+    NOT?: SessionVerdictWhereInput | SessionVerdictWhereInput[]
+    sessionId?: StringFilter<"SessionVerdict"> | string
+    createdAt?: DateTimeFilter<"SessionVerdict"> | Date | string
+    primaryAttackType?: StringNullableFilter<"SessionVerdict"> | string | null
+    threatLevel?: StringNullableFilter<"SessionVerdict"> | string | null
+    summary?: StringNullableFilter<"SessionVerdict"> | string | null
+    detector?: StringFilter<"SessionVerdict"> | string
+    mode?: StringFilter<"SessionVerdict"> | string
+    triggerReason?: StringNullableFilter<"SessionVerdict"> | string | null
+    status?: StringFilter<"SessionVerdict"> | string
+    eventsSent?: IntFilter<"SessionVerdict"> | number
+    eventsClassified?: IntFilter<"SessionVerdict"> | number
+    windowStart?: DateTimeNullableFilter<"SessionVerdict"> | Date | string | null
+    windowEnd?: DateTimeNullableFilter<"SessionVerdict"> | Date | string | null
+    session?: XOR<SessionScalarRelationFilter, SessionWhereInput>
+    events?: EventListRelationFilter
+  }, "id">
+
+  export type SessionVerdictOrderByWithAggregationInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    createdAt?: SortOrder
+    primaryAttackType?: SortOrderInput | SortOrder
+    threatLevel?: SortOrderInput | SortOrder
+    summary?: SortOrderInput | SortOrder
+    detector?: SortOrder
+    mode?: SortOrder
+    triggerReason?: SortOrderInput | SortOrder
+    status?: SortOrder
+    eventsSent?: SortOrder
+    eventsClassified?: SortOrder
+    windowStart?: SortOrderInput | SortOrder
+    windowEnd?: SortOrderInput | SortOrder
+    _count?: SessionVerdictCountOrderByAggregateInput
+    _avg?: SessionVerdictAvgOrderByAggregateInput
+    _max?: SessionVerdictMaxOrderByAggregateInput
+    _min?: SessionVerdictMinOrderByAggregateInput
+    _sum?: SessionVerdictSumOrderByAggregateInput
+  }
+
+  export type SessionVerdictScalarWhereWithAggregatesInput = {
+    AND?: SessionVerdictScalarWhereWithAggregatesInput | SessionVerdictScalarWhereWithAggregatesInput[]
+    OR?: SessionVerdictScalarWhereWithAggregatesInput[]
+    NOT?: SessionVerdictScalarWhereWithAggregatesInput | SessionVerdictScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SessionVerdict"> | string
+    sessionId?: StringWithAggregatesFilter<"SessionVerdict"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SessionVerdict"> | Date | string
+    primaryAttackType?: StringNullableWithAggregatesFilter<"SessionVerdict"> | string | null
+    threatLevel?: StringNullableWithAggregatesFilter<"SessionVerdict"> | string | null
+    summary?: StringNullableWithAggregatesFilter<"SessionVerdict"> | string | null
+    detector?: StringWithAggregatesFilter<"SessionVerdict"> | string
+    mode?: StringWithAggregatesFilter<"SessionVerdict"> | string
+    triggerReason?: StringNullableWithAggregatesFilter<"SessionVerdict"> | string | null
+    status?: StringWithAggregatesFilter<"SessionVerdict"> | string
+    eventsSent?: IntWithAggregatesFilter<"SessionVerdict"> | number
+    eventsClassified?: IntWithAggregatesFilter<"SessionVerdict"> | number
+    windowStart?: DateTimeNullableWithAggregatesFilter<"SessionVerdict"> | Date | string | null
+    windowEnd?: DateTimeNullableWithAggregatesFilter<"SessionVerdict"> | Date | string | null
   }
 
   export type PatientWhereInput = {
@@ -9974,95 +11685,113 @@ export namespace Prisma {
     id?: string
     tokenId: string
     sessionKey: string
-    cookieId: string
+    cookieId?: string | null
     identMethod?: string
     firstSeen?: Date | string
     lastSeen?: Date | string
     lastAnalyzedAt?: Date | string | null
     sourceIp: string
     userAgent: string
+    analysisCount?: number
+    suppressed?: boolean
     events?: EventCreateNestedManyWithoutSessionInput
+    verdicts?: SessionVerdictCreateNestedManyWithoutSessionInput
   }
 
   export type SessionUncheckedCreateInput = {
     id?: string
     tokenId: string
     sessionKey: string
-    cookieId: string
+    cookieId?: string | null
     identMethod?: string
     firstSeen?: Date | string
     lastSeen?: Date | string
     lastAnalyzedAt?: Date | string | null
     sourceIp: string
     userAgent: string
+    analysisCount?: number
+    suppressed?: boolean
     events?: EventUncheckedCreateNestedManyWithoutSessionInput
+    verdicts?: SessionVerdictUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type SessionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
     sessionKey?: StringFieldUpdateOperationsInput | string
-    cookieId?: StringFieldUpdateOperationsInput | string
+    cookieId?: NullableStringFieldUpdateOperationsInput | string | null
     identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
+    analysisCount?: IntFieldUpdateOperationsInput | number
+    suppressed?: BoolFieldUpdateOperationsInput | boolean
     events?: EventUpdateManyWithoutSessionNestedInput
+    verdicts?: SessionVerdictUpdateManyWithoutSessionNestedInput
   }
 
   export type SessionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
     sessionKey?: StringFieldUpdateOperationsInput | string
-    cookieId?: StringFieldUpdateOperationsInput | string
+    cookieId?: NullableStringFieldUpdateOperationsInput | string | null
     identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
+    analysisCount?: IntFieldUpdateOperationsInput | number
+    suppressed?: BoolFieldUpdateOperationsInput | boolean
     events?: EventUncheckedUpdateManyWithoutSessionNestedInput
+    verdicts?: SessionVerdictUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type SessionCreateManyInput = {
     id?: string
     tokenId: string
     sessionKey: string
-    cookieId: string
+    cookieId?: string | null
     identMethod?: string
     firstSeen?: Date | string
     lastSeen?: Date | string
     lastAnalyzedAt?: Date | string | null
     sourceIp: string
     userAgent: string
+    analysisCount?: number
+    suppressed?: boolean
   }
 
   export type SessionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
     sessionKey?: StringFieldUpdateOperationsInput | string
-    cookieId?: StringFieldUpdateOperationsInput | string
+    cookieId?: NullableStringFieldUpdateOperationsInput | string | null
     identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
+    analysisCount?: IntFieldUpdateOperationsInput | number
+    suppressed?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type SessionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
     sessionKey?: StringFieldUpdateOperationsInput | string
-    cookieId?: StringFieldUpdateOperationsInput | string
+    cookieId?: NullableStringFieldUpdateOperationsInput | string | null
     identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
+    analysisCount?: IntFieldUpdateOperationsInput | number
+    suppressed?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type EventCreateInput = {
@@ -10082,8 +11811,11 @@ export namespace Prisma {
     analyzedAt?: Date | string | null
     analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
     session: SessionCreateNestedOneWithoutEventsInput
     classification?: ClassificationCreateNestedOneWithoutEventInput
+    sessionVerdict?: SessionVerdictCreateNestedOneWithoutEventsInput
   }
 
   export type EventUncheckedCreateInput = {
@@ -10104,6 +11836,9 @@ export namespace Prisma {
     analyzedAt?: Date | string | null
     analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
+    sessionVerdictId?: string | null
     classification?: ClassificationUncheckedCreateNestedOneWithoutEventInput
   }
 
@@ -10124,8 +11859,11 @@ export namespace Prisma {
     analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
     session?: SessionUpdateOneRequiredWithoutEventsNestedInput
     classification?: ClassificationUpdateOneWithoutEventNestedInput
+    sessionVerdict?: SessionVerdictUpdateOneWithoutEventsNestedInput
   }
 
   export type EventUncheckedUpdateInput = {
@@ -10146,6 +11884,9 @@ export namespace Prisma {
     analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
+    sessionVerdictId?: NullableStringFieldUpdateOperationsInput | string | null
     classification?: ClassificationUncheckedUpdateOneWithoutEventNestedInput
   }
 
@@ -10167,6 +11908,9 @@ export namespace Prisma {
     analyzedAt?: Date | string | null
     analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
+    sessionVerdictId?: string | null
   }
 
   export type EventUpdateManyMutationInput = {
@@ -10186,6 +11930,8 @@ export namespace Prisma {
     analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type EventUncheckedUpdateManyInput = {
@@ -10206,6 +11952,9 @@ export namespace Prisma {
     analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
+    sessionVerdictId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ClassificationCreateInput = {
@@ -10282,6 +12031,128 @@ export namespace Prisma {
     confidence?: FloatFieldUpdateOperationsInput | number
     severity?: NullableStringFieldUpdateOperationsInput | string | null
     explanation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SessionVerdictCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    primaryAttackType?: string | null
+    threatLevel?: string | null
+    summary?: string | null
+    detector: string
+    mode: string
+    triggerReason?: string | null
+    status?: string
+    eventsSent: number
+    eventsClassified: number
+    windowStart?: Date | string | null
+    windowEnd?: Date | string | null
+    session: SessionCreateNestedOneWithoutVerdictsInput
+    events?: EventCreateNestedManyWithoutSessionVerdictInput
+  }
+
+  export type SessionVerdictUncheckedCreateInput = {
+    id?: string
+    sessionId: string
+    createdAt?: Date | string
+    primaryAttackType?: string | null
+    threatLevel?: string | null
+    summary?: string | null
+    detector: string
+    mode: string
+    triggerReason?: string | null
+    status?: string
+    eventsSent: number
+    eventsClassified: number
+    windowStart?: Date | string | null
+    windowEnd?: Date | string | null
+    events?: EventUncheckedCreateNestedManyWithoutSessionVerdictInput
+  }
+
+  export type SessionVerdictUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    primaryAttackType?: NullableStringFieldUpdateOperationsInput | string | null
+    threatLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    detector?: StringFieldUpdateOperationsInput | string
+    mode?: StringFieldUpdateOperationsInput | string
+    triggerReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    eventsSent?: IntFieldUpdateOperationsInput | number
+    eventsClassified?: IntFieldUpdateOperationsInput | number
+    windowStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    windowEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    session?: SessionUpdateOneRequiredWithoutVerdictsNestedInput
+    events?: EventUpdateManyWithoutSessionVerdictNestedInput
+  }
+
+  export type SessionVerdictUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    primaryAttackType?: NullableStringFieldUpdateOperationsInput | string | null
+    threatLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    detector?: StringFieldUpdateOperationsInput | string
+    mode?: StringFieldUpdateOperationsInput | string
+    triggerReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    eventsSent?: IntFieldUpdateOperationsInput | number
+    eventsClassified?: IntFieldUpdateOperationsInput | number
+    windowStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    windowEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    events?: EventUncheckedUpdateManyWithoutSessionVerdictNestedInput
+  }
+
+  export type SessionVerdictCreateManyInput = {
+    id?: string
+    sessionId: string
+    createdAt?: Date | string
+    primaryAttackType?: string | null
+    threatLevel?: string | null
+    summary?: string | null
+    detector: string
+    mode: string
+    triggerReason?: string | null
+    status?: string
+    eventsSent: number
+    eventsClassified: number
+    windowStart?: Date | string | null
+    windowEnd?: Date | string | null
+  }
+
+  export type SessionVerdictUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    primaryAttackType?: NullableStringFieldUpdateOperationsInput | string | null
+    threatLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    detector?: StringFieldUpdateOperationsInput | string
+    mode?: StringFieldUpdateOperationsInput | string
+    triggerReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    eventsSent?: IntFieldUpdateOperationsInput | number
+    eventsClassified?: IntFieldUpdateOperationsInput | number
+    windowStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    windowEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SessionVerdictUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    primaryAttackType?: NullableStringFieldUpdateOperationsInput | string | null
+    threatLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    detector?: StringFieldUpdateOperationsInput | string
+    mode?: StringFieldUpdateOperationsInput | string
+    triggerReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    eventsSent?: IntFieldUpdateOperationsInput | number
+    eventsClassified?: IntFieldUpdateOperationsInput | number
+    windowStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    windowEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PatientCreateInput = {
@@ -10556,6 +12427,21 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -10578,10 +12464,32 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type EventListRelationFilter = {
     every?: EventWhereInput
     some?: EventWhereInput
     none?: EventWhereInput
+  }
+
+  export type SessionVerdictListRelationFilter = {
+    every?: SessionVerdictWhereInput
+    some?: SessionVerdictWhereInput
+    none?: SessionVerdictWhereInput
   }
 
   export type SortOrderInput = {
@@ -10590,6 +12498,10 @@ export namespace Prisma {
   }
 
   export type EventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SessionVerdictOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10604,6 +12516,12 @@ export namespace Prisma {
     lastAnalyzedAt?: SortOrder
     sourceIp?: SortOrder
     userAgent?: SortOrder
+    analysisCount?: SortOrder
+    suppressed?: SortOrder
+  }
+
+  export type SessionAvgOrderByAggregateInput = {
+    analysisCount?: SortOrder
   }
 
   export type SessionMaxOrderByAggregateInput = {
@@ -10617,6 +12535,8 @@ export namespace Prisma {
     lastAnalyzedAt?: SortOrder
     sourceIp?: SortOrder
     userAgent?: SortOrder
+    analysisCount?: SortOrder
+    suppressed?: SortOrder
   }
 
   export type SessionMinOrderByAggregateInput = {
@@ -10630,6 +12550,12 @@ export namespace Prisma {
     lastAnalyzedAt?: SortOrder
     sourceIp?: SortOrder
     userAgent?: SortOrder
+    analysisCount?: SortOrder
+    suppressed?: SortOrder
+  }
+
+  export type SessionSumOrderByAggregateInput = {
+    analysisCount?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -10648,6 +12574,24 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -10678,19 +12622,28 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -10727,17 +12680,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type SessionScalarRelationFilter = {
     is?: SessionWhereInput
     isNot?: SessionWhereInput
@@ -10746,6 +12688,11 @@ export namespace Prisma {
   export type ClassificationNullableScalarRelationFilter = {
     is?: ClassificationWhereInput | null
     isNot?: ClassificationWhereInput | null
+  }
+
+  export type SessionVerdictNullableScalarRelationFilter = {
+    is?: SessionVerdictWhereInput | null
+    isNot?: SessionVerdictWhereInput | null
   }
 
   export type EventCountOrderByAggregateInput = {
@@ -10766,12 +12713,17 @@ export namespace Prisma {
     analyzedAt?: SortOrder
     analyzeCount?: SortOrder
     metadata?: SortOrder
+    detectionCount?: SortOrder
+    signalCount?: SortOrder
+    sessionVerdictId?: SortOrder
   }
 
   export type EventAvgOrderByAggregateInput = {
     statusCode?: SortOrder
     durationMs?: SortOrder
     analyzeCount?: SortOrder
+    detectionCount?: SortOrder
+    signalCount?: SortOrder
   }
 
   export type EventMaxOrderByAggregateInput = {
@@ -10788,6 +12740,9 @@ export namespace Prisma {
     origin?: SortOrder
     analyzedAt?: SortOrder
     analyzeCount?: SortOrder
+    detectionCount?: SortOrder
+    signalCount?: SortOrder
+    sessionVerdictId?: SortOrder
   }
 
   export type EventMinOrderByAggregateInput = {
@@ -10804,30 +12759,17 @@ export namespace Prisma {
     origin?: SortOrder
     analyzedAt?: SortOrder
     analyzeCount?: SortOrder
+    detectionCount?: SortOrder
+    signalCount?: SortOrder
+    sessionVerdictId?: SortOrder
   }
 
   export type EventSumOrderByAggregateInput = {
     statusCode?: SortOrder
     durationMs?: SortOrder
     analyzeCount?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
+    detectionCount?: SortOrder
+    signalCount?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10870,22 +12812,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -10959,6 +12885,67 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type SessionVerdictCountOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    createdAt?: SortOrder
+    primaryAttackType?: SortOrder
+    threatLevel?: SortOrder
+    summary?: SortOrder
+    detector?: SortOrder
+    mode?: SortOrder
+    triggerReason?: SortOrder
+    status?: SortOrder
+    eventsSent?: SortOrder
+    eventsClassified?: SortOrder
+    windowStart?: SortOrder
+    windowEnd?: SortOrder
+  }
+
+  export type SessionVerdictAvgOrderByAggregateInput = {
+    eventsSent?: SortOrder
+    eventsClassified?: SortOrder
+  }
+
+  export type SessionVerdictMaxOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    createdAt?: SortOrder
+    primaryAttackType?: SortOrder
+    threatLevel?: SortOrder
+    summary?: SortOrder
+    detector?: SortOrder
+    mode?: SortOrder
+    triggerReason?: SortOrder
+    status?: SortOrder
+    eventsSent?: SortOrder
+    eventsClassified?: SortOrder
+    windowStart?: SortOrder
+    windowEnd?: SortOrder
+  }
+
+  export type SessionVerdictMinOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    createdAt?: SortOrder
+    primaryAttackType?: SortOrder
+    threatLevel?: SortOrder
+    summary?: SortOrder
+    detector?: SortOrder
+    mode?: SortOrder
+    triggerReason?: SortOrder
+    status?: SortOrder
+    eventsSent?: SortOrder
+    eventsClassified?: SortOrder
+    windowStart?: SortOrder
+    windowEnd?: SortOrder
+  }
+
+  export type SessionVerdictSumOrderByAggregateInput = {
+    eventsSent?: SortOrder
+    eventsClassified?: SortOrder
   }
 
   export type PatientCountOrderByAggregateInput = {
@@ -11118,6 +13105,13 @@ export namespace Prisma {
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
   }
 
+  export type SessionVerdictCreateNestedManyWithoutSessionInput = {
+    create?: XOR<SessionVerdictCreateWithoutSessionInput, SessionVerdictUncheckedCreateWithoutSessionInput> | SessionVerdictCreateWithoutSessionInput[] | SessionVerdictUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: SessionVerdictCreateOrConnectWithoutSessionInput | SessionVerdictCreateOrConnectWithoutSessionInput[]
+    createMany?: SessionVerdictCreateManySessionInputEnvelope
+    connect?: SessionVerdictWhereUniqueInput | SessionVerdictWhereUniqueInput[]
+  }
+
   export type EventUncheckedCreateNestedManyWithoutSessionInput = {
     create?: XOR<EventCreateWithoutSessionInput, EventUncheckedCreateWithoutSessionInput> | EventCreateWithoutSessionInput[] | EventUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: EventCreateOrConnectWithoutSessionInput | EventCreateOrConnectWithoutSessionInput[]
@@ -11125,8 +13119,19 @@ export namespace Prisma {
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
   }
 
+  export type SessionVerdictUncheckedCreateNestedManyWithoutSessionInput = {
+    create?: XOR<SessionVerdictCreateWithoutSessionInput, SessionVerdictUncheckedCreateWithoutSessionInput> | SessionVerdictCreateWithoutSessionInput[] | SessionVerdictUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: SessionVerdictCreateOrConnectWithoutSessionInput | SessionVerdictCreateOrConnectWithoutSessionInput[]
+    createMany?: SessionVerdictCreateManySessionInputEnvelope
+    connect?: SessionVerdictWhereUniqueInput | SessionVerdictWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -11135,6 +13140,18 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type EventUpdateManyWithoutSessionNestedInput = {
@@ -11151,6 +13168,20 @@ export namespace Prisma {
     deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
   }
 
+  export type SessionVerdictUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<SessionVerdictCreateWithoutSessionInput, SessionVerdictUncheckedCreateWithoutSessionInput> | SessionVerdictCreateWithoutSessionInput[] | SessionVerdictUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: SessionVerdictCreateOrConnectWithoutSessionInput | SessionVerdictCreateOrConnectWithoutSessionInput[]
+    upsert?: SessionVerdictUpsertWithWhereUniqueWithoutSessionInput | SessionVerdictUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: SessionVerdictCreateManySessionInputEnvelope
+    set?: SessionVerdictWhereUniqueInput | SessionVerdictWhereUniqueInput[]
+    disconnect?: SessionVerdictWhereUniqueInput | SessionVerdictWhereUniqueInput[]
+    delete?: SessionVerdictWhereUniqueInput | SessionVerdictWhereUniqueInput[]
+    connect?: SessionVerdictWhereUniqueInput | SessionVerdictWhereUniqueInput[]
+    update?: SessionVerdictUpdateWithWhereUniqueWithoutSessionInput | SessionVerdictUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: SessionVerdictUpdateManyWithWhereWithoutSessionInput | SessionVerdictUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: SessionVerdictScalarWhereInput | SessionVerdictScalarWhereInput[]
+  }
+
   export type EventUncheckedUpdateManyWithoutSessionNestedInput = {
     create?: XOR<EventCreateWithoutSessionInput, EventUncheckedCreateWithoutSessionInput> | EventCreateWithoutSessionInput[] | EventUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: EventCreateOrConnectWithoutSessionInput | EventCreateOrConnectWithoutSessionInput[]
@@ -11165,6 +13196,20 @@ export namespace Prisma {
     deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
   }
 
+  export type SessionVerdictUncheckedUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<SessionVerdictCreateWithoutSessionInput, SessionVerdictUncheckedCreateWithoutSessionInput> | SessionVerdictCreateWithoutSessionInput[] | SessionVerdictUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: SessionVerdictCreateOrConnectWithoutSessionInput | SessionVerdictCreateOrConnectWithoutSessionInput[]
+    upsert?: SessionVerdictUpsertWithWhereUniqueWithoutSessionInput | SessionVerdictUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: SessionVerdictCreateManySessionInputEnvelope
+    set?: SessionVerdictWhereUniqueInput | SessionVerdictWhereUniqueInput[]
+    disconnect?: SessionVerdictWhereUniqueInput | SessionVerdictWhereUniqueInput[]
+    delete?: SessionVerdictWhereUniqueInput | SessionVerdictWhereUniqueInput[]
+    connect?: SessionVerdictWhereUniqueInput | SessionVerdictWhereUniqueInput[]
+    update?: SessionVerdictUpdateWithWhereUniqueWithoutSessionInput | SessionVerdictUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: SessionVerdictUpdateManyWithWhereWithoutSessionInput | SessionVerdictUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: SessionVerdictScalarWhereInput | SessionVerdictScalarWhereInput[]
+  }
+
   export type SessionCreateNestedOneWithoutEventsInput = {
     create?: XOR<SessionCreateWithoutEventsInput, SessionUncheckedCreateWithoutEventsInput>
     connectOrCreate?: SessionCreateOrConnectWithoutEventsInput
@@ -11177,26 +13222,20 @@ export namespace Prisma {
     connect?: ClassificationWhereUniqueInput
   }
 
+  export type SessionVerdictCreateNestedOneWithoutEventsInput = {
+    create?: XOR<SessionVerdictCreateWithoutEventsInput, SessionVerdictUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: SessionVerdictCreateOrConnectWithoutEventsInput
+    connect?: SessionVerdictWhereUniqueInput
+  }
+
   export type ClassificationUncheckedCreateNestedOneWithoutEventInput = {
     create?: XOR<ClassificationCreateWithoutEventInput, ClassificationUncheckedCreateWithoutEventInput>
     connectOrCreate?: ClassificationCreateOrConnectWithoutEventInput
     connect?: ClassificationWhereUniqueInput
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
     increment?: number
     decrement?: number
     multiply?: number
@@ -11219,6 +13258,16 @@ export namespace Prisma {
     delete?: ClassificationWhereInput | boolean
     connect?: ClassificationWhereUniqueInput
     update?: XOR<XOR<ClassificationUpdateToOneWithWhereWithoutEventInput, ClassificationUpdateWithoutEventInput>, ClassificationUncheckedUpdateWithoutEventInput>
+  }
+
+  export type SessionVerdictUpdateOneWithoutEventsNestedInput = {
+    create?: XOR<SessionVerdictCreateWithoutEventsInput, SessionVerdictUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: SessionVerdictCreateOrConnectWithoutEventsInput
+    upsert?: SessionVerdictUpsertWithoutEventsInput
+    disconnect?: SessionVerdictWhereInput | boolean
+    delete?: SessionVerdictWhereInput | boolean
+    connect?: SessionVerdictWhereUniqueInput
+    update?: XOR<XOR<SessionVerdictUpdateToOneWithWhereWithoutEventsInput, SessionVerdictUpdateWithoutEventsInput>, SessionVerdictUncheckedUpdateWithoutEventsInput>
   }
 
   export type ClassificationUncheckedUpdateOneWithoutEventNestedInput = {
@@ -11253,6 +13302,62 @@ export namespace Prisma {
     update?: XOR<XOR<EventUpdateToOneWithWhereWithoutClassificationInput, EventUpdateWithoutClassificationInput>, EventUncheckedUpdateWithoutClassificationInput>
   }
 
+  export type SessionCreateNestedOneWithoutVerdictsInput = {
+    create?: XOR<SessionCreateWithoutVerdictsInput, SessionUncheckedCreateWithoutVerdictsInput>
+    connectOrCreate?: SessionCreateOrConnectWithoutVerdictsInput
+    connect?: SessionWhereUniqueInput
+  }
+
+  export type EventCreateNestedManyWithoutSessionVerdictInput = {
+    create?: XOR<EventCreateWithoutSessionVerdictInput, EventUncheckedCreateWithoutSessionVerdictInput> | EventCreateWithoutSessionVerdictInput[] | EventUncheckedCreateWithoutSessionVerdictInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutSessionVerdictInput | EventCreateOrConnectWithoutSessionVerdictInput[]
+    createMany?: EventCreateManySessionVerdictInputEnvelope
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+  }
+
+  export type EventUncheckedCreateNestedManyWithoutSessionVerdictInput = {
+    create?: XOR<EventCreateWithoutSessionVerdictInput, EventUncheckedCreateWithoutSessionVerdictInput> | EventCreateWithoutSessionVerdictInput[] | EventUncheckedCreateWithoutSessionVerdictInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutSessionVerdictInput | EventCreateOrConnectWithoutSessionVerdictInput[]
+    createMany?: EventCreateManySessionVerdictInputEnvelope
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+  }
+
+  export type SessionUpdateOneRequiredWithoutVerdictsNestedInput = {
+    create?: XOR<SessionCreateWithoutVerdictsInput, SessionUncheckedCreateWithoutVerdictsInput>
+    connectOrCreate?: SessionCreateOrConnectWithoutVerdictsInput
+    upsert?: SessionUpsertWithoutVerdictsInput
+    connect?: SessionWhereUniqueInput
+    update?: XOR<XOR<SessionUpdateToOneWithWhereWithoutVerdictsInput, SessionUpdateWithoutVerdictsInput>, SessionUncheckedUpdateWithoutVerdictsInput>
+  }
+
+  export type EventUpdateManyWithoutSessionVerdictNestedInput = {
+    create?: XOR<EventCreateWithoutSessionVerdictInput, EventUncheckedCreateWithoutSessionVerdictInput> | EventCreateWithoutSessionVerdictInput[] | EventUncheckedCreateWithoutSessionVerdictInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutSessionVerdictInput | EventCreateOrConnectWithoutSessionVerdictInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutSessionVerdictInput | EventUpsertWithWhereUniqueWithoutSessionVerdictInput[]
+    createMany?: EventCreateManySessionVerdictInputEnvelope
+    set?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    update?: EventUpdateWithWhereUniqueWithoutSessionVerdictInput | EventUpdateWithWhereUniqueWithoutSessionVerdictInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutSessionVerdictInput | EventUpdateManyWithWhereWithoutSessionVerdictInput[]
+    deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
+  }
+
+  export type EventUncheckedUpdateManyWithoutSessionVerdictNestedInput = {
+    create?: XOR<EventCreateWithoutSessionVerdictInput, EventUncheckedCreateWithoutSessionVerdictInput> | EventCreateWithoutSessionVerdictInput[] | EventUncheckedCreateWithoutSessionVerdictInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutSessionVerdictInput | EventCreateOrConnectWithoutSessionVerdictInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutSessionVerdictInput | EventUpsertWithWhereUniqueWithoutSessionVerdictInput[]
+    createMany?: EventCreateManySessionVerdictInputEnvelope
+    set?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    update?: EventUpdateWithWhereUniqueWithoutSessionVerdictInput | EventUpdateWithWhereUniqueWithoutSessionVerdictInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutSessionVerdictInput | EventUpdateManyWithWhereWithoutSessionVerdictInput[]
+    deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11265,6 +13370,20 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -11289,6 +13408,22 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11306,15 +13441,32 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -11345,46 +13497,39 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11437,33 +13582,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -11497,7 +13615,10 @@ export namespace Prisma {
     analyzedAt?: Date | string | null
     analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
     classification?: ClassificationCreateNestedOneWithoutEventInput
+    sessionVerdict?: SessionVerdictCreateNestedOneWithoutEventsInput
   }
 
   export type EventUncheckedCreateWithoutSessionInput = {
@@ -11517,6 +13638,9 @@ export namespace Prisma {
     analyzedAt?: Date | string | null
     analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
+    sessionVerdictId?: string | null
     classification?: ClassificationUncheckedCreateNestedOneWithoutEventInput
   }
 
@@ -11527,6 +13651,50 @@ export namespace Prisma {
 
   export type EventCreateManySessionInputEnvelope = {
     data: EventCreateManySessionInput | EventCreateManySessionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SessionVerdictCreateWithoutSessionInput = {
+    id?: string
+    createdAt?: Date | string
+    primaryAttackType?: string | null
+    threatLevel?: string | null
+    summary?: string | null
+    detector: string
+    mode: string
+    triggerReason?: string | null
+    status?: string
+    eventsSent: number
+    eventsClassified: number
+    windowStart?: Date | string | null
+    windowEnd?: Date | string | null
+    events?: EventCreateNestedManyWithoutSessionVerdictInput
+  }
+
+  export type SessionVerdictUncheckedCreateWithoutSessionInput = {
+    id?: string
+    createdAt?: Date | string
+    primaryAttackType?: string | null
+    threatLevel?: string | null
+    summary?: string | null
+    detector: string
+    mode: string
+    triggerReason?: string | null
+    status?: string
+    eventsSent: number
+    eventsClassified: number
+    windowStart?: Date | string | null
+    windowEnd?: Date | string | null
+    events?: EventUncheckedCreateNestedManyWithoutSessionVerdictInput
+  }
+
+  export type SessionVerdictCreateOrConnectWithoutSessionInput = {
+    where: SessionVerdictWhereUniqueInput
+    create: XOR<SessionVerdictCreateWithoutSessionInput, SessionVerdictUncheckedCreateWithoutSessionInput>
+  }
+
+  export type SessionVerdictCreateManySessionInputEnvelope = {
+    data: SessionVerdictCreateManySessionInput | SessionVerdictCreateManySessionInput[]
     skipDuplicates?: boolean
   }
 
@@ -11567,32 +13735,77 @@ export namespace Prisma {
     analyzedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
     analyzeCount?: IntFilter<"Event"> | number
     metadata?: JsonNullableFilter<"Event">
+    detectionCount?: IntFilter<"Event"> | number
+    signalCount?: IntFilter<"Event"> | number
+    sessionVerdictId?: StringNullableFilter<"Event"> | string | null
+  }
+
+  export type SessionVerdictUpsertWithWhereUniqueWithoutSessionInput = {
+    where: SessionVerdictWhereUniqueInput
+    update: XOR<SessionVerdictUpdateWithoutSessionInput, SessionVerdictUncheckedUpdateWithoutSessionInput>
+    create: XOR<SessionVerdictCreateWithoutSessionInput, SessionVerdictUncheckedCreateWithoutSessionInput>
+  }
+
+  export type SessionVerdictUpdateWithWhereUniqueWithoutSessionInput = {
+    where: SessionVerdictWhereUniqueInput
+    data: XOR<SessionVerdictUpdateWithoutSessionInput, SessionVerdictUncheckedUpdateWithoutSessionInput>
+  }
+
+  export type SessionVerdictUpdateManyWithWhereWithoutSessionInput = {
+    where: SessionVerdictScalarWhereInput
+    data: XOR<SessionVerdictUpdateManyMutationInput, SessionVerdictUncheckedUpdateManyWithoutSessionInput>
+  }
+
+  export type SessionVerdictScalarWhereInput = {
+    AND?: SessionVerdictScalarWhereInput | SessionVerdictScalarWhereInput[]
+    OR?: SessionVerdictScalarWhereInput[]
+    NOT?: SessionVerdictScalarWhereInput | SessionVerdictScalarWhereInput[]
+    id?: StringFilter<"SessionVerdict"> | string
+    sessionId?: StringFilter<"SessionVerdict"> | string
+    createdAt?: DateTimeFilter<"SessionVerdict"> | Date | string
+    primaryAttackType?: StringNullableFilter<"SessionVerdict"> | string | null
+    threatLevel?: StringNullableFilter<"SessionVerdict"> | string | null
+    summary?: StringNullableFilter<"SessionVerdict"> | string | null
+    detector?: StringFilter<"SessionVerdict"> | string
+    mode?: StringFilter<"SessionVerdict"> | string
+    triggerReason?: StringNullableFilter<"SessionVerdict"> | string | null
+    status?: StringFilter<"SessionVerdict"> | string
+    eventsSent?: IntFilter<"SessionVerdict"> | number
+    eventsClassified?: IntFilter<"SessionVerdict"> | number
+    windowStart?: DateTimeNullableFilter<"SessionVerdict"> | Date | string | null
+    windowEnd?: DateTimeNullableFilter<"SessionVerdict"> | Date | string | null
   }
 
   export type SessionCreateWithoutEventsInput = {
     id?: string
     tokenId: string
     sessionKey: string
-    cookieId: string
+    cookieId?: string | null
     identMethod?: string
     firstSeen?: Date | string
     lastSeen?: Date | string
     lastAnalyzedAt?: Date | string | null
     sourceIp: string
     userAgent: string
+    analysisCount?: number
+    suppressed?: boolean
+    verdicts?: SessionVerdictCreateNestedManyWithoutSessionInput
   }
 
   export type SessionUncheckedCreateWithoutEventsInput = {
     id?: string
     tokenId: string
     sessionKey: string
-    cookieId: string
+    cookieId?: string | null
     identMethod?: string
     firstSeen?: Date | string
     lastSeen?: Date | string
     lastAnalyzedAt?: Date | string | null
     sourceIp: string
     userAgent: string
+    analysisCount?: number
+    suppressed?: boolean
+    verdicts?: SessionVerdictUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type SessionCreateOrConnectWithoutEventsInput = {
@@ -11625,6 +13838,45 @@ export namespace Prisma {
     create: XOR<ClassificationCreateWithoutEventInput, ClassificationUncheckedCreateWithoutEventInput>
   }
 
+  export type SessionVerdictCreateWithoutEventsInput = {
+    id?: string
+    createdAt?: Date | string
+    primaryAttackType?: string | null
+    threatLevel?: string | null
+    summary?: string | null
+    detector: string
+    mode: string
+    triggerReason?: string | null
+    status?: string
+    eventsSent: number
+    eventsClassified: number
+    windowStart?: Date | string | null
+    windowEnd?: Date | string | null
+    session: SessionCreateNestedOneWithoutVerdictsInput
+  }
+
+  export type SessionVerdictUncheckedCreateWithoutEventsInput = {
+    id?: string
+    sessionId: string
+    createdAt?: Date | string
+    primaryAttackType?: string | null
+    threatLevel?: string | null
+    summary?: string | null
+    detector: string
+    mode: string
+    triggerReason?: string | null
+    status?: string
+    eventsSent: number
+    eventsClassified: number
+    windowStart?: Date | string | null
+    windowEnd?: Date | string | null
+  }
+
+  export type SessionVerdictCreateOrConnectWithoutEventsInput = {
+    where: SessionVerdictWhereUniqueInput
+    create: XOR<SessionVerdictCreateWithoutEventsInput, SessionVerdictUncheckedCreateWithoutEventsInput>
+  }
+
   export type SessionUpsertWithoutEventsInput = {
     update: XOR<SessionUpdateWithoutEventsInput, SessionUncheckedUpdateWithoutEventsInput>
     create: XOR<SessionCreateWithoutEventsInput, SessionUncheckedCreateWithoutEventsInput>
@@ -11640,26 +13892,32 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
     sessionKey?: StringFieldUpdateOperationsInput | string
-    cookieId?: StringFieldUpdateOperationsInput | string
+    cookieId?: NullableStringFieldUpdateOperationsInput | string | null
     identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
+    analysisCount?: IntFieldUpdateOperationsInput | number
+    suppressed?: BoolFieldUpdateOperationsInput | boolean
+    verdicts?: SessionVerdictUpdateManyWithoutSessionNestedInput
   }
 
   export type SessionUncheckedUpdateWithoutEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
     tokenId?: StringFieldUpdateOperationsInput | string
     sessionKey?: StringFieldUpdateOperationsInput | string
-    cookieId?: StringFieldUpdateOperationsInput | string
+    cookieId?: NullableStringFieldUpdateOperationsInput | string | null
     identMethod?: StringFieldUpdateOperationsInput | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sourceIp?: StringFieldUpdateOperationsInput | string
     userAgent?: StringFieldUpdateOperationsInput | string
+    analysisCount?: IntFieldUpdateOperationsInput | number
+    suppressed?: BoolFieldUpdateOperationsInput | boolean
+    verdicts?: SessionVerdictUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type ClassificationUpsertWithoutEventInput = {
@@ -11693,6 +13951,51 @@ export namespace Prisma {
     explanation?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type SessionVerdictUpsertWithoutEventsInput = {
+    update: XOR<SessionVerdictUpdateWithoutEventsInput, SessionVerdictUncheckedUpdateWithoutEventsInput>
+    create: XOR<SessionVerdictCreateWithoutEventsInput, SessionVerdictUncheckedCreateWithoutEventsInput>
+    where?: SessionVerdictWhereInput
+  }
+
+  export type SessionVerdictUpdateToOneWithWhereWithoutEventsInput = {
+    where?: SessionVerdictWhereInput
+    data: XOR<SessionVerdictUpdateWithoutEventsInput, SessionVerdictUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type SessionVerdictUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    primaryAttackType?: NullableStringFieldUpdateOperationsInput | string | null
+    threatLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    detector?: StringFieldUpdateOperationsInput | string
+    mode?: StringFieldUpdateOperationsInput | string
+    triggerReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    eventsSent?: IntFieldUpdateOperationsInput | number
+    eventsClassified?: IntFieldUpdateOperationsInput | number
+    windowStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    windowEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    session?: SessionUpdateOneRequiredWithoutVerdictsNestedInput
+  }
+
+  export type SessionVerdictUncheckedUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    primaryAttackType?: NullableStringFieldUpdateOperationsInput | string | null
+    threatLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    detector?: StringFieldUpdateOperationsInput | string
+    mode?: StringFieldUpdateOperationsInput | string
+    triggerReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    eventsSent?: IntFieldUpdateOperationsInput | number
+    eventsClassified?: IntFieldUpdateOperationsInput | number
+    windowStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    windowEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type EventCreateWithoutClassificationInput = {
     id?: string
     timestamp?: Date | string
@@ -11710,7 +14013,10 @@ export namespace Prisma {
     analyzedAt?: Date | string | null
     analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
     session: SessionCreateNestedOneWithoutEventsInput
+    sessionVerdict?: SessionVerdictCreateNestedOneWithoutEventsInput
   }
 
   export type EventUncheckedCreateWithoutClassificationInput = {
@@ -11731,6 +14037,9 @@ export namespace Prisma {
     analyzedAt?: Date | string | null
     analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
+    sessionVerdictId?: string | null
   }
 
   export type EventCreateOrConnectWithoutClassificationInput = {
@@ -11766,7 +14075,10 @@ export namespace Prisma {
     analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
     session?: SessionUpdateOneRequiredWithoutEventsNestedInput
+    sessionVerdict?: SessionVerdictUpdateOneWithoutEventsNestedInput
   }
 
   export type EventUncheckedUpdateWithoutClassificationInput = {
@@ -11787,6 +14099,161 @@ export namespace Prisma {
     analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
+    sessionVerdictId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SessionCreateWithoutVerdictsInput = {
+    id?: string
+    tokenId: string
+    sessionKey: string
+    cookieId?: string | null
+    identMethod?: string
+    firstSeen?: Date | string
+    lastSeen?: Date | string
+    lastAnalyzedAt?: Date | string | null
+    sourceIp: string
+    userAgent: string
+    analysisCount?: number
+    suppressed?: boolean
+    events?: EventCreateNestedManyWithoutSessionInput
+  }
+
+  export type SessionUncheckedCreateWithoutVerdictsInput = {
+    id?: string
+    tokenId: string
+    sessionKey: string
+    cookieId?: string | null
+    identMethod?: string
+    firstSeen?: Date | string
+    lastSeen?: Date | string
+    lastAnalyzedAt?: Date | string | null
+    sourceIp: string
+    userAgent: string
+    analysisCount?: number
+    suppressed?: boolean
+    events?: EventUncheckedCreateNestedManyWithoutSessionInput
+  }
+
+  export type SessionCreateOrConnectWithoutVerdictsInput = {
+    where: SessionWhereUniqueInput
+    create: XOR<SessionCreateWithoutVerdictsInput, SessionUncheckedCreateWithoutVerdictsInput>
+  }
+
+  export type EventCreateWithoutSessionVerdictInput = {
+    id?: string
+    timestamp?: Date | string
+    eventType?: string | null
+    method: string
+    endpoint: string
+    statusCode?: number | null
+    durationMs?: number | null
+    queryParams?: NullableJsonNullValueInput | InputJsonValue
+    body?: NullableJsonNullValueInput | InputJsonValue
+    headers?: NullableJsonNullValueInput | InputJsonValue
+    contentType?: string | null
+    referer?: string | null
+    origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
+    session: SessionCreateNestedOneWithoutEventsInput
+    classification?: ClassificationCreateNestedOneWithoutEventInput
+  }
+
+  export type EventUncheckedCreateWithoutSessionVerdictInput = {
+    id?: string
+    sessionId: string
+    timestamp?: Date | string
+    eventType?: string | null
+    method: string
+    endpoint: string
+    statusCode?: number | null
+    durationMs?: number | null
+    queryParams?: NullableJsonNullValueInput | InputJsonValue
+    body?: NullableJsonNullValueInput | InputJsonValue
+    headers?: NullableJsonNullValueInput | InputJsonValue
+    contentType?: string | null
+    referer?: string | null
+    origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
+    classification?: ClassificationUncheckedCreateNestedOneWithoutEventInput
+  }
+
+  export type EventCreateOrConnectWithoutSessionVerdictInput = {
+    where: EventWhereUniqueInput
+    create: XOR<EventCreateWithoutSessionVerdictInput, EventUncheckedCreateWithoutSessionVerdictInput>
+  }
+
+  export type EventCreateManySessionVerdictInputEnvelope = {
+    data: EventCreateManySessionVerdictInput | EventCreateManySessionVerdictInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SessionUpsertWithoutVerdictsInput = {
+    update: XOR<SessionUpdateWithoutVerdictsInput, SessionUncheckedUpdateWithoutVerdictsInput>
+    create: XOR<SessionCreateWithoutVerdictsInput, SessionUncheckedCreateWithoutVerdictsInput>
+    where?: SessionWhereInput
+  }
+
+  export type SessionUpdateToOneWithWhereWithoutVerdictsInput = {
+    where?: SessionWhereInput
+    data: XOR<SessionUpdateWithoutVerdictsInput, SessionUncheckedUpdateWithoutVerdictsInput>
+  }
+
+  export type SessionUpdateWithoutVerdictsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
+    cookieId?: NullableStringFieldUpdateOperationsInput | string | null
+    identMethod?: StringFieldUpdateOperationsInput | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sourceIp?: StringFieldUpdateOperationsInput | string
+    userAgent?: StringFieldUpdateOperationsInput | string
+    analysisCount?: IntFieldUpdateOperationsInput | number
+    suppressed?: BoolFieldUpdateOperationsInput | boolean
+    events?: EventUpdateManyWithoutSessionNestedInput
+  }
+
+  export type SessionUncheckedUpdateWithoutVerdictsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenId?: StringFieldUpdateOperationsInput | string
+    sessionKey?: StringFieldUpdateOperationsInput | string
+    cookieId?: NullableStringFieldUpdateOperationsInput | string | null
+    identMethod?: StringFieldUpdateOperationsInput | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastAnalyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sourceIp?: StringFieldUpdateOperationsInput | string
+    userAgent?: StringFieldUpdateOperationsInput | string
+    analysisCount?: IntFieldUpdateOperationsInput | number
+    suppressed?: BoolFieldUpdateOperationsInput | boolean
+    events?: EventUncheckedUpdateManyWithoutSessionNestedInput
+  }
+
+  export type EventUpsertWithWhereUniqueWithoutSessionVerdictInput = {
+    where: EventWhereUniqueInput
+    update: XOR<EventUpdateWithoutSessionVerdictInput, EventUncheckedUpdateWithoutSessionVerdictInput>
+    create: XOR<EventCreateWithoutSessionVerdictInput, EventUncheckedCreateWithoutSessionVerdictInput>
+  }
+
+  export type EventUpdateWithWhereUniqueWithoutSessionVerdictInput = {
+    where: EventWhereUniqueInput
+    data: XOR<EventUpdateWithoutSessionVerdictInput, EventUncheckedUpdateWithoutSessionVerdictInput>
+  }
+
+  export type EventUpdateManyWithWhereWithoutSessionVerdictInput = {
+    where: EventScalarWhereInput
+    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyWithoutSessionVerdictInput>
   }
 
   export type EventCreateManySessionInput = {
@@ -11806,6 +14273,25 @@ export namespace Prisma {
     analyzedAt?: Date | string | null
     analyzeCount?: number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
+    sessionVerdictId?: string | null
+  }
+
+  export type SessionVerdictCreateManySessionInput = {
+    id?: string
+    createdAt?: Date | string
+    primaryAttackType?: string | null
+    threatLevel?: string | null
+    summary?: string | null
+    detector: string
+    mode: string
+    triggerReason?: string | null
+    status?: string
+    eventsSent: number
+    eventsClassified: number
+    windowStart?: Date | string | null
+    windowEnd?: Date | string | null
   }
 
   export type EventUpdateWithoutSessionInput = {
@@ -11825,7 +14311,10 @@ export namespace Prisma {
     analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
     classification?: ClassificationUpdateOneWithoutEventNestedInput
+    sessionVerdict?: SessionVerdictUpdateOneWithoutEventsNestedInput
   }
 
   export type EventUncheckedUpdateWithoutSessionInput = {
@@ -11845,6 +14334,9 @@ export namespace Prisma {
     analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
+    sessionVerdictId?: NullableStringFieldUpdateOperationsInput | string | null
     classification?: ClassificationUncheckedUpdateOneWithoutEventNestedInput
   }
 
@@ -11865,6 +14357,149 @@ export namespace Prisma {
     analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     analyzeCount?: IntFieldUpdateOperationsInput | number
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
+    sessionVerdictId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SessionVerdictUpdateWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    primaryAttackType?: NullableStringFieldUpdateOperationsInput | string | null
+    threatLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    detector?: StringFieldUpdateOperationsInput | string
+    mode?: StringFieldUpdateOperationsInput | string
+    triggerReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    eventsSent?: IntFieldUpdateOperationsInput | number
+    eventsClassified?: IntFieldUpdateOperationsInput | number
+    windowStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    windowEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    events?: EventUpdateManyWithoutSessionVerdictNestedInput
+  }
+
+  export type SessionVerdictUncheckedUpdateWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    primaryAttackType?: NullableStringFieldUpdateOperationsInput | string | null
+    threatLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    detector?: StringFieldUpdateOperationsInput | string
+    mode?: StringFieldUpdateOperationsInput | string
+    triggerReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    eventsSent?: IntFieldUpdateOperationsInput | number
+    eventsClassified?: IntFieldUpdateOperationsInput | number
+    windowStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    windowEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    events?: EventUncheckedUpdateManyWithoutSessionVerdictNestedInput
+  }
+
+  export type SessionVerdictUncheckedUpdateManyWithoutSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    primaryAttackType?: NullableStringFieldUpdateOperationsInput | string | null
+    threatLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    detector?: StringFieldUpdateOperationsInput | string
+    mode?: StringFieldUpdateOperationsInput | string
+    triggerReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    eventsSent?: IntFieldUpdateOperationsInput | number
+    eventsClassified?: IntFieldUpdateOperationsInput | number
+    windowStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    windowEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type EventCreateManySessionVerdictInput = {
+    id?: string
+    sessionId: string
+    timestamp?: Date | string
+    eventType?: string | null
+    method: string
+    endpoint: string
+    statusCode?: number | null
+    durationMs?: number | null
+    queryParams?: NullableJsonNullValueInput | InputJsonValue
+    body?: NullableJsonNullValueInput | InputJsonValue
+    headers?: NullableJsonNullValueInput | InputJsonValue
+    contentType?: string | null
+    referer?: string | null
+    origin?: string | null
+    analyzedAt?: Date | string | null
+    analyzeCount?: number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: number
+    signalCount?: number
+  }
+
+  export type EventUpdateWithoutSessionVerdictInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventType?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    statusCode?: NullableIntFieldUpdateOperationsInput | number | null
+    durationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    queryParams?: NullableJsonNullValueInput | InputJsonValue
+    body?: NullableJsonNullValueInput | InputJsonValue
+    headers?: NullableJsonNullValueInput | InputJsonValue
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    referer?: NullableStringFieldUpdateOperationsInput | string | null
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
+    session?: SessionUpdateOneRequiredWithoutEventsNestedInput
+    classification?: ClassificationUpdateOneWithoutEventNestedInput
+  }
+
+  export type EventUncheckedUpdateWithoutSessionVerdictInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventType?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    statusCode?: NullableIntFieldUpdateOperationsInput | number | null
+    durationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    queryParams?: NullableJsonNullValueInput | InputJsonValue
+    body?: NullableJsonNullValueInput | InputJsonValue
+    headers?: NullableJsonNullValueInput | InputJsonValue
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    referer?: NullableStringFieldUpdateOperationsInput | string | null
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
+    classification?: ClassificationUncheckedUpdateOneWithoutEventNestedInput
+  }
+
+  export type EventUncheckedUpdateManyWithoutSessionVerdictInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventType?: NullableStringFieldUpdateOperationsInput | string | null
+    method?: StringFieldUpdateOperationsInput | string
+    endpoint?: StringFieldUpdateOperationsInput | string
+    statusCode?: NullableIntFieldUpdateOperationsInput | number | null
+    durationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    queryParams?: NullableJsonNullValueInput | InputJsonValue
+    body?: NullableJsonNullValueInput | InputJsonValue
+    headers?: NullableJsonNullValueInput | InputJsonValue
+    contentType?: NullableStringFieldUpdateOperationsInput | string | null
+    referer?: NullableStringFieldUpdateOperationsInput | string | null
+    origin?: NullableStringFieldUpdateOperationsInput | string | null
+    analyzedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    analyzeCount?: IntFieldUpdateOperationsInput | number
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    detectionCount?: IntFieldUpdateOperationsInput | number
+    signalCount?: IntFieldUpdateOperationsInput | number
   }
 
 

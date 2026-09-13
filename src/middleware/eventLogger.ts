@@ -66,7 +66,7 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
         console.error('[Event Logger] detector failure:', err);
         detections = [{
           type: 'DETECTOR_FAILURE',
-          confidence: 0.75,                       // above HIGH_CONFIDENCE_THRESHOLD
+          confidence: 0.9,                       // above HIGH_CONFIDENCE_THRESHOLD
           signals: [
             `Detector threw: ${err instanceof Error ? err.name : 'unknown'}`,
             err instanceof Error ? err.message.slice(0, 200) : 'unknown',
@@ -110,6 +110,8 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
 
           //odgovor detektora
           metadata: detections.length > 0 ? JSON.parse(JSON.stringify(detections)) : undefined,
+          detectionCount: detections.length, //broji sta je sve detektor vratio ukljucujuci i prepoznavanje skenerskog alata
+          signalCount: detections.filter(d => d.type !== 'AUTOMATED_SCAN').length, //računa broj specifičnih ili visokorizičnih sigurnosnih signala, ignorišući rutinski "šum" automatizovanih skenera
         },
       });
       //da se funkcija ne bi zakomplikovala koristim emitter prenos odgovornosti LLM detektoru/analizator
@@ -133,10 +135,14 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
               method: req.method,
               endpoint: '[UNSTORABLE]',
               statusCode: res.statusCode,
-              metadata: [{ type: 'STORAGE_FAILURE', confidence: 0.8,
-                signals: [String(err).slice(0, 200)] }],
+              metadata: [{ 
+                type: 'STORAGE_FAILURE', 
+                confidence: 0.8,
+                signals: [String(err).slice(0, 200)] 
+              }],
             },
           });
+          //vidjeti da li  ovdje trebam zvati emitter
         } catch { /* give up*/ }
       }
   });

@@ -8,7 +8,7 @@ import {sessionLogger} from './middleware/sessionLogger'
 import {eventLogger} from './middleware/eventLogger'
 import cookieParser from 'cookie-parser';
 import './detection/analysisWorker';
-
+import { startSessionSweeper } from './detection/sessionSweeper';
 import vlasnikRoutes from './front/vlasnikRoutes'
 
 console.log('DB URL loaded:', !!process.env.DATABASE_URL);
@@ -74,4 +74,5 @@ app.get('{*splat}', (_req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
+  startSessionSweeper();
 });

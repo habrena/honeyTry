@@ -11,17 +11,24 @@ model Session {
   id             String    @id @default(uuid())
   tokenId        String
   sessionKey     String    @unique //po ovome se radi upsert 
-  cookieId       String    @unique // the tracking cookie — this is the upsert key
+  cookieId       String?
   identMethod    String    @default("cookie")
   firstSeen      DateTime  @default(now())
-  lastSeen       DateTime  @updatedAt
+  lastSeen       DateTime  @default(now())
   lastAnalyzedAt DateTime?
   sourceIp       String
   userAgent      String
-  events         Event[]
+
+  //budzet
+  analysisCount Int     @default(0) // koliko LLM poziva je ova sesija vec potrosila
+  suppressed    Boolean @default(false) // budzet potrosen -> vise ne ide na LLM
+
+  events   Event[]
+  verdicts SessionVerdict[]
 
   @@index([tokenId]) // find all sessions from one honeytoken
   @@index([sourceIp]) // find all sessions from one IP
+  @@index([lastSeen]) // za sweeper
 }
 
 model Event {
@@ -52,11 +59,19 @@ model Event {
   // Flexible field za rezultat detektora
   metadata Json?
 
+  detectionCount Int @default(0)
+  signalCount    Int @default(0)
+
   classification Classification? //one to one jer cu koristiti samo jedan llm model
+
+  sessionVerdictId String?
+  sessionVerdict   SessionVerdict? @relation(fields: [sessionVerdictId], references: [id], onDelete: SetNull)
 
   @@index([sessionId])
   @@index([eventType])
   @@index([timestamp])
+  @@index([sessionId, analyzedAt]) // NOVO: trigger/batch upiti idu preko ovoga
+  @@index([sessionVerdictId])
 }
 
 model Classification {
@@ -76,6 +91,33 @@ model Classification {
   @@index([detector])
 }
 
+model SessionVerdict {
+  id        String   @id @default(uuid())
+  sessionId String
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  // odgovor modela
+  primaryAttackType String?
+  threatLevel       String?
+  summary           String?
+
+  // kontekst analize
+  detector         String // LLM_MODEL
+  mode             String // 'batch' | 'single' | 'rule'
+  triggerReason    String? // decision.reason iz triggerEvaluator
+  status           String    @default("OK") // OK | PARSE_FAILED | BUDGET_SKIPPED
+  eventsSent       Int // koliko je poslano
+  eventsClassified Int // koliko je model vratio validnih
+  windowStart      DateTime? // timestamp najstarijeg eventa u batchu
+  windowEnd        DateTime? // najmlađeg
+
+  events Event[]
+
+  @@index([sessionId, createdAt])
+  @@index([primaryAttackType])
+}
+
 model Patient {
   id          String   @id @default(uuid())
   name        String
@@ -89,8 +131,7 @@ model Patient {
   updatedAt   DateTime @updatedAt
 }
 
-// ============================================================================
-//  DECOY DATA MODELS  
+//  DECOY DATA MODELI
 model Doktor {
   id            Int    @id @default(autoincrement())
   ime           String // first name  (realistic Bosnian, but invented)

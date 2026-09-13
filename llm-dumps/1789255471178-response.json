@@ -1,0 +1,45 @@
+{
+  "at": "2026-09-12T23:24:31.178Z",
+  "kind": "response",
+  "model": "deepseek-v4-flash",
+  "chars": 1514,
+  "approxTokens": 379,
+  "data": {
+    "parsed": {
+      "events": [
+        {
+          "eventIndex": 0,
+          "classification": "AUTOMATED_SCAN",
+          "confidence": 0.95,
+          "severity": "medium",
+          "explanation": "Gobuster user agent probing for /.env indicates an automated content-discovery scan hunting for exposed secret files."
+        },
+        {
+          "eventIndex": 1,
+          "classification": "AUTOMATED_SCAN",
+          "confidence": 0.95,
+          "severity": "medium",
+          "explanation": "Gobuster request for /.git/config is an automated scan attempting to expose version-control metadata and credentials."
+        }
+      ],
+      "sessionVerdict": {
+        "primaryAttackType": "AUTOMATED_SCAN",
+        "threatLevel": "medium",
+        "summary": "The session is driven by the Gobuster directory-brute-forcing tool, which issued rapid unauthenticated GET requests for sensitive paths such as /.env and /.git/config. Both probes returned HTTP 200, suggesting the honeypot may have exposed meaningful-looking content, so the attacker is likely to continue enumerating secrets and source-code artifacts. No injection or credential attack has occurred yet, but the reconnaissance activity is deliberate and targeted."
+      }
+    },
+    "usage": {
+      "prompt_tokens": 871,
+      "completion_tokens": 219,
+      "total_tokens": 1090,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 615
+    }
+  }
+}

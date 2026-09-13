@@ -1,0 +1,45 @@
+{
+  "at": "2026-09-12T23:18:32.784Z",
+  "kind": "response",
+  "model": "deepseek-v4-flash",
+  "chars": 1640,
+  "approxTokens": 410,
+  "data": {
+    "parsed": {
+      "events": [
+        {
+          "eventIndex": 0,
+          "classification": "AUTOMATED_SCAN",
+          "confidence": 0.93,
+          "severity": "medium",
+          "explanation": "Gobuster user agent probing for a /.env secrets file with no browser-style headers indicates automated content-discovery enumeration on the honeypot."
+        },
+        {
+          "eventIndex": 1,
+          "classification": "AUTOMATED_SCAN",
+          "confidence": 0.93,
+          "severity": "medium",
+          "explanation": "Rapid follow-up probe of /.git/config by the same Gobuster scanner continues the automated sweep for exposed source-control and configuration data."
+        }
+      ],
+      "sessionVerdict": {
+        "primaryAttackType": "AUTOMATED_SCAN",
+        "threatLevel": "medium",
+        "summary": "A single source using the Gobuster enumeration tool is systematically requesting sensitive files, first /.env and then /.git/config, within a one-second interval. Both requests returned status 200, suggesting the honeypot is mimicking successful exposure of configuration and source-control artifacts. The activity is classic automated content-discovery reconnaissance aimed at harvesting secrets, credentials, or source code for follow-on exploitation, with no sign of exploit payloads or credential attempts in this session."
+      }
+    },
+    "usage": {
+      "prompt_tokens": 870,
+      "completion_tokens": 521,
+      "total_tokens": 1391,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 287
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 614
+    }
+  }
+}

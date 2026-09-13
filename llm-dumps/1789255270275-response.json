@@ -1,0 +1,45 @@
+{
+  "at": "2026-09-12T23:21:10.275Z",
+  "kind": "response",
+  "model": "deepseek-v4-flash",
+  "chars": 1302,
+  "approxTokens": 326,
+  "data": {
+    "parsed": {
+      "events": [
+        {
+          "eventIndex": 0,
+          "classification": "AUTOMATED_SCAN",
+          "confidence": 0.95,
+          "severity": "high",
+          "explanation": "Gobuster scanner is automatically probing for the .env file to discover sensitive configuration data."
+        },
+        {
+          "eventIndex": 1,
+          "classification": "AUTOMATED_SCAN",
+          "confidence": 0.95,
+          "severity": "high",
+          "explanation": "Gobuster scanner is automatically probing for the .git/config file to discover version control information."
+        }
+      ],
+      "sessionVerdict": {
+        "primaryAttackType": "AUTOMATED_SCAN",
+        "threatLevel": "high",
+        "summary": "The session is an automated scan using Gobuster, targeting sensitive files such as .env and .git/config. The scanner is performing reconnaissance to discover exposed configuration and version control data. Successful access could lead to credential leakage and further compromise."
+      }
+    },
+    "usage": {
+      "prompt_tokens": 870,
+      "completion_tokens": 2164,
+      "total_tokens": 3034,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 1991
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 614
+    }
+  }
+}

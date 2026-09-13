@@ -8,6 +8,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
+    "reset": "tsx scripts/reset.ts",
+    "check": "tsx scripts/check.ts",
     "dev:honeypot": "npx tsx src/server.ts",
     "dev:dashboard-api": "npx tsx src/dashboard/dashboardServer.ts",
     "dev:dashboard-ui": "vite --config vite.dashboard.config.ts",

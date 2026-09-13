@@ -3,7 +3,7 @@ import { callLLM, writeClassification } from '../llm/llmClient';
 import type { LLMClassification } from '../classification/LLMClassification';
 import type { DetectionResult } from '../detection/DetectionResult';
 
-const NUMBER_OF_LAST_EVENTS = 10;
+//const NUMBER_OF_LAST_EVENTS = 10;
 
 const SINGLE_EVENT_PROMPT = `You are a security analyst for a medical appointment system honeypot.
 Every request you see is from an unauthorized visitor — there are no legitimate users.
@@ -71,10 +71,10 @@ export async function classifyEvent(eventId: string): Promise<LLMClassification 
     userAgent: event.session.userAgent,
   },
   detectors: failed
-    ? { status: 'FAILED', note: 'Pattern-matching failed on this input — it likely contains malformed encoding, null bytes, or unusual structure. No regex verdict is available. Classify from the raw request alone, and treat the malformed input itself as a potential signal.' }
-    : detections.length > 0
-      ? { status: 'MATCHED', results: detections }
-      : { status: 'CLEAN', note: 'No pattern matched. Absence of a match is weak evidence — patterns cover known attack shapes only.' },
+                    ? { status: 'FAILED', note: 'Pattern-matching failed on this input — it likely contains malformed encoding, null bytes, or unusual structure. No regex verdict is available. Classify from the raw request alone, and treat the malformed input itself as a potential signal.' }
+                    : detections.length > 0
+                      ? { status: 'MATCHED', results: detections }
+                      : { status: 'CLEAN', note: 'No pattern matched. Absence of a match is weak evidence — patterns cover known attack shapes only.' },
 
 };
 

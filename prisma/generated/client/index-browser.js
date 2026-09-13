@@ -130,7 +130,9 @@ exports.Prisma.SessionScalarFieldEnum = {
   lastSeen: 'lastSeen',
   lastAnalyzedAt: 'lastAnalyzedAt',
   sourceIp: 'sourceIp',
-  userAgent: 'userAgent'
+  userAgent: 'userAgent',
+  analysisCount: 'analysisCount',
+  suppressed: 'suppressed'
 };
 
 exports.Prisma.EventScalarFieldEnum = {
@@ -150,7 +152,10 @@ exports.Prisma.EventScalarFieldEnum = {
   origin: 'origin',
   analyzedAt: 'analyzedAt',
   analyzeCount: 'analyzeCount',
-  metadata: 'metadata'
+  metadata: 'metadata',
+  detectionCount: 'detectionCount',
+  signalCount: 'signalCount',
+  sessionVerdictId: 'sessionVerdictId'
 };
 
 exports.Prisma.ClassificationScalarFieldEnum = {
@@ -162,6 +167,23 @@ exports.Prisma.ClassificationScalarFieldEnum = {
   confidence: 'confidence',
   severity: 'severity',
   explanation: 'explanation'
+};
+
+exports.Prisma.SessionVerdictScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  createdAt: 'createdAt',
+  primaryAttackType: 'primaryAttackType',
+  threatLevel: 'threatLevel',
+  summary: 'summary',
+  detector: 'detector',
+  mode: 'mode',
+  triggerReason: 'triggerReason',
+  status: 'status',
+  eventsSent: 'eventsSent',
+  eventsClassified: 'eventsClassified',
+  windowStart: 'windowStart',
+  windowEnd: 'windowEnd'
 };
 
 exports.Prisma.PatientScalarFieldEnum = {
@@ -233,6 +255,7 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   Event: 'Event',
   Classification: 'Classification',
+  SessionVerdict: 'SessionVerdict',
   Patient: 'Patient',
   Doktor: 'Doktor',
   Uloga: 'Uloga',

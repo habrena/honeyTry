@@ -1,0 +1,45 @@
+{
+  "at": "2026-09-12T23:12:14.402Z",
+  "kind": "response",
+  "model": "deepseek-v4-flash",
+  "chars": 1563,
+  "approxTokens": 391,
+  "data": {
+    "parsed": {
+      "events": [
+        {
+          "eventIndex": 0,
+          "classification": "AUTOMATED_SCAN",
+          "confidence": 0.95,
+          "severity": "medium",
+          "explanation": "Gobuster user agent probing for the /.env secrets file with scanner-typical missing headers indicates automated content discovery rather than a targeted exploit."
+        },
+        {
+          "eventIndex": 1,
+          "classification": "AUTOMATED_SCAN",
+          "confidence": 0.95,
+          "severity": "medium",
+          "explanation": "Immediate follow-up probe for /.git/config from the same Gobuster scanner shows systematic enumeration of exposed repository and configuration files."
+        }
+      ],
+      "sessionVerdict": {
+        "primaryAttackType": "AUTOMATED_SCAN",
+        "threatLevel": "medium",
+        "summary": "A Gobuster automated scanner is enumerating the web root for sensitive files, requesting /.env and /.git/config within one second of each other. Both requests returned HTTP 200, which in a real system would indicate exposed secrets and version-control metadata suitable for follow-on exploitation. This is classic opportunistic reconnaissance against a medical appointment application, likely the first stage of a broader attack chain."
+      }
+    },
+    "usage": {
+      "prompt_tokens": 870,
+      "completion_tokens": 376,
+      "total_tokens": 1246,
+      "prompt_tokens_details": {
+        "cached_tokens": 128
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 158
+      },
+      "prompt_cache_hit_tokens": 128,
+      "prompt_cache_miss_tokens": 742
+    }
+  }
+}

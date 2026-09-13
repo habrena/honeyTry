@@ -1,19 +1,33 @@
 import { db } from '../database/db';
 import { callLLM, writeClassification, LLM_MODEL } from '../llm/llmClient';
-import type { LLMClassification } from '../classification/LLMClassification';
+import { consumeBudget } from '../detection/llmBudget';
+import type { LLMClassification } from './LLMClassification';
+import { classifySessionByRules } from '../detection/ruleClassifier';
 
+/**
+ * ============================================================================
+ *  BATCH KLASIFIKACIJA
+ * ============================================================================
+ *  Struktura je ostala kao u originalu (LLM vraca niz eventa sa eventIndex).
+ *  Ispravljeno je sljedece:
+ *
+ *   1. Cooldown je izbacen odavde — o tome odlucuje iskljucivo triggerEvaluator.
+ *      Ranije je postojao na dva mjesta i dva su se pravila sudarala. ->TESTIRATI
+ *   2. Svi poslani eventi dobijaju analyzedAt, i oni koje LLM nije vratio.
+ *      Bez toga brojac neobradjenih nikad ne pada i trigger puca u krug. ->IMA SMISLA
+ *   3. writeClassification koristi upsert (vidi llmClient), pa single i batch
+ *      put vise ne mogu proizvesti P2002 na Classification.eventId. -> OKEJ
+ *   4. Zaglavlja se salju JEDNOM, na nivou sesije, umjesto uz svaki event.
+ *      Kod 30 eventa to je najveca pojedinacna usteda tokena u ovom fajlu. ->ODLICNO
+ * ============================================================================
+ */
 
-const ANALYSIS_BATCH_SIZE= 10;             //koliko eventa ide u jedan poziv
-const COOLDOWN_MS = 30 * 1000;    // don't re-analyze within 30 seconds
+const ANALYSIS_BATCH_SIZE = 30;   // koliko eventa ide u jedan poziv
 
-// ─── Types ─────────────────────────────────────────────────────────────
-
-// What the LLM returns for each event in the batch
 interface EventClassification extends LLMClassification {
   eventIndex: number;
 }
 
-// The full shape of the LLM's JSON response
 interface BatchLLMResponse {
   events: EventClassification[];
   sessionVerdict: {
@@ -23,20 +37,18 @@ interface BatchLLMResponse {
   };
 }
 
-// What this function returns to the caller
 export interface BatchResult {
   classifications: EventClassification[];
   sessionVerdict: BatchLLMResponse['sessionVerdict'];
   eventsAnalyzed: number;
 }
 
-// ─── Prompt ────────────────────────────────────────────────────────────
-
 const BATCH_PROMPT = `You are a security analyst for a medical appointment system honeypot.
 Every request you see is from an unauthorized visitor — there are no legitimate users.
 
 You will receive a JSON object containing:
 - "session": metadata about the visitor (IP, user agent, honey token)
+- "headerSample": HTTP headers from one representative request in this session
 - "events": an array of HTTP events, each with an "eventIndex" field
 
 Classify EACH event individually AND provide an overall session assessment.
@@ -59,72 +71,34 @@ Respond ONLY with valid JSON, no markdown, no explanation outside the JSON.
   }
 }`;
 
-// ─── Main function ─────────────────────────────────────────────────────
-
-/**
- * Classifies up to BATCH_SIZE unclassified events for a session
- * in a single LLM call.
- *
- * Call this when a trigger fires (batch threshold, signal accumulation,
- * or session timeout). If there are more unclassified events than
- * BATCH_SIZE, the oldest N are classified now — the next trigger
- * will pick up the rest.
- *
- * Returns null if:
- * - the session doesn't exist
- * - cooldown hasn't elapsed since the last analysis
- * - there are no unclassified events
- * - the LLM call fails
- */
 export async function classifySessionBatch(sessionId: string): Promise<BatchResult | null> {
-
-  // ── Cooldown check ─────────────────────────────────────────────────
   const session = await db.session.findUnique({
     where: { id: sessionId },
+    select: { tokenId: true, sourceIp: true, userAgent: true, firstSeen: true },
   });
 
   if (!session) {
-    console.error(`[Batch] Session ${sessionId} not found`);
+    console.error(`[Batch] Sesija ${sessionId} ne postoji`);
     return null;
   }
 
-  
-  //ovo ukloniti ako bude potrebe
-  if (session.lastAnalyzedAt) {
-    const elapsed = Date.now() - session.lastAnalyzedAt.getTime();
-    if (elapsed < COOLDOWN_MS) {
-      console.log(`[Batch] Cooldown active — last analyzed ${Math.round(elapsed / 1000)}s ago`);
-      return null;
-    }
-  }
-
-  // ── Job 1: gather data (specific to batch) ─────────────────────────
-  // Pull the oldest unclassified events, capped at BATCH_SIZE.
-  // Oldest first so we classify in chronological order.
-  const unclassifiedEvents = await db.event.findMany({
-    where: {
-      sessionId,
-      analyzedAt: null,
+  const events = await db.event.findMany({
+    where: { sessionId, 
+      analyzedAt: null, 
+      signalCount: {gt: 0} //u analizu ne ulaze automated scans -> zbog cuvanja tokena
     },
     orderBy: { timestamp: 'asc' },
-    take: ANALYSIS_BATCH_SIZE, 
+    take: ANALYSIS_BATCH_SIZE,
     select: {
-      id: true,
-      method: true,
-      endpoint: true,
-      queryParams: true,
-      body: true,
-      headers: true,
-      statusCode: true,
-      durationMs: true,
-      contentType: true,
-      metadata: true,   // detector signals from runDetectors
-      timestamp: true,
+      id: true, method: true, endpoint: true, queryParams: true, body: true,
+      headers: true, statusCode: true, durationMs: true, contentType: true,
+      metadata: true, timestamp: true,
     },
   });
 
-  if (unclassifiedEvents.length === 0) {
-    console.log(`[Batch] No unclassified events for session ${sessionId}`);
+    if (events.length === 0) {
+    const swept = await classifySessionByRules(sessionId);
+    console.log(`[Batch] Nema signalnih eventa za ${sessionId} — ${swept} počišćeno pravilima`);
     return null;
   }
 
@@ -133,72 +107,97 @@ export async function classifySessionBatch(sessionId: string): Promise<BatchResu
       tokenId: session.tokenId,
       sourceIp: session.sourceIp,
       userAgent: session.userAgent,
+      sessionAgeSeconds: Math.round((Date.now() - session.firstSeen.getTime()) / 1000),
+      eventCount: events.length,
     },
-    events: unclassifiedEvents.map((event, index) => ({
+    headerSample: events.find(e => e.headers)?.headers ?? null,
+    events: events.map((event, index) => ({
       eventIndex: index,
       method: event.method,
       path: event.endpoint,
       query: event.queryParams,
       body: event.body,
-      headers: event.headers,
       statusCode: event.statusCode,
       durationMs: event.durationMs,
       contentType: event.contentType,
       timestamp: event.timestamp,
-      detectorSignals: event.metadata || null,
+      detectorSignals: event.metadata ?? null,
     })),
   };
 
-  // ── Job 2: call LLM (shared) ──────────────────────────────────────
-  const response = await callLLM<BatchLLMResponse>(BATCH_PROMPT, payload);
-
-  //validacija u slucaju da LLM nije vratio pozeljan odgovor
-  //moguce je uraditi retake ovog odgovora
-  if (!response || !Array.isArray(response.events) || !response.sessionVerdict) {
-    console.error('[Batch] LLM response missing expected fields');
+  if (!consumeBudget()) {
+    console.warn('[Batch] Globalni budzet potrosen — poziv preskocen');
     return null;
   }
 
-  // ── Job 3: write to database (shared) ─────────────────────────────
-  // Filter out any eventIndex values the LLM hallucinated (out of range)
-  //u slucaju da LLM vrati vise od dozvoljenog ili pogresan broj indeksa
-  //moguce je ovo i ukloniti kako bi se ustedjelo na vremenu
+  const response = await callLLM<BatchLLMResponse>(BATCH_PROMPT, payload);
+
+  const now = new Date();
+
+  if (!response || !Array.isArray(response.events) || !response.sessionVerdict) {
+    console.error('[Batch] LLM odgovor nema ocekivana polja — prebacujem na pravila');
+    await classifySessionByRules(sessionId);
+    await db.session.update({
+      where: { id: sessionId },
+      data: { lastAnalyzedAt: now, analysisCount: { increment: 1 } },
+    });
+    return null;
+  }
+
+  // odbaci indekse koje je model izmislio (van opsega ili duplikate)
   const seen = new Set<number>();
-  const validClassifications = response.events.filter(ec => {
+  const valid = response.events.filter(ec => {
     if (!Number.isInteger(ec.eventIndex)) return false;
-    if (ec.eventIndex < 0 || ec.eventIndex >= unclassifiedEvents.length) return false;
+    if (ec.eventIndex < 0 || ec.eventIndex >= events.length) return false;
     if (seen.has(ec.eventIndex)) return false;
     seen.add(ec.eventIndex);
     return true;
   });
 
-  //jedna transakcija u slucaju pada upisa u tabelu Klasifikacija
-  //
   await db.$transaction(async (tx) => {
-    for (const ec of validClassifications) {
-      await writeClassification(unclassifiedEvents[ec.eventIndex].id, ec, tx);
+    const verdict = await tx.sessionVerdict.create({
+      data: {
+        sessionId,
+        detector: LLM_MODEL,
+        mode: 'batch',
+        status: 'OK',
+        eventsSent: events.length,
+        eventsClassified: valid.length,
+        windowStart: events[0].timestamp,
+        windowEnd: events[events.length - 1].timestamp,
+        primaryAttackType: response.sessionVerdict.primaryAttackType,
+        threatLevel: response.sessionVerdict.threatLevel,
+        summary: response.sessionVerdict.summary,
+      },
+    });
+
+    for (const ec of valid) {
+      await writeClassification(events[ec.eventIndex].id, ec, tx);
     }
 
-    // svi poslani eventi se označavaju kao pokušani
+    // Svi poslani eventi se oznacavaju kao obradjeni, i oni koje LLM nije vratio.
     await tx.event.updateMany({
-      where: { id: { in: unclassifiedEvents.map(e => e.id) } },
-      data: { analyzedAt: new Date(), analyzeCount: { increment: 1 } },
+      where: { id: { in: events.map(e => e.id) } },
+      data: {
+      analyzedAt: now,
+      analyzeCount: { increment: 1 },
+      sessionVerdictId: verdict.id,     
+    },
     });
 
     await tx.session.update({
       where: { id: sessionId },
-      data: { lastAnalyzedAt: new Date() },
+      data: { lastAnalyzedAt: now, analysisCount: { increment: 1 } },
     });
   });
 
-  // ── Log results ───────────────────────────────────────────────────
-  console.log(`[Batch] Classified ${validClassifications.length}/${unclassifiedEvents.length} events`);
-  console.log(`[Batch] Verdict: ${response.sessionVerdict.primaryAttackType} (${response.sessionVerdict.threatLevel})`);
+  console.log(`[Batch] Klasifikovano ${valid.length}/${events.length} evenata`);
+  console.log(`[Batch] Zakljucak: ${response.sessionVerdict.primaryAttackType} (${response.sessionVerdict.threatLevel})`);
   console.log(`[Batch] ${response.sessionVerdict.summary}`);
 
   return {
-    classifications: validClassifications,
+    classifications: valid,
     sessionVerdict: response.sessionVerdict,
-    eventsAnalyzed: unclassifiedEvents.length,
+    eventsAnalyzed: events.length,
   };
 }

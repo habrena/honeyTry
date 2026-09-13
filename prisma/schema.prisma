@@ -8,20 +8,27 @@ datasource db {
 }
 
 model Session {
-  id        String   @id @default(uuid())
-  tokenId   String  
-  sessionKey String @unique //po ovome se radi upsert 
-  cookieId  String?               
-  identMethod String @default("cookie")
-  firstSeen DateTime @default(now())
-  lastSeen  DateTime @updatedAt
+  id             String    @id @default(uuid())
+  tokenId        String
+  sessionKey     String    @unique //po ovome se radi upsert 
+  cookieId       String?
+  identMethod    String    @default("cookie")
+  firstSeen      DateTime  @default(now())
+  lastSeen       DateTime  @default(now())
   lastAnalyzedAt DateTime?
-  sourceIp  String
-  userAgent String
-  events      Event[]
+  sourceIp       String
+  userAgent      String
 
-  @@index([tokenId])                        // find all sessions from one honeytoken
-  @@index([sourceIp])                       // find all sessions from one IP
+  //budzet
+  analysisCount Int     @default(0) // koliko LLM poziva je ova sesija vec potrosila
+  suppressed    Boolean @default(false) // budzet potrosen -> vise ne ide na LLM
+
+  events   Event[]
+  verdicts SessionVerdict[]
+
+  @@index([tokenId]) // find all sessions from one honeytoken
+  @@index([sourceIp]) // find all sessions from one IP
+  @@index([lastSeen]) // za sweeper
 }
 
 model Event {
@@ -31,32 +38,40 @@ model Event {
   timestamp DateTime @default(now())
 
   // What they did
-  eventType String?                         // "page_view", "credential_attempt", "data_access", etc.
-  method    String
-  endpoint  String
+  eventType  String? // "page_view", "credential_attempt", "data_access", etc.
+  method     String
+  endpoint   String
   statusCode Int?
   durationMs Int?
 
   // What they sent
-  queryParams Json?                         // parsed query string as JSON
-  body        Json?                         // request body snapshot
-  headers     Json?                         // all headers (cookie values redacted)
+  queryParams Json? // parsed query string as JSON
+  body        Json? // request body snapshot
+  headers     Json? // all headers (cookie values redacted)
   contentType String?
   referer     String?
   origin      String?
 
   //da li je event analiziran
   analyzedAt   DateTime?
-  analyzeCount Int      @default(0)
+  analyzeCount Int       @default(0)
 
   // Flexible field za rezultat detektora
-  metadata  Json?
+  metadata Json?
+
+  detectionCount Int @default(0)
+  signalCount    Int @default(0)
 
   classification Classification? //one to one jer cu koristiti samo jedan llm model
+
+  sessionVerdictId String?
+  sessionVerdict   SessionVerdict? @relation(fields: [sessionVerdictId], references: [id], onDelete: SetNull)
 
   @@index([sessionId])
   @@index([eventType])
   @@index([timestamp])
+  @@index([sessionId, analyzedAt]) // NOVO: trigger/batch upiti idu preko ovoga
+  @@index([sessionVerdictId])
 }
 
 model Classification {
@@ -65,15 +80,42 @@ model Classification {
   event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
-  detector   String              // "deepseek-v4-pro"
-  category   String              // "SQL_INJECTION", "RECONNAISSANCE"
-  confidence Float               // 0.0 to 1.0
-  severity   String?             // "low", "medium", "high", "critical"
-  explanation String?            // one-sentence reasoning
+  detector    String // "deepseek-v4-pro"
+  category    String // "SQL_INJECTION", "RECONNAISSANCE"
+  confidence  Float // 0.0 to 1.0
+  severity    String? // "low", "medium", "high", "critical"
+  explanation String? // one-sentence reasoning
 
   @@index([eventId])
   @@index([category])
   @@index([detector])
+}
+
+model SessionVerdict {
+  id        String   @id @default(uuid())
+  sessionId String
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  // odgovor modela
+  primaryAttackType String?
+  threatLevel       String?
+  summary           String?
+
+  // kontekst analize
+  detector         String // LLM_MODEL
+  mode             String // 'batch' | 'single' | 'rule'
+  triggerReason    String? // decision.reason iz triggerEvaluator
+  status           String    @default("OK") // OK | PARSE_FAILED | BUDGET_SKIPPED
+  eventsSent       Int // koliko je poslano
+  eventsClassified Int // koliko je model vratio validnih
+  windowStart      DateTime? // timestamp najstarijeg eventa u batchu
+  windowEnd        DateTime? // najmlađeg
+
+  events Event[]
+
+  @@index([sessionId, createdAt])
+  @@index([primaryAttackType])
 }
 
 model Patient {
@@ -89,21 +131,20 @@ model Patient {
   updatedAt   DateTime @updatedAt
 }
 
-// ============================================================================
-//  DECOY DATA MODELS  
+//  DECOY DATA MODELI
 model Doktor {
-  id            Int      @id @default(autoincrement())
-  ime           String   // first name  (realistic Bosnian, but invented)
-  prezime       String   // last name
-  odjel         String   // department, e.g. "Kardiologija"
-  ukupno        Int      // total appointment slots
-  brojZakazanih Int      // booked
-  brojSlobodnih Int      // free   (ukupno = brojZakazanih + brojSlobodnih)
+  id            Int    @id @default(autoincrement())
+  ime           String // first name  (realistic Bosnian, but invented)
+  prezime       String // last name
+  odjel         String // department, e.g. "Kardiologija"
+  ukupno        Int // total appointment slots
+  brojZakazanih Int // booked
+  brojSlobodnih Int // free   (ukupno = brojZakazanih + brojSlobodnih)
 }
 
 model Uloga {
   id    Int    @id @default(autoincrement())
-  uloga String @unique  // ADMINISTRATOR | DOKTOR | PACIJENT | MEDICINSKO_OSOBLJE | VLASNIK
+  uloga String @unique // ADMINISTRATOR | DOKTOR | PACIJENT | MEDICINSKO_OSOBLJE | VLASNIK
   broj  Int
 }
 
@@ -115,7 +156,7 @@ model Termin {
   id         Int      @id @default(autoincrement())
   doktorId   Int
   pacijentId Int?
-  datum      String   // ISO date the attacker requested
-  razlog     String?  // free-text reason from the request body
+  datum      String // ISO date the attacker requested
+  razlog     String? // free-text reason from the request body
   createdAt  DateTime @default(now())
 }
