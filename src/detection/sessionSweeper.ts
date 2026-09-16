@@ -20,7 +20,7 @@ const MAX_PER_SWEEP = 20;              // postepeno praznjenje zaostatka
 
 let timer: NodeJS.Timeout | null = null;
 
-async function sweep(): Promise<void> {
+export async function sweep(): Promise<void> {
   try {
     const cutoff = new Date(Date.now() - TRIGGER_CONFIG.SESSION_IDLE_MS);
 

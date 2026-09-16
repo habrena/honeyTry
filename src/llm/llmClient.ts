@@ -1,7 +1,7 @@
 import { db } from '../database/db';
 import OpenAI from 'openai';
 import type { Prisma } from '../../prisma/generated/client';
-
+import { isFakeLLM, runFakeLLM } from './llmFake';
 
 // Model se cita iz .env da se ne mijenja kod pri promjeni modela.
 // Flash je 3x jeftiniji od Pro varijante i za klasifikaciju je sasvim dovoljan.
@@ -53,7 +53,7 @@ function getClient(): OpenAI {
  * (sto se desava i pored eksplicitne instrukcije), uzima se sadrzaj izmedju
  * prve otvorene i zadnje zatvorene viticaste zagrade.
  */
-function extractJson<T>(raw: string): T | null {
+export function extractJson<T>(raw: string): T | null {
   const cleaned = raw.replace(/```json|```/g, '').trim();
  
   try {
@@ -116,6 +116,17 @@ export async function callLLM<T>(systemPrompt: string, payload: object): Promise
 
     //samo za debugiranje
     dumpLLM('request', systemPrompt, payload);
+
+    // Test dvojnik. Grana je aktivna samo kad je LLM_FAKE postavljen,
+    // sto se desava iskljucivo u integracionim testovima.
+    if (isFakeLLM()) {
+      const fake = runFakeLLM(systemPrompt, payload);
+      if (!fake) {
+        console.log('[LLM] FAKE — dvojnik nije postavio odgovor');
+        return null;
+      }
+      return fake as T;
+    }
 
     if (process.env.LLM_DRY_RUN === '1') {
       console.log('[LLM] DRY RUN — poziv preskocen');

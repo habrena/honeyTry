@@ -2,6 +2,7 @@ import { db } from '../database/db';
 import { callLLM, writeClassification } from '../llm/llmClient';
 import type { LLMClassification } from '../classification/LLMClassification';
 import type { DetectionResult } from '../detection/DetectionResult';
+import { consumeBudget } from '../detection/llmBudget';
 
 //const NUMBER_OF_LAST_EVENTS = 10;
 
@@ -27,29 +28,7 @@ export async function classifyEvent(eventId: string): Promise<LLMClassification 
   });
 
   if (!event) return null;
-  //ako odlucim da stavim opciju koristenja konteksta
-  /*
-  const previousEvents = await db.event.findMany({
-    where: {
-      sessionId: event.sessionId,
-      timestamp: { lt: event.timestamp },
-    },
-    orderBy: { timestamp: 'desc' },
-    take: NUMBER_OF_LAST_EVENTS,
-    select: {
-      eventType: true,
-      method: true,
-      endpoint: true,
-      queryParams: true,
-      statusCode: true,
-      timestamp: true,
-      classification: {
-        select: { category: true },
-      },
-    },
-  });
-  */
-
+  
   const detections = Array.isArray(event.metadata) ? (event.metadata as unknown as DetectionResult[]) : [];
   const failed = detections.some(d => d.type === 'DETECTOR_FAILURE');
 
@@ -77,6 +56,21 @@ export async function classifyEvent(eventId: string): Promise<LLMClassification 
                       : { status: 'CLEAN', note: 'No pattern matched. Absence of a match is weak evidence — patterns cover known attack shapes only.' },
 
 };
+// Budžet se troši tek ovdje — nakon što je poznato da event postoji
+  // i da je payload sastavljen. Ranije trošenje bi naplatilo poziv
+  // koji se nikad neće desiti.
+  if (!consumeBudget()) {
+    console.warn('[Single] Globalni budzet potrosen — poziv preskocen');
+    return null;
+  }
+
+  // Sesija se naplaćuje PRIJE poziva. Od trenutka trošenja budžeta poziv
+  // je plaćen, pa cooldown mora početi bez obzira na ishod. Inače sljedeći
+  // zahtjev istog napadača ponovo prolazi kroz single granu.
+  await db.session.update({
+    where: { id: event.sessionId },
+    data: { lastAnalyzedAt: new Date(), analysisCount: { increment: 1 } },
+  });
 
   // call LLM (shared) 
   const classification = await callLLM<LLMClassification>(SINGLE_EVENT_PROMPT, payload);
