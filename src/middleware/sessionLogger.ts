@@ -82,7 +82,7 @@ export async function sessionLogger(req: Request, res: Response, next: NextFunct
  
     req.session = session;
   } catch (err) {
-    console.error('[Session Logger] Failed to log session:', err);
+    //console.error('[Session Logger] Failed to log session:', err);
     // NAPOMENA: ako ovo padne, eventLogger nece nista upisati.
   }
 

@@ -91,6 +91,6 @@ export async function classifySessionByRules(sessionId: string, limit = 1000): P
     });
   });
 
-  console.log(`[Rule] Klasifikovano ${events.length} eventa bez LLM-a (sesija ${sessionId})`);
+  //console.log(`[Rule] Klasifikovano ${events.length} eventa bez LLM-a (sesija ${sessionId})`);
   return events.length;
 }

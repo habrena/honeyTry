@@ -4,9 +4,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  root: 'src/front',       // where your React code lives
+  root: 'src/front',
   build: {
-    outDir: '../../dist',   // output to honeyTry/dist (relative to root)
+    outDir: '../../dist',
     emptyOutDir: true,
   },
 });

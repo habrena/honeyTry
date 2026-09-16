@@ -36,10 +36,10 @@ export async function sweep(): Promise<void> {
 
     if (stale.length === 0) return;
 
-    console.log(`[Sweeper] ${stale.length} zavrsenih sesija sa neobradjenim eventima`);
+    //console.log(`[Sweeper] ${stale.length} zavrsenih sesija sa neobradjenim eventima`);
     for (const s of stale) enqueue({ sessionId: s.id, detections: [] });
   } catch (err) {
-    console.error('[Sweeper] Greska:', err);
+    //console.error('[Sweeper] Greska:', err);
   }
 }
 
@@ -48,7 +48,7 @@ export function startSessionSweeper(): void {
   void sweep();                        // prvi prolaz odmah — pokupi zaostalo od proslog pokretanja
   timer = setInterval(() => void sweep(), SWEEP_INTERVAL_MS);
   timer.unref?.();
-  console.log(`[Sweeper] Pokrenut (svakih ${SWEEP_INTERVAL_MS / 1000}s, prag tisine ${TRIGGER_CONFIG.SESSION_IDLE_MS / 1000}s)`);
+  //console.log(`[Sweeper] Pokrenut (svakih ${SWEEP_INTERVAL_MS / 1000}s, prag tisine ${TRIGGER_CONFIG.SESSION_IDLE_MS / 1000}s)`);
 }
 
 export function stopSessionSweeper(): void {

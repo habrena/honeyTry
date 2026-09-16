@@ -18,7 +18,7 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
       ? JSON.parse(JSON.stringify(req.body))
       : null;
   } catch (err) {
-    console.error('[Event Logger] body snapshot failed:', err);
+    //console.error('[Event Logger] body snapshot failed:', err);
     bodySnapshot = {
       _snapshotFailed: true,
       _reason: err instanceof Error ? err.message.slice(0, 200) : 'unknown',
@@ -28,10 +28,10 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
   // Listen for when the response finishes sending to the client
   //ovo mora biti async
   res.on('finish', async () => {
-    console.log('[EVENT 1] finish event fired');
-    console.log('[EVENT 2] req.session:', req.session);
+    //console.log('[EVENT 1] finish event fired');
+    //console.log('[EVENT 2] req.session:', req.session);
     if (!req.session){
-      console.log('[EVENT 3] No session — skipping');
+      //console.log('[EVENT 3] No session — skipping');
       return;
      } // Skip if no session was attached
 
@@ -63,7 +63,7 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
             headers: safeHeaders,
           });
       }catch(err){
-        console.error('[Event Logger] detector failure:', err);
+        //console.error('[Event Logger] detector failure:', err);
         detections = [{
           type: 'DETECTOR_FAILURE',
           confidence: 0.9,                       // above HIGH_CONFIDENCE_THRESHOLD
@@ -123,7 +123,7 @@ export function eventLogger(req: Request, res: Response, next: NextFunction) {
       });
 
     } catch (err) {
-      console.error('[EVENT LOGGER] Error:', err);
+      //console.error('[EVENT LOGGER] Error:', err);
       //svejedno upisi request iako se ne moze parsirati
       //zadnja opcija
       try {

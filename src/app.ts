@@ -30,11 +30,13 @@ app.set('trust proxy', true);
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(express.static(path.join(process.cwd(), 'dist')));
+
+app.use('/api/vlasnik', vlasnikRoutes);
 
 app.use(sessionLogger);
 app.use(eventLogger);
-app.use('/api/vlasnik', vlasnikRoutes);
+
+app.use(express.static(path.join(process.cwd(), 'dist')));
 
 app.get('/', (_req: Request, res: Response) => {
   res.json({ response: 'Aplikacija je pokrenuta', status: 200 });
@@ -58,6 +60,7 @@ app.get('/api/patient/search', (_req: Request, res: Response) => {
   return res.json({ results });
 });
 
-app.get('{*splat}', (_req, res) => {
-  res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
+app.get('{*splat}', (req, res) => {
+  const status = req.path.startsWith('/api') ? 404 : 200;
+  res.status(status).sendFile(path.join(process.cwd(), 'dist', 'index.html'));
 });
